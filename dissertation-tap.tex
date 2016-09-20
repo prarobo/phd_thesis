@@ -1,0 +1,73 @@
+% 
+% This is the Title and Approval Page file (dissertation-tap.tex) for
+% a dissertation.
+%
+% The order of the commands below is very important.
+% You may choose to add or eliminate a \prefacesection 
+% in the front material but the order should remain 
+% the same especially \maketocloflot followed by 
+% \prefacesectiontoc{Abstract}
+
+% Title and author are also used for PDF file properties
+% No special character or commands can be used for the PDF definition; 
+% use the [options] paramater to specify a different title or author 
+% to remove special characters or commands like \\ for example.
+\title[First Line of Title Second Line of Title]{First Line of Title\\
+Second Line of Title}
+\author{Author}
+\type{dissertation}
+\degree{Doctor of Philosophy}
+\majorfieldtrue\majorfield{Major}
+\degreedate{Semester Year}
+% Optional PDF properties
+\keywords{Keyord,Keyword,Keyword}
+\subject{Subject}
+
+\maketitlepage % Generates Title Page
+
+\begin{approvalpage}
+\chair{Xxxx Xxxx, Highest Degree}{Chair of the Department of Xxxx}
+\dean{Xxxx Xxxx, Highest Degree}{Dean of the College of Xxxx}
+\end{approvalpage}
+
+\begin{signedpage} % Up to 4 signatures
+\profmember{Xxxx Xxxx, Highest Degree}
+\member{Xxxx Xxxx, Highest Degree}
+\member{Xxxx Xxxx, Highest Degree}
+\member{Xxxx Xxxx, Highest Degree}
+\end{signedpage}
+
+% For additional signatures beyond 4, uncomment and use
+% \begin{signedpagecont}
+% \member{Xxxx Xxxx, Highest Degree}
+% \member{Xxxx Xxxx, Highest Degree}
+% \end{signedpagecont}
+
+\begin{front} % Starts front material (Roman style page numbers)
+
+\prefacesection{Acknowledgements}
+%\input{acknowl} % This file (acknowl.tex) contains the text
+                % for the acknowledgments or type text here.
+
+
+% Table of Contents is always created, but you
+% may set \tablespagefalse and \figurespagefalse 
+% if you don't want these generated automatically
+% (i.e. List of Tables and List of Figures).
+% These are set to true by default (i.e. \tablespagetrue,
+% \figurespagetrue).
+
+% Uncomment if you do not want a List of Figures.
+%\figurespagefalse
+
+% Uncomment if you do not want a List of Tables.
+%\tablespagefalse 
+
+\maketocloflot
+
+\prefacesectiontoc{Abstract}
+%\input{abstract} % This file (abstract.tex) contains the text
+                 % for an abstract or type text here.
+
+\end{front}
+
