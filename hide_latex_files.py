@@ -16,7 +16,8 @@ FILE_EXTN = [
 ".gls",
 ".acr",
 ".blg",
-".backup"]
+".backup",
+".lof"]
 
 import glob
 import os
