@@ -17,21 +17,7 @@
 \usepackage{tikz}
 \usetikzlibrary{matrix,shapes,arrows,positioning,chains}
 
-\newacronym{auv}{AUV}{Autonomous Underwater Vehicle}
-\newacronym{rov}{ROV}{Remotely Operated Vehicle}
-\newacronym{hov}{HOV}{Human Operated Vehicle}
-\newacronym{api}{API}{Application Program Interface}
-\newacronym{dyi}{DYI}{Do It Yourself}
-\newacronym{ros}{ROS}{Robot Operating System}
-\newacronym{dof}{DOF}{Degree of Freedom}
-\newacronym{imu}{IMU}{Inertial Measurement Unit}
-\newacronym{cad}{CAD}{Computer Aided Design}
-\newacronym{lipo}{LiPo}{Lithium Polymer}
-\newacronym{tcp}{TCP}{Transmission Control Protocol}
-\newacronym{acp}{AC}{Alternating Current}
-\newacronym{dcp}{DC}{DIrect Current}
-\newacronym{fps}{FPS}{Frames Per Second}
-\newacronym{ar}{AR}{Augmented Reality}
+\include{acronym_list}
 
 \makeglossaries
 \graphicspath{{fig/}}
@@ -70,7 +56,8 @@ open-source robot.
 
 \section{Introduction}
 
-Field experiments related to underwater object recognition require a submersible robot with appropriate sensing and control apparatus to navigate through points of interest and capture necessary data through sensors. Based on level of manual intervention involved to guide the vehicle, there are three main classes of underwater vehicles, namely \gls{auv}, \gls{rov} and \gls{hov}. \gls{auv}s navigate autonomously with minimal to no manual support. Both \gls{rov}s and \gls{hov}s are piloted by humans, with the difference that the human operator is within the vehicle in an \gls{hov} whereas in the \gls{rov}, the human operator controls the vehicle from a remote location like a surface vessel. The commercially available underwater vehicles come with wide range of capabilities in terms of sensing and operational depths. The sensing package or the type of vehicle required is dictated by the objective of the science experiment and its requirements. For validation and fine-tuning of the object recognition theory, like 
+Field experiments related to underwater object recognition require a submersible robot with appropriate sensing and control apparatus to navigate through points of interest and capture necessary data through sensors. Based on level of manual intervention involved to guide the vehicle, there are three main classes of underwater vehicles, namely \gls{auv}, \gls{rov} and \gls{hov}. \gls{auv}s navigate autonomously with minimal to no manual support. Both \gls{rov}s and \gls{hov}s are piloted by humans, with the difference that the human operator is within the vehicle in an \gls{hov} whereas in the \gls{rov}, the human operator controls the vehicle from a remote location like a surface vessel. The commercially available underwater vehicles come with wide range of capabilities in terms of sensing and operational depths. The sensing package or the type of vehicle required is dictated by the objective of the science experiment and its requirements. For validation and fine-tuning of the object recognition theory, 
+like 
 the multi-layered scallop recognition \ref{chap:scallop_recog} and the multi-image object recognition \ref{chap:distance_des} developed in this thesis, an underwater vehicle that can navigate to specific points and collect image data of underwater targets is helpful. With these requirement in mind, a low-cost underwater research vehicle CoopROV was developed. CoopROV is a \gls{rov} class vehicle that comes with several sensors for data collection and also the capability to incorporate any customized controller.
 
 \section{Commercial Submersible Robots}
