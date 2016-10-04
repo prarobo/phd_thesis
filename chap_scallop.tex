@@ -11,7 +11,8 @@
 \usepackage[acronym]{glossaries}
 \usepackage[inline]{enumitem}
 \usepackage{amsmath}
-\usepackage{subfigure}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{tikz}
@@ -227,9 +228,9 @@ Equations \eqref{eq:learning_wts_all} are used for the selection of weights $w_{
 
 \begin{figure}
       \centering
+      \includegraphics[width=0.6\textwidth]{scallopred}
+      \caption{\cite{prasanna_aslo} Seabed image with scallops shown in red circles}
       \label{fig:scallopred}
-      \includegraphics[width=0.45\textwidth]{scallopred}
-      \caption{\cite{prasanna_aslo} (a) Seabed image with scallops shown in red circles}
 \end{figure} 
 
 A visual scallop population assessment process involves identifying these animals in image datasets.
@@ -239,22 +240,27 @@ The need here is to identify algorithms and methods that will work best under \e
 The results from using elementary image processing methods like thresholding and edge detection on the images (see Figure~\ref{subfig:thresh_scallop} and \ref{subfig:edge_scallop}) demonstrate the need for a more sophisticated approach (possibly a hybrid combination of several techniques).
 
 \begin{figure}
-\centering
-\subfigure[]{
+  \centering
+  \begin{subfigure}[]{0.15\textwidth}
+      \includegraphics[width=\textwidth]{dcrescent_scallop}
+      \caption{}
       \label{subfig:dcrescent_scallop}
-      \includegraphics[width=0.15\textwidth]{dcrescent_scallop}}
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.15\textwidth}
+      \includegraphics[width=\textwidth]{bcrescent_scallop}
+      \caption{}
       \label{subfig:bcrescent_scallop}
-      \includegraphics[width=0.15\textwidth]{bcrescent_scallop}}
-% \subfigure[]{
-%       \label{subfig:dark_scallop}
-%       \includegraphics[width=0.15\textwidth]{dark_scallop.png}}     
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.17\textwidth}
+      \raisebox{-2pt}{\includegraphics[width=\textwidth]{thresh}}
+      \caption{}
       \label{subfig:thresh_scallop}
-      \raisebox{-2pt}{\includegraphics[width=0.17\textwidth]{thresh}}}
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.17\textwidth}
+      \raisebox{-2pt}{\includegraphics[width=\textwidth]{edge}}
+      \caption{}
       \label{subfig:edge_scallop}
-      \raisebox{-2pt}{\includegraphics[width=0.17\textwidth]{edge}}}    
+  \end{subfigure}
 \caption{\cite{prasanna_igi} (a) Scallop with yellowish tinge and dark crescent; (b) Scallop with yellowish tinge and bright shell rim crescent; (c) Scallop with no prominent crescents and texturally identical to the background (d) Scallop sample after thresholding; (c) Scallop sample after edge detection.
 }
 \end{figure}
@@ -295,7 +301,6 @@ using position data logged (using \gls{dvl} and \gls{ins}) with each image.
 \caption{Map of the survey region from Shinnecock, New York to Cape May, New Jersey, 
 divided into eight blocks or strata}
 \label{fig:strata}
-%\vskip -10pt
 \end{figure}
 %
 
@@ -365,14 +370,15 @@ The AUV is capable of very precise dynamic positioning, adjusting to the variabl
 topography of the seabed while maintaining a constant commanded altitude offset.
 
 \begin{figure}
-\centering
-\subfigure[]{
-      \includegraphics[width=0.6\textwidth,natwidth=1052,natheight=428]{auv_schematics}}
-\subfigure[]{
-      \includegraphics[width=0.6\textwidth,natwidth=690,natheight=518]{auv_image}}     
-%\hfill
-\caption{Schematics and image of Gavia AUV }
-\label{fig:gavia_auv}
+  \centering
+  \begin{subfigure}[]{0.7\textwidth}
+      \includegraphics[width=\textwidth,natwidth=1052,natheight=428]{auv_schematics}
+  \end{subfigure}
+  \begin{subfigure}[]{0.6\textwidth}
+      \includegraphics[width=\textwidth,natwidth=690,natheight=518]{auv_image}    
+  \end{subfigure}
+  \caption{Schematics and image of Gavia AUV }
+  \label{fig:gavia_auv}
 \end{figure}
 
 \subsection{Data Collection}
@@ -402,68 +408,53 @@ abundance assessment.
 Scallops counted were articulated shells in life position (left valve up) \cite{walker}.
 %
 \begin{table}
-\renewcommand*{\thesubtable}{}
-\caption{List of missions and number of images collected \label{tab:mission_list}}
 \centering
 \begin{threeparttable}
-	\begin{minipage}{0.7\textwidth}
-\subtable[]{
-\begin{tabular}{ll}
-\toprule[1pt]\\[-6pt]
-Mission  & Number of images\\[2pt]\midrule
-LI1\tnote{1}	&$12\,775$\\
-LI2	&$2\,387$\\
-LI3	&$8\,065$\\
-LI4	&$9\,992$\\
-LI5	&$8\,338$\\
-LI6	&$11\,329$\\
-LI7	&$10\,163$\\
-LI8	&$9\,780$\\
-LI9	&$2\,686$\\
-NYB1\tnote{2}	&$9\,141$\\
-NYB2	&$9\,523$\\
-NYB3	&$9\,544$\\
-NYB4	&$9\,074$\\
-NYB5	&$9\,425$\\
-[2pt]\bottomrule[1pt]
-\end{tabular}} 
-\subtable[]{
-\begin{tabular}{ll}
-\toprule[1pt]\\[-6pt]
-Mission  & Number of images\\[2pt]\midrule
-NYB6	&$9\,281$\\
-NYB7	&$12\,068$\\
-NYB8	&$9\,527$\\
-NYB9	&$10\,950$\\
-NYB10	&$9\,170$\\
-NYB11	&$10\,391$\\
-NYB12	&$7\,345$\\
-NYB13	&$6\,285$\\
-NYB14	&$9\,437$\\
-NYB15	&$11\,097$\\
-ET1\tnote{3}	&$9\,255$\\
-ET2	&$12\,035$\\
-ET3	&$10\,474$\\
-\\[2pt]\bottomrule[1pt]
-\end{tabular}}
-	\end{minipage}	\hfill
-	\begin{minipage}{0.3\textwidth}
+      \begin{tabular}{ll}
+      \toprule[1pt]\\[-6pt]
+      Mission  & Number of images\\[2pt]\midrule
+      LI1\tnote{1}	&$12\,775$\\
+      LI2	&$2\,387$\\
+      LI3	&$8\,065$\\
+      LI4	&$9\,992$\\
+      LI5	&$8\,338$\\
+      LI6	&$11\,329$\\
+      LI7	&$10\,163$\\
+      LI8	&$9\,780$\\
+      LI9	&$2\,686$\\
+      NYB1\tnote{2}	&$9\,141$\\
+      NYB2	&$9\,523$\\
+      NYB3	&$9\,544$\\
+      NYB4	&$9\,074$\\
+      NYB5	&$9\,425$\\
+      NYB6	&$9\,281$\\
+      NYB7	&$12\,068$\\
+      NYB8	&$9\,527$\\
+      NYB9	&$10\,950$\\
+      NYB10	&$9\,170$\\
+      NYB11	&$10\,391$\\
+      NYB12	&$7\,345$\\
+      NYB13	&$6\,285$\\
+      NYB14	&$9\,437$\\
+      NYB15	&$11\,097$\\
+      ET1\tnote{3}	&$9\,255$\\
+      ET2	&$12\,035$\\
+      ET3	&$10\,474$\\
+      \\[2pt]\bottomrule[1pt]
+    \end{tabular}
     \begin{tablenotes}
        \vskip 5pt
-   %  \setlength{\leftskip}{2.5cm}
 	  \item[1] \footnotesize{LI--Long Island}
 	  \item[2] \footnotesize{NYB--New York Bight}
 	  \item[3] \footnotesize{ET--Elephant Trunk}
       \end{tablenotes}                                                      
-          \end{minipage}
  \end{threeparttable}
-%\end{center}
-%\footnote{LI-Long island, NYB-New York Bight, ET-Elephant trunk}                                                      
+  \caption{List of missions and number of images collected}
+  \label{tab:mission_list}
 \end{table}
 
 %                                                      
 \begin{table}                                                     
-\caption{Camera specifications\label{tab:camera_specs}}
 \centering
 \begin{tabularx}{0.6\textwidth}{XX}
 \toprule[1pt]\\[-6pt]
@@ -478,6 +469,7 @@ Image Resolution	&800 $\times$ 600\\
 Georeferenced metadata	&Latitude, longitude, altitude, depth\\
 Image Format	&jpeg\\[2pt]\bottomrule[1pt]
 \end{tabularx}
+\caption{Camera specifications\label{tab:camera_specs}}
 \end{table}
 
 
@@ -518,7 +510,7 @@ fixation was labeled a \emph{target}; otherwise, it is considered a \emph{distra
 \begin{figure} 
 % \vskip +6pt
 \centering
-\includegraphics[width=0.45\textwidth,natwidth=800,natheight=600]{fixation_example.pdf}
+\includegraphics[width=0.6\textwidth,natwidth=800,natheight=600]{fixation_example.pdf}
 \caption{Illustration of fixations (marked by yellow boundaries):
          red lines indicate the order in which the fixations were detected with the lower-left fixation being the first.
 }
@@ -583,31 +575,40 @@ Since in the testing phase the whole scallop---not just the center---needs to be
 $270\times270$ pixels; more than $91$\% of the scallops are accommodated inside the window (Figure~\ref{fig:window_length}). 
 
 \begin{figure}
-\centering
-\includegraphics[width=0.50\textwidth,natwidth=800,natheight=600]{windowlength.pdf}
-\caption{Percentage of scallops enclosed in the fixation window as a function of
-window half length (in pixels)}
-\label{fig:window_length}
-%\vskip -10pt
+  \centering
+  \includegraphics[width=0.60\textwidth,natwidth=800,natheight=600]{windowlength.pdf}
+  \caption{Percentage of scallops enclosed in the fixation window as a function of
+  window half length (in pixels)}
+  \label{fig:window_length}
 \end{figure}
 
 \begin{figure*}
-\centering
-\subfigure[]{
+  \centering
+  \begin{subfigure}[]{0.17\textwidth}
+      \includegraphics[width=\textwidth,natwidth=842,natheight=844]{fixationwindow.pdf}
+      \caption{}
       \label{subfig:fixationwindow}
-      \includegraphics[width=0.17\textwidth,natwidth=842,natheight=844]{fixationwindow.pdf}}
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.17\textwidth}
+      \includegraphics[width=\textwidth,natwidth=837,natheight=839]{edgeimg.pdf}
+      \caption{}
       \label{subfig:edgeimg}
-      \includegraphics[width=0.17\textwidth,natwidth=837,natheight=839]{edgeimg.pdf}}
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.17\textwidth}
+      \includegraphics[width=\textwidth,natwidth=1055,natheight=842]{graphimg.pdf}    
+      \caption{}
       \label{subfig:graphimg}
-      \includegraphics[width=0.17\textwidth,natwidth=1055,natheight=842]{graphimg.pdf}}    
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.17\textwidth}
+      \includegraphics[width=\textwidth,natwidth=834,natheight=837]{regboundry.pdf}
+      \caption{}
       \label{subfig:regboundry}
-      \includegraphics[width=0.17\textwidth,natwidth=834,natheight=837]{regboundry.pdf}}
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.17\textwidth}
+      \includegraphics[width=\textwidth,natwidth=810,natheight=813]{regcircle.pdf}         
+      \caption{}
       \label{subfig:regcircle}
-      \includegraphics[width=0.17\textwidth,natwidth=810,natheight=813]{regcircle.pdf}}         
+  \end{subfigure}
 \caption{\subref{subfig:fixationwindow} Fixation window from layer I; \subref{subfig:edgeimg} Edge segmented image; \subref{subfig:graphimg} graph-cut segmented image; \subref{subfig:regboundry} Region boundaries obtained when the edge segmented image is used as a mask over the graph-cut segmented image boundaries; \subref{subfig:regcircle} circle fitted on the extracted region boundaries.
 }
 \label{fig:segmentation_levels}
@@ -710,16 +711,20 @@ The lower standard deviation found in the intensity maps of the crescents on the
 
 
 \begin{figure*}
-\centering
-\subfigure[]{
+  \centering
+  \begin{subfigure}[]{0.45\textwidth}
+      \includegraphics[width=\textwidth]{mean_scallop_quadrants}
+      \caption{}
       \label{subfig:mean_quadrant}
-      \includegraphics[width=0.45\textwidth]{mean_scallop_quadrants.eps}}
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.45\textwidth}
+      \includegraphics[width=\textwidth]{stddev_scallop_quadrants}        
+      \caption{}
       \label{subfig:stddev_quadrant}
-      \includegraphics[width=0.45\textwidth]{stddev_scallop_quadrants.eps}}         
-\caption{\subref{subfig:mean_quadrant} Mean map of scallops in each quadrant \subref{subfig:stddev_quadrant} Standard deviation map of scallops in each quadrant.
-Red corresponds to higher numeric values and blue correspond to lower numeric values.}
-\label{fig:mean_stddev_quadrant}
+  \end{subfigure}
+  \caption{\subref{subfig:mean_quadrant} Mean map of scallops in each quadrant \subref{subfig:stddev_quadrant} Standard deviation map of scallops in each quadrant.
+  Red corresponds to higher numeric values and blue correspond to lower numeric values.}
+  \label{fig:mean_stddev_quadrant}
 \end{figure*}
 
 
@@ -737,19 +742,25 @@ The value in the selected $46$ bins from mean map forms a $46$-dimensional featu
 (as seen later in \eqref{distance}).
 
 \begin{figure}
-\centering
-\subfigure[]{
+  \centering
+  \begin{subfigure}[]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{curr_scallop_mean}
+      \caption{}
       \label{subfig:mean_scallop}
-      \includegraphics[width=0.3\textwidth]{curr_scallop_mean.eps}}
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{curr_scallop_stddev}
+      \caption{}
       \label{subfig:stddev_scallop}
-      \includegraphics[width=0.3\textwidth]{curr_scallop_stddev.eps}}
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{mask_centered}
+      \caption{}
       \label{subfig:mask_scallop}
-      \includegraphics[width=0.3\textwidth]{mask_centered.eps}}         
-\caption{Intensity statistics and mask for a region centered at a pixel with coordinates $470,63)$ in the image \subref{subfig:mean_scallop} Map of mean intensity; \subref{subfig:stddev_scallop} Map of intensity standard deviation;
-\subref{subfig:mask_scallop} Mask applied to remove background points.}
-\label{fig:scallop_learning_mask}
+  \end{subfigure}
+  \caption{Intensity statistics and mask for a region centered at a pixel with coordinates $470,63)$ in the image \subref{subfig:mean_scallop} Map of mean intensity; \subref{subfig:stddev_scallop} Map of intensity standard deviation;
+  \subref{subfig:mask_scallop} Mask applied to remove background points.}
+  \label{fig:scallop_learning_mask}
 \end{figure}
 
 
@@ -783,11 +794,10 @@ D_{t} = \sqrt{\sum_{k=1}^n\frac{\|X^{\bar{o}}_{k}-X^s_k\|^2}{\sigma_k}} \enspace
 %
 \begin{figure}
 \centering
-\includegraphics[width=0.45\textwidth]{mask_offset.eps}
+\includegraphics[width=0.6\textwidth]{mask_offset}
 \caption{Nine different masks slightly offset from the center used to make the classification layer
 robust to errors in segmentation}
 \label{fig:scallop_masks}
-%\vskip -0.75cm
 \end{figure}
 %
 
@@ -813,16 +823,21 @@ Evident in Figure~\ref{subfig:precision_recall} is the natural trade-off between
 
 %
 \begin{figure*}
-\centering
-\subfigure[]{
+  \centering
+  \begin{subfigure}{0.47\textwidth}
+      \includegraphics[width=\textwidth]{precision_recall}
+      \caption{}
       \label{subfig:precision_recall}
-      \includegraphics[width=0.47\textwidth]{precision_recall.eps}}
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}{0.47\textwidth}
+      \includegraphics[width=\textwidth]{template_thresh_hist}         
+      \caption{}
       \label{subfig:template_hist}
-      \includegraphics[width=0.47\textwidth]{template_thresh_hist.eps}}         
-\caption{\subref{subfig:precision_recall} Precision-Recall curve with $D_\mathsf{thresh}$ shown as
-a vertical line; \subref{subfig:template_hist} 
-Histogram of template match of segmented scallop objects. \label{detection-curves}}
+  \end{subfigure}
+  \caption{\subref{subfig:precision_recall} Precision-Recall curve with $D_\mathsf{thresh}$ shown as
+  a vertical line; \subref{subfig:template_hist} 
+  Histogram of template match of segmented scallop objects.}
+  \label{detection-curves}
 \end{figure*}
 %========================================================================================
 \subsection{Layer IV: False Positives Filter}
@@ -886,14 +901,18 @@ The threshold shown by the blue line corresponds to 96\% recall rate, i.e., 96\%
 At the same time, the \gls{wctm} decreases the false positives by over 63\%.
 %
 \begin{figure}
-\centering
-\subfigure[]{
+  \centering
+  \begin{subfigure}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{layer4_precision_recall}
+      \caption{}
       \label{subfig:layer4_precision_recall}
-      \includegraphics[width=0.45\textwidth]{layer4_precision_recall.eps}}
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{layer4_hog_precision_recall}       
+      \caption{}
       \label{subfig:hog_precision_recall}
-      \includegraphics[width=0.45\textwidth]{layer4_hog_precision_recall.eps}}       
-\caption{Precision recall curve for Layer IV candidate methods (a) \gls{wctm} and (b) \gls{hog}. The blue line marks thresholds $D_\mathsf{wctm}=0.0002222$ and $D_\mathsf{hog}=2.816$. It is important to note that \gls{wctm} is a similarity measure and \gls{hog} is a dissimilarity measure. This implies that only instances below the indicated threshold $D_\mathsf{wctm}$ in \gls{wctm}, and likewise instances above the threshold $D_\mathsf{hog}$ in \gls{hog}, are rejected as false positives. }
+  \end{subfigure}
+  \caption{Precision recall curve for Layer IV candidate methods (a) \gls{wctm} and (b) \gls{hog}. The blue line marks thresholds $D_\mathsf{wctm}=0.0002222$ and $D_\mathsf{hog}=2.816$. It is important to note that \gls{wctm} is a similarity measure and \gls{hog} is a dissimilarity measure. This implies that only instances below the indicated threshold $D_\mathsf{wctm}$ in \gls{wctm}, and likewise instances above the threshold $D_\mathsf{hog}$ in \gls{hog}, are rejected as false positives. }
 \end{figure}
 
 \subsubsection{Histogram of Gradients (HOG)}
@@ -958,21 +977,27 @@ With these values as baseline, the thresholds for both \gls{hog} and \gls{wctm} 
 This ensures that very few true positives are lost and their performance is primarily assessed through the reduction in false positives (row 6 of Table~\ref{tab:false_positives}). 
 
 \begin{table*}
-\caption{Comparison of tested false positive filter layer methods\label{tab:false_positives}}
-\begin{center}
-\begin{tabular}{lllll}
+  \centering
+  \begin{threeparttable}
+    \begin{tabular}{lllll}
 \toprule[1pt]
 	&\multicolumn{2}{c}{\gls{hog}}	&\multicolumn{2}{c}{\gls{wctm}}\\
 	&Dataset 1	&Dataset 2	&Dataset 1	&Dataset 2\\ [2pt]\cline{1-5}\\[-5pt]
-True positives from Classification Layer	&183		&1\,759		&183		&1759\\
-False positives from Classification Layer	&7\,970		&52\,456		&7\,970		&52\,456\\
-True positives after Layer IV 			&179		&1\,689		&176		&1\,685\\
-False positives after Layer IV 			&7\,752		&51\,329		&2\,924		&16\,407\\
-Decrease in true positives after Layer IV	&4 (2.2\%)	&70 (4\%)	&7 (3.8\%)	&74(4.2\%)\\
-Decrease in false positives after Layer IV	&218 (2.7\%)	&1\,127 (2.1\%)	&5\,046 (63.3\%)	&36\,049 (68.7\%)\\ \bottomrule
-                               \end{tabular}
-                               \end{center}
-                               \end{table*}      
+TP\tnote{1} from Classification Layer	&183		&1\,759		&183		&1759\\
+FP\tnote{2} from Classification Layer	&7\,970		&52\,456		&7\,970		&52\,456\\
+TP after Layer IV 			&179		&1\,689		&176		&1\,685\\
+FP after Layer IV 			&7\,752		&51\,329		&2\,924		&16\,407\\
+Decrease in TP after Layer IV	&4 (2.2\%)	&70 (4\%)	&7 (3.8\%)	&74(4.2\%)\\
+Decrease in FP after Layer IV	&218 (2.7\%)	&1\,127 (2.1\%)	&5\,046 (63.3\%)	&36\,049 (68.7\%)\\ \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+	  \item[1] \footnotesize{TP--True Positives}
+	  \item[2] \footnotesize{FP--False Positives}
+    \end{tablenotes}                                                      
+  \end{threeparttable}
+  \caption{Comparison of tested false positive filter layer methods}
+  \label{tab:false_positives}
+\end{table*}      
 %
 Since the thresholds are set such that the recall rate is high in both methods, the decrease in true positives is less than 5\% in both \gls{hog} and \gls{wctm}. 
 However there is a significant reduction in false positives (63.3\% for dataset 1 and 68.7\% for dataset 2)  due to \gls{wctm}. 
@@ -1039,59 +1064,70 @@ foreground and background are easily separable.
 
 
 \begin{figure*}
-\centering
-\begin{minipage}[c]{\textwidth}
-\centering
-\subfigure[]{
-      \label{subfig:dawkins}
-      \includegraphics[height=0.24\textwidth,natwidth=1280,natheight=1014]{77616.jpg}}
-\subfigure[]{
-      %\vskip +10pt
-      \label{subfig:dawkins_crop}
-      \includegraphics[width=0.25\textwidth,natwidth=105,natheight=100]{dawkins_crop_resize.png}}
-      \hskip 15pt
-\subfigure[]{      
-      \label{subfig:dawkins_hist}
-      \includegraphics[width=0.33\textwidth]{dawkins_hist_sat.eps}}
-\end{minipage} 
+  \centering
+  \begin{minipage}[c]{\textwidth}
+    \centering
+    \begin{subfigure}[]{\textwidth}
+	\includegraphics[height=0.24\textwidth,natwidth=1280,natheight=1014]{77616}
+	\caption{}
+	\label{subfig:dawkins}
+    \end{subfigure}
+    \begin{subfigure}[]{0.25\textwidth}
+	\includegraphics[width=\textwidth,natwidth=105,natheight=100]{dawkins_crop_resize}
+	\caption{}
+	\label{subfig:dawkins_crop}
+	\hskip 15pt
+    \end{subfigure}
+    \begin{subfigure}[]{0.33\textwidth}
+	\includegraphics[width=\textwidth]{dawkins_hist_sat}
+	\caption{}
+	\label{subfig:dawkins_hist}
+    \end{subfigure}
+  \end{minipage} 
 
-\vskip 10pt
-\begin{minipage}[c]{\textwidth}
-\centering
-\subfigure[]{
-      \label{subfig:typical}
-      \includegraphics[height=0.24\textwidth]{60.eps}} 
-\subfigure[]{
-      \label{subfig:typical_crop}
-      \includegraphics[width=0.235\textwidth]{our_crop_resize.eps}}
-      \hskip 15pt
-\subfigure[]{      
-      \label{subfig:typical_hist}
-      \includegraphics[width=0.35\textwidth]{our_hist_sat.eps}}
-\end{minipage}
-\caption{Representative samples of different imagery data on which
-scallop detection algorithms may be called to operate on.  Figures \ref{subfig:dawkins}
-and \ref{subfig:typical},
-show an image containing a single scallop from the dataset used by
-\cite{dawkings13} (used with permission from the authors) 
-and the datasets used in this paper respectively.
-A magnified
-view of a scallop cropped from Figure \ref{subfig:dawkins} 
-and \ref{subfig:typical} can be seen in Figures \ref{subfig:dawkins_crop} 
-and \ref{subfig:typical_crop} respectively.
-Figure \ref{subfig:dawkins_hist} 
-gives the saturation histogram of background or the complete 
-image in Figure \ref{subfig:dawkins} to left and 
-saturation histogram of Figure \ref{subfig:dawkins_crop} to the right.
-Similarly, Figure \ref{subfig:typical_hist} 
-gives the saturation histogram of Figure \ref{subfig:typical} to the left and 
-saturation histogram of Figure \ref{subfig:typical_crop} to the right. The bimodal 
-nature of the scallop histogram
-in Figure~\ref{subfig:dawkins_hist} 
-derived from the dataset used in \cite{dawkings13}, clearly portrays the distinguishing appearance of the scallop pixels from the rest of the image, making it easily identifiable. The datasets we
-used did not exhibit any such characteristics (as seen in Figure~\ref{subfig:typical_hist}) 
-to aid the identification of scallops.}
-\label{data-difference} 
+  \vskip 10pt
+  \begin{minipage}[c]{\textwidth}
+  \centering
+    \begin{subfigure}[]{\textwidth}
+	\includegraphics[height=0.24\textwidth]{60} 
+  	\caption{}
+	\label{subfig:typical}
+  \end{subfigure}
+    \begin{subfigure}[]{0.235\textwidth}
+	\includegraphics[width=\textwidth]{our_crop_resize}
+	\caption{}
+	\label{subfig:typical_crop}
+	\hskip 15pt
+    \end{subfigure}
+    \begin{subfigure}[]{0.35\textwidth}
+	\includegraphics[width=\textwidth]{our_hist_sat}
+	\caption{}
+	\label{subfig:typical_hist}
+    \end{subfigure}
+  \end{minipage}
+  \caption{Representative samples of different imagery data on which
+  scallop detection algorithms may be called to operate on.  Figures \ref{subfig:dawkins}
+  and \ref{subfig:typical},
+  show an image containing a single scallop from the dataset used by
+  \cite{dawkings13} (used with permission from the authors) 
+  and the datasets used in this paper respectively.
+  A magnified
+  view of a scallop cropped from Figure \ref{subfig:dawkins} 
+  and \ref{subfig:typical} can be seen in Figures \ref{subfig:dawkins_crop} 
+  and \ref{subfig:typical_crop} respectively.
+  Figure \ref{subfig:dawkins_hist} 
+  gives the saturation histogram of background or the complete 
+  image in Figure \ref{subfig:dawkins} to left and 
+  saturation histogram of Figure \ref{subfig:dawkins_crop} to the right.
+  Similarly, Figure \ref{subfig:typical_hist} 
+  gives the saturation histogram of Figure \ref{subfig:typical} to the left and 
+  saturation histogram of Figure \ref{subfig:typical_crop} to the right. The bimodal 
+  nature of the scallop histogram
+  in Figure~\ref{subfig:dawkins_hist} 
+  derived from the dataset used in \cite{dawkings13}, clearly portrays the distinguishing appearance of the scallop pixels from the rest of the image, making it easily identifiable. The datasets we
+  used did not exhibit any such characteristics (as seen in Figure~\ref{subfig:typical_hist}) 
+  to aid the identification of scallops.}
+  \label{data-difference} 
 \end{figure*}
 
 Compared to an alternative approach that uses a series of bounding boxes to cover the entire image \cite{guomundsson}, the one reported here employs only ten windows per image, scanning the images at a much faster rate.   

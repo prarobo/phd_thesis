@@ -11,7 +11,8 @@
 \usepackage[acronym]{glossaries}
 \usepackage{enumitem}
 \usepackage{amsmath}
-\usepackage{subfigure}
+\usepackage{caption}
+\usepackage{subcaption}
 
 \include{acronym_list}
 
@@ -146,15 +147,16 @@ The ability of eigen-value shape descriptors to match to certain shapes can be f
 This problem of recognizing artificial objects from natural scenes was encountered while marine geologists were studying the Redbird artificial reef site \cite{redbird_nicole, redbird_art}. The focus of these studies were to observe geologic features around artificial objects like subway cars on the seabed. An automated method to detect subway cars would significantly facilitate such studies. 
 
 \begin{figure}
-\vskip -20pt
-\subfigure[Backscatter image of sea-floor from Gavia AUV]{
+  \begin{subfigure}[]{0.9\textwidth}
+      \includegraphics[width=\textwidth]{subwayorig}
+      \caption{Backscatter image of sea-floor from Gavia AUV}
       \label{subfig:subwayorig}
-      \includegraphics[width=0.9\textwidth]{subwayorig.eps}
-      }
-\subfigure[Image segmentation using basic morphological operations and edge detection]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.9\textwidth}
+      \includegraphics[width=\textwidth]{subwaysegment}
+      \caption{Image segmentation using basic morphological operations and edge detection}
       \label{subfig:subwaysegment}
-      \includegraphics[width=0.9\textwidth]{subwaysegment.eps}
-      }    
+  \end{subfigure}
 \caption{}
 \end{figure}
 
@@ -162,15 +164,16 @@ The sonar backscatter image of Redbird reef in Figure~\ref{subfig:subwayorig} sh
 
 \begin{figure}
 \centering
-% \vskip -20pt
-\subfigure[]{
+  \begin{subfigure}[]{0.3\textwidth}
+      \includegraphics[width=\textwidth]{eigenrect}
+      \caption{}
       \label{subfig:subwayrect}
-      \includegraphics[width=0.3\textwidth]{eigenrect}
-      }
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.4\textwidth}
+      \includegraphics[width=\textwidth,height=4cm]{subway_dot_prod}
+      \caption{}
       \label{subfig:eigendistances}
-      \includegraphics[width=0.4\textwidth,height=4cm]{subway_dot_prod}
-}
+  \end{subfigure}
 \caption{(a) Rectangular template used as reference shape (b) Plot of the weighted distance D between each segmented feature and the template rectangle. The threshold (D=3) is shown as a red line}
 \end{figure}
 
@@ -183,19 +186,22 @@ thresh}$ to
 be subway cars, then we have a mechanism to detect subway cars from other objects present in this sonar image. This effectively shows that eigen-value descriptors are in principle capable of picking up prespecified shapes from images.
 
 \begin{figure} 
-\centering
-\subfigure[]{
+  \centering
+  \begin{subfigure}[]{0.45\textwidth}
+      \includegraphics[width=\textwidth]{best1}
+      \caption{}
       \label{subfig:subwaybest1}
-      \includegraphics[width=0.45\textwidth]{best1}
-      }
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.45\textwidth}
+      \includegraphics[width=\textwidth]{best2}
+      \caption{}
       \label{subfig:subwaybest2}
-      \includegraphics[width=0.45\textwidth]{best2}
-      }
-\subfigure[]{
+  \end{subfigure}
+  \begin{subfigure}[]{0.45\textwidth}
+      \includegraphics[width=\textwidth]{worst1}
+      \caption{}
       \label{subfig:subwayworst}
-      \includegraphics[width=0.45\textwidth]{worst1}
-      }
+  \end{subfigure}
 \caption{Parts (a) and (b) correspond to the blobs that are closest to the reference rectangle in Figure~\ref{subfig:subwayrect}. The shape of the blob is shown on left and the plot of shape descriptor $F(\Omega_j)$ of blob $j$ (red line) along with the plot of the reference rectangular profile (blue line) is shown on right. The distance measure $\Theta$ between the blob and the reference rectangle gives a picture of how close the given blob is to the reference rectangle. A contrasting view of the blob that matches the least with the reference rectangle is shown in (c).}
 \end{figure}      
 
