@@ -73,9 +73,8 @@ These mid-Atlantic Bight ``open access''
 grounds are especially important, not only for vessels fishing in the day boat 
 category, which are usually smaller vessels with limited range opportunities, 
 but also all the vessels that want to fish in near-shore ``open access'' 
-areas to save fuel.
-\footnote{Based on personal communication with several limited 
-access and day boat scallopers.}  
+areas to save fuel\footnote{Based on personal communication with several limited 
+access and day boat scallopers.}.  
 These areas offer high fish densities, but are at times rapidly depleted due 
 to overfishing \cite{rosenberg}.      
 
@@ -85,13 +84,14 @@ Federal Inshore Areas of the New York Bight using a Camera Mounted Autonomous Un
 Vehicle'') was a scallop survey effort undertaken to study the health of the scallop population
 along the coast of New York-New Jersey. As a part of this effort around a quarter million images of the 
 ocean floor were recorded and a manual scallop enumeration was performed on these images.
-The considerable human effort involved for manual enumeration spawned the idea of an automated species
+The considerable human effort involved for manual enumeration spawned the idea of building an automated species
 recognition system that can sift through millions of images and perform species enumeration with minimal to no human intervention.
-In response to this, the work in \cite{prasanna_med, prasanna_aslo, prasanna_igi} proposed a multilayered scallop
+In response to this need for an automated scallop enumeration system, the work in \cite{prasanna_med, prasanna_aslo, prasanna_igi} proposed a multi-layered scallop
 recognition framework.
-The workflow of this scallop[ recognition framework involves 4 processing layers:
+The workflow of this scallop recognition framework involves 4 processing layers:
 customized \gls{tdva} pre-processing, robust image 
 segmentation, and object classification and false positive filtering layers. 
+
 The value of the proposed approach is primarily in  providing a novel engineering solution to a real-world problem with economic
 and societal significance, which goes beyond the particular domain of scallop population
 assessment and can possibly extend to other problems of environmental monitoring,
@@ -107,12 +107,8 @@ When viewed as a complete package, the proposed approach
 offers an efficient tool to benthic habitat specialists for processing 
 large image datasets.
 
-In the remainder of this chapter, we discuss in details of the multilayered scallop recognition system proposed in 
-\cite{prasanna_med, prasanna_aslo, prasanna_igi}. As a part of this chapter, information about the data collection effort
-that provided the scallop data for the scallop enumeration is also provided. An overview on the existing literature on scallop recognition
-can be found in \ref{chap:animal_lit}.
-An in-depth comparison of the differences
-between this framework and the previous scallop recognition work by \cite{dawkings13} is discussed towards the end of this chapter.
+In the this chapter, we discuss the details of the multi-layered scallop recognition system proposed in 
+\cite{prasanna_med, prasanna_aslo, prasanna_igi}. This chapter also lists information about the data collection effort that provided the scallop data for the scallop enumeration survey. Finally, an in depth comparison of the differences between this multi-layered framework and the previous scallop recognition work by \cite{dawkings13} is discussed. For an overview of the existing literature on other scallop recognition work, refer to \ref{chap:animal_lit}.
 
 %========================================================================================
 \section{Preliminaries}
@@ -270,7 +266,7 @@ In the particular dataset, one recurrent visual pattern is a dark crescent on th
 Another pattern that could serve as a feature in this dataset is a bright crescent on the periphery of the scallop, generally associated with the visible interior of the bottom half when the scallop shell is partly open (see Figure~\ref{subfig:bcrescent_scallop}).
 A third pattern may be a yellowish tinge associated with the composition of the scallop image (see Figure~\ref{subfig:bcrescent_scallop}).
 
-These visual patterns have been leveraged \cite{prasanna_aslo} to develop a three-layered scallop counting framework  that combines tools from computer vision and machine learning. 
+These visual patterns have been leveraged in \cite{prasanna_aslo} to develop a three-layered scallop counting framework  that combines tools from computer vision and machine learning. 
 This particular hybrid architecture uses top-down visual attention, graph-cut segmentation and template matching along with a range of other filtering and image processing techniques. 
 Though this architecture offers a performance of over 63\% true positive detection rate, it has a very large number of false positives. 
 To mitigate this problem, the work presented in \cite{prasanna_igi} extends the framework of \cite{prasanna_aslo} by adding a fourth, false-positives filtering layer.
