@@ -1,57 +1,8 @@
-% This file (dissertation-main.tex) is the main file for a dissertation.
-\documentclass {udthesis}
-% preamble
-
-% Include graphicx package for the example image used
-% Use LaTeX->PDF if including graphics such as .jpg, .png or .pdf.
-% Use LaTeX->PS->PDF if including graphics such as .ps or .eps
-% Best practice to not specify the file extension for included images,
-% so when LaTeX is building it will look for the appropriate image type.
-\usepackage{graphicx}
-\usepackage[acronym]{glossaries}
-\usepackage{enumitem}
-\usepackage{amsmath}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{url}
-\usepackage{booktabs}
-\usepackage{tikz}
-\usetikzlibrary{matrix,shapes,arrows,positioning,chains}
-
-\include{acronym_list}
-
-\makeglossaries
-\graphicspath{{fig/}}
-
-\begin{document}
-
 %=========================================================================================
 % CoopROV section
 
 \chapter{CoopROV: Low cost underwater remotely operated vehicle}
 \label{chap:cooprov}
-
-%=========================================================================================
-% Outline
-\section{Outline}
-
-The developed multi-image object recognition theory can be validated using an easily accessible 
-open-source robot.
-
-\begin{enumerate}[label=Section \arabic*:, start=0]
-\item Intro
-
-\item Commercially available underwater robots are expensive and provide limited flexibility for incorporation of new sensors and custom controllers.
-
-\item CoopROV based off of the open-source underwater platform openROV, marries the low cost hardware design with seamless integration to ROS for easy application development.
-
-\item An underwater experimental setup in a water tank was designed to collect underwater image data.
-
-\item IMU, depth sensor, stereo camera and AR Tags were used to localize CoopROV.
-
-\item The multi-image object recognition approach was validated using image data gathered from CoopROV.
-
-\end{enumerate}
 
 %========================================================================================
 
@@ -277,10 +228,3 @@ Preliminary localization experiments were performed by placing an \gls{ar} tag o
 \section{Conclusion}
 
 CoopROV was built as a research platform to conduct underwater object recognition and control experiments. It offers a low-cost solution with a easily reconfigurable hardware and extendable \gls{ros}-software interface. The \gls{ros}-software support allows the robot to use open source perception and control algorithms available as a part of \gls{ros} software infrastructure. The sensor package comprising a stereo camera, \gls{imu} and depth sensor can be leveraged for object recognition and motion control experiments. The capabilities of the CoopROV system can be easily expanded to suit any research experiment like the multi-layered scallop recognition~\ref{chap:scallop_recog} and the multi-image object recognition~\ref{chap:distance_des} discussed in this dissertation.
-
-%========================================================================================
-\printglossary[type=\acronymtype]                  
-\include{bibtex}   % This file (bibtex.tex) contains the text
-                   % for a bibliography if using BibTeX with
-                   % sample.bib
-\end{document}

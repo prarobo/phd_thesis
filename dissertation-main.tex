@@ -9,37 +9,42 @@
 % so when LaTeX is building it will look for the appropriate image type.
 \usepackage{graphicx}
 \usepackage[acronym]{glossaries}
+\usepackage[inline]{enumitem}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{matrix,shapes,arrows,positioning,chains}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{multicol}
 
+\makeglossaries
+\graphicspath{{fig/}}
+\include{acronym_list}
                
 \begin{document}
-\input{acronym_list}
+\hypersetup{pageanchor=false}
 \include{dissertation-tap}
                    % This file (dissertation-tap.tex) contains the Title
                    % and Approval Page information for a dissertation.
+\hypersetup{pageanchor=true}
 
-%\include{chap_cooprov}    % This file (chap1.tex) contains the text
-                   % for Chapter 1.
-                   
-\include{chap2}    % This file (chap2.tex) contains the text
-                   % for Chapter 2.
+\include{chap_dissertation_eigen}
 
-\include{ref}      % This file (ref.tex) contains the text
-                   % for the references.
-                   
-%\include{bib}      % This file (bib.tex) contains the text
-                   % for a bibliography.
-                                      
+%\include{chap_dissertation_underwater_animal_lit}
+
+\include{chap_dissertation_scallop}
+
+\include{chap_dissertation_cooprov}
+
 \include{bibtex}	 % This file (bibtex.tex) contains the text
                    % for a bibliography if using BibTeX with
                    % sample.bib
                                       
-%\include{app}      % This file (app.tex) contains the text
-                   % for one Appendix. 
-                   
-\include{appA}     % This file (appA.tex) contains the text
-                   % for Appendix A. 
-                   
-\include{appB}     % This file (appB.tex) contains the text
-                   % for Appendix B.   
-       
+\printglossary[type=\acronymtype]                  
+                          
 \end{document}

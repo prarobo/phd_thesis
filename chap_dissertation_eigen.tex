@@ -1,89 +1,8 @@
-% This file (dissertation-main.tex) is the main file for a dissertation.
-\documentclass {udthesis}
-% preamble
-
-% Include graphicx package for the example image used
-% Use LaTeX->PDF if including graphics such as .jpg, .png or .pdf.
-% Use LaTeX->PS->PDF if including graphics such as .ps or .eps
-% Best practice to not specify the file extension for included images,
-% so when LaTeX is building it will look for the appropriate image type.
-\usepackage{graphicx}
-\usepackage[acronym]{glossaries}
-\usepackage{enumitem}
-\usepackage{amsmath}
-\usepackage{caption}
-\usepackage{subcaption}
-
-\include{acronym_list}
-
-\makeglossaries
-\graphicspath{{fig/}}
-
-\begin{document}
-
 %=========================================================================================
 % Eigen-value Shape Descriptors
 
 \chapter{Eigen-Value based shape descriptors}
 \label{chap:eigen}
-
-%=========================================================================================
-% Outlines
-%=========================================================================================
-% Chap3: Eigen-value descriptors
-\section{Outline}
-Identification is challenging and tricky; promising solutions can often fail; for example eigen-value based shape descriptors fail to identify objects from noisy image datasets.
-
-\begin{enumerate}[label=Section \arabic*:, start=0]
-\item Intro
-
-\item Eigen-value shape descriptors provide a mathematical framework for identifying geometric shapes.
-
-    \begin{enumerate}[label=Para \arabic*:, start=1]
-      
-	\item Objects characterized by a unique shape that is in contrast with their environment can be identified using shape-based descriptors.
-	
-	\item In shape-based identification problems, position and orientation of objects could be unknown: descriptors that can identify shapes irrespective of variations in rotation, scaling and translation of objects are useful in such cases.
-	
-	\item The question ``Can one hear the shape of a drum?'' -Kac, motivated the development of eigen-value based shape descriptors.
-	
-	\item Eigen-value shape descriptors offer a rotation, scaling and translation invariant framework for identifying geometric shapes.  
-	
-    \end{enumerate}
-    
-\item Here is how eigen-value descriptors can be used to recognize objects like subway cars from sonar backscatter images.
-
-    \begin{enumerate}[label=Para \arabic*:, start=1]
-
-      \item Since man-made objects are often produced in strict geometrical shapes when compared with natural objects they can exhibit wide intra and inter species variation, man-made objects can often be identified from natural scenes from their shape alone.
-      
-      \item Studying the impact to underwater ecosystem of subway cars in the ocean floor along the coast of NY-NJ, is an ongoing research problem.
-      
-      \item Subway cars in sonar back scatter images can be manually identified from their rectangular shape which contrasts with other objects in the ocean floor.
-      
-    \end{enumerate}
-
-\item The rotation, scaling and translation (RST) invariance properties offered by the eigen-value descriptors is shown to be adversely affected by image noise and signal discretization.
-
-    \begin{enumerate}[label=Para \arabic*:, start=1]
-
-      \item The RST invariance properties and shape recognition performance of eigen-value shape descriptors is severely affected by noise.
-      
-      \item The RST invariance properties of eigen-value descriptors theoretically defined over a continuous domain can be adversely affected by the discretization errors introduced in the computation process. 
-      
-    \end{enumerate}
-
-\item The Eigen-value descriptors, though effective in recognizing simple shapes in the absence of noise, cannot handle complex objects corrupted by noise or objects characterized by textural features.
-
-    \begin{enumerate}[label=Para \arabic*:, start=1]
-
-      \item Objects that require more than shape features, for example texture, cannot be identified using eigen-value shape descriptors.
-      
-      \item Objects corrupted by noise could adversely affect the performance of eigen-value shape descriptors.
-      
-    \end{enumerate}
-    
-\end{enumerate}
 
 
 \section{Introduction}
@@ -218,12 +137,4 @@ identification tool on images, the domain needed to be discretized; images are n
 
 Eigen-value based shape identification is a tool that can be used to identify simple predefined shapes from natural images. This method was successful in identifying subway-cars from sonar images of the seabed under the assumption that subway cars are rectangular in shape. Apart from shape, the texture of an object plays a key role in determining the identity of an object. Since eigen-value shape descriptors discard textural information, they are not suited for applications where shape is insufficient to decipher the identity of an object. Additionally, while dealing with complex shapes, there can be significant discretization error and segmentation errors which affect the shape profile of an object. Such errors often diminish the performance of eigen-value shape descriptors. Hence eigen-value shape descriptors is a useful tool for identifying objects provided we can guarantee that the shape of the object can be described in a discrete domain with minimal error. Furthermore, for this method to work, the 
 objects we are interested in should exhibit a shape profile that is significantly different from all other objects in the background. These special requirement limit eigen-value shape descriptors to few specialized object recognition applications only.
-
-%========================================================================================
-\printglossary[type=\acronymtype]                  
-\include{bibtex}   % This file (bibtex.tex) contains the text
-                   % for a bibliography if using BibTeX with
-                   % sample.bib
-\end{document}
-
 

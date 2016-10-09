@@ -1,66 +1,11 @@
-% This file (dissertation-main.tex) is the main file for a dissertation.
-\documentclass {udthesis}
-% preamble
-
-% Include graphicx package for the example image used
-% Use LaTeX->PDF if including graphics such as .jpg, .png or .pdf.
-% Use LaTeX->PS->PDF if including graphics such as .ps or .eps
-% Best practice to not specify the file extension for included images,
-% so when LaTeX is building it will look for the appropriate image type.
-\usepackage{graphicx}
-\usepackage[acronym]{glossaries}
-\usepackage[inline]{enumitem}
-\usepackage{amsmath}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{url}
-\usepackage{booktabs}
-\usepackage{tikz}
-\usetikzlibrary{matrix,shapes,arrows,positioning,chains}
-\usepackage{threeparttable}
-\usepackage{multirow}
-\usepackage{tabularx}
-\usepackage{multicol}
-
-\include{acronym_list}
-
-\makeglossaries
-\graphicspath{{fig/}}
-
-\begin{document}
-
 %=========================================================================================
 % Scallop recognition
 
 \chapter{Multi-layered Scallop Recognition Framework}
 \label{chap:scallop_recog}
 
-%=========================================================================================
-% Outlines
-%=========================================================================================
-% Chap5: Multi-layer scallop detection
-
-To identify \emph{difficult-to-spot} objects like scallops from low resolution underwater images, specialized multi-layered process pipeline combining several computer vision and machine learning techniques can be developed; it also offers the flexibility to be easily retasked for other object detection domains.
-
-\begin{enumerate}[label=Section \arabic*:, start=0]
-\item Intro
-
-\item A four-layered scallop recognition pipeline comprising a series of image processing, computer vision and machine learning techniques can be used to recognize scallop from noisy natural images.
-  
-\item The first processing later, visual attention, hypothesized models of the human visual system and enables targeted search by identifying regions of interest in images.
-
-\item The second layer or segmentation layer bifurcates along these \emph{interesting} regions obtained from visual attention into foreground and background pixels.
-
-\item The classification layer uses template matching to identify foreground objects that appear like scallops, with an emphasis on retaining true positives even at the cost of a large number of false positives.
-
-\item The final false positive filter layer uses another form of template matching to weed out the false positives from previous classification layer results.
-
-\item This scallop identification approach is unique in its ability to work on noisy underwater images and still offer \emph{high} true positive detection rate.
-
-\item This multi-layered approach, specialized here to identify scallops, can be retrained with appropriate modifications to work with other objects or sea-animals.
-
-\end{enumerate}
 %========================================================================================
+
 \section{Introduction}
 
 The sea scallop \textit{(Placopecten magellanicus)} fishery in the 
@@ -1165,13 +1110,4 @@ This idea is supported by inspection of recently collected high-resolution scall
 We believe that even without major changes to the current framework, testing on higher resolution images could produce much better performance outcomes (both in terms of detection and false positive rates). 
 The unavailability of ground truth for the new datasets makes it hard to provide evidence of any performance at this point. 
 It is also expected that using more targeted color and light correction methods \cite{dawkings13} as a part of image preprocessing will improve results.
-
-%========================================================================================
-
-\printglossary[type=\acronymtype]                  
-\include{bibtex}   % This file (bibtex.tex) contains the text
-                   % for a bibliography if using BibTeX with
-                   % sample.bib
-\end{document}
-
 
