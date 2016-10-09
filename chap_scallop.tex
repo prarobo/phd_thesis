@@ -73,8 +73,8 @@ These mid-Atlantic Bight ``open access''
 grounds are especially important, not only for vessels fishing in the day boat 
 category, which are usually smaller vessels with limited range opportunities, 
 but also all the vessels that want to fish in near-shore ``open access'' 
-areas to save fuel\footnote{Based on personal communication with several limited 
-access and day boat scallopers.}.  
+areas to save fuel.\footnote{Based on personal communication with several limited 
+access and day boat scallopers.} 
 These areas offer high fish densities, but are at times rapidly depleted due 
 to overfishing \cite{rosenberg}.      
 
@@ -86,29 +86,29 @@ along the coast of New York-New Jersey. As a part of this effort around a quarte
 ocean floor were recorded and a manual scallop enumeration was performed on these images.
 The considerable human effort involved for manual enumeration spawned the idea of building an automated species
 recognition system that can sift through millions of images and perform species enumeration with minimal to no human intervention.
-In response to this need for an automated scallop enumeration system, the work in \cite{prasanna_med, prasanna_aslo, prasanna_igi} proposed a multi-layered scallop
-recognition framework.
+In response to this need for an automated scallop enumeration system, a multi-layered scallop
+recognition framework was proposed \cite{prasanna_med, prasanna_aslo, prasanna_igi}.
 The workflow of this scallop recognition framework involves 4 processing layers:
 customized \gls{tdva} pre-processing, robust image 
 segmentation, and object classification and false positive filtering layers. 
 
-The value of the proposed approach is primarily in  providing a novel engineering solution to a real-world problem with economic
+The value of the proposed approach in this disseration is primarily in  providing a novel engineering solution to a real-world problem with economic
 and societal significance, which goes beyond the particular domain of scallop population
-assessment and can possibly extend to other problems of environmental monitoring,
+assessment, and can possibly extend to other problems of environmental monitoring,
 or even defense (e.g.\ mine detection).  
 Given the general unavailability of similar automation tools, the proposed one
 can have potential impact in the area of underwater automation.  
-The multi-layered approach not only introduces several minor technical innovations at 
+The multi-layered approach not only introduces several technical innovations at 
 the implementation level, 
 but also provides a specialized package for benthic habitat assessment. 
-At a processing level it provides the flexibility to re-task individual 
+At a processing level, it provides the flexibility to re-task individual 
 data processing layers for different detection applications.
-When viewed as a complete package, the proposed approach
+When viewed as a complete package, the approach
 offers an efficient tool to benthic habitat specialists for processing 
 large image datasets.
 
-In the this chapter, we discuss the details of the multi-layered scallop recognition system proposed in 
-\cite{prasanna_med, prasanna_aslo, prasanna_igi}. This chapter also lists information about the data collection effort that provided the scallop data for the scallop enumeration survey. Finally, an in depth comparison of the differences between this multi-layered framework and the previous scallop recognition work by \cite{dawkings13} is discussed. For an overview of the existing literature on other scallop recognition work, refer to \ref{chap:animal_lit}.
+In the this chapter, we discuss the details of the multi-layered scallop recognition system  
+\cite{prasanna_med, prasanna_aslo, prasanna_igi}. This chapter also lists information about the data collection effort that provided the scallop data for the scallop enumeration survey. Finally, an in depth comparison of the differences between this multi-layered framework and an earlier scallop recognition work \cite{dawkings13} is discussed. For an overview of the existing literature on other scallop recognition work, refer to Chapter~\ref{chap:animal_lit}.
 
 %========================================================================================
 \section{Preliminaries}
@@ -131,13 +131,13 @@ According to the visual attention hypothesis \cite{koch}, in the
 human visual system the input video feed 
 is split into several feature streams.
 Locations in these feature streams that are different from others in their neighborhood would generate 
-peaks in the \emph{center-surround} feature maps (explained later in more detail; see \eqref{intensity-CS} for an example).
+peaks in the \emph{center-surround} feature maps.
 The different center-surround feature maps can be combined to obtain a 
 saliency \emph{map}.
 Peaks in these resulting saliency maps, otherwise known as \emph{fixations}, become 
 points of interest, processed sequentially in descending order of their salience values.
 
-Itti et.al~\cite{itti} proposed a computational model for visual attention.
+Itti et al.~\cite{itti} proposed a computational model for visual attention.
 According to this model, an image is first processed along three feature streams 
 (color, intensity, and orientation).  
 The color stream is further divided into two sub-streams (red-green and blue-yellow) and 
@@ -165,7 +165,7 @@ in color and orientation streams.
 
 In this way, the seven sub-streams (two in color, one in intensity and four in orientation), 
 yield a total of 42 center-surround feature maps.
-Now all center-surround feature maps in an original stream (color, intensity,
+All center-surround feature maps in an original stream (color, intensity,
 and orientation) are then combined into a \emph{conspicuity map} (CM):
 one for color $\bar{C}$, one for intensity $\bar{I}$, and one for orientation $\bar{O}$. 
 Define the cross-scale operator $\oplus$ that adds up pixel values in different maps. 
@@ -202,7 +202,7 @@ around fixations in an image.
 
 In a different variant of visual attention referred to as \gls{tdva} \cite{navalpakkam},
 the weights in \eqref{eq:feature_map} and \eqref{eq:saliency_map}
-are selected judiciously to bias fixations toward particular attributes. One method to select these weights in the general case when $N_m$ maps are to be combined with those weights, is discussed in \cite{navalpakkam}.
+are selected judiciously to bias fixations toward particular attributes. There exists a method to select these weights in the general case when $N_m$ maps are to be combined with those weights \cite{navalpakkam}.
 Let $N$ be the number of images in the learning set,
 and $N_{iT}$ and $N_{iD}$ be the number of targets---in this case, scallops---and distractors 
 (similar objects) in image $i$ within the learning set.
@@ -211,11 +211,11 @@ similarly, let $P_{ijD_{r}}$ be the local maximum of the numerical values of the
 The weights for a combination of maps are determined by
 \begin{align} \label{eq:learning_wts_all}
 w'_{j}=\frac{\sum_{i=1}^{N} N_{iT}^{-1}\sum_{k=1}^{N_{iT}}P_{ijT_{k}} }{
-\sum_{i=1}^{N} N_{iD}^{-1} \sum_{r=1}^{N_{iD}}P_{ijD_{r}}} \\
-w_{j}=\frac{w'_{j}}{\frac{1}{N_m} \sum_{j=1}^{N_{m}}w'_{j} }
+\sum_{i=1}^{N} N_{iD}^{-1} \sum_{r=1}^{N_{iD}}P_{ijD_{r}}} \nonumber \\
+w_{j}=\frac{w'_{j}}{\frac{1}{N_m} \sum_{j=1}^{N_{m}}w'_{j} },
 \end{align}
 
-Where $j\in\{1,\ldots,N_{m}\}$ is the index set of the different maps to be combined. 
+where $j\in\{1,\ldots,N_{m}\}$ is the index set of the different maps to be combined. 
 Equations \eqref{eq:learning_wts_all} are used for the selection of weights $w_{cs}$ in \eqref{eq:feature_map}, and $w_{\bar{I}}$, $w_{\bar{O}}$, $w_{\bar{C}}$ in 
 \eqref{eq:saliency_map}.
 
@@ -266,10 +266,10 @@ In the particular dataset, one recurrent visual pattern is a dark crescent on th
 Another pattern that could serve as a feature in this dataset is a bright crescent on the periphery of the scallop, generally associated with the visible interior of the bottom half when the scallop shell is partly open (see Figure~\ref{subfig:bcrescent_scallop}).
 A third pattern may be a yellowish tinge associated with the composition of the scallop image (see Figure~\ref{subfig:bcrescent_scallop}).
 
-These visual patterns have been leveraged in \cite{prasanna_aslo} to develop a three-layered scallop counting framework  that combines tools from computer vision and machine learning. 
+We have leveraged visual patterns \cite{prasanna_aslo} to develop a three-layered scallop counting framework  that combines tools from computer vision and machine learning. 
 This particular hybrid architecture uses top-down visual attention, graph-cut segmentation and template matching along with a range of other filtering and image processing techniques. 
 Though this architecture offers a performance of over 63\% true positive detection rate, it has a very large number of false positives. 
-To mitigate this problem, the work presented in \cite{prasanna_igi} extends the framework of \cite{prasanna_aslo} by adding a fourth, false-positives filtering layer.
+To mitigate this problem, we extend the framework \cite{prasanna_aslo} by adding a fourth, false-positives filtering layer \cite{prasanna_igi}.
 
 %========================================================================================
 \section{Scallop Survey Procedure}
@@ -288,7 +288,7 @@ Parallel sets of transects were spaced as close as 4\,m.
 Georeferenced images were manually analyzed for the presence of sea scallops 
 using position data logged (using \gls{dvl} and \gls{ins}) with each image.
 %
-\subsection*{Field Survey Process}
+\subsection{Field Survey Process}
 %
 \begin{figure}
 %\vskip -5pt
@@ -311,7 +311,8 @@ The AUV collected altitude (height above the seabed) and
 attitude (heading, pitch, roll) data, allowing the georectification of each image 
 into scaled images for size and counting measurements.  During the 2011 pilot study 
 survey season, over $250\,000$ images of the seabed were collected. 
-These images were analyzed in the University of Delaware's laboratory for estimates of scallop
+These images were analyzed in the University of Delaware's Coastal Sediments, Hydrodynamics and Engineering 
+Laboratory for estimates of scallop
 abundance and size distribution.  The \textit{f/v Christian and Alexa} provided 
 surface support, and made tows along the AUV transect to ground-truth the presence of 
 scallops and provide calibration for the size distribution. 
@@ -373,7 +374,7 @@ topography of the seabed while maintaining a constant commanded altitude offset.
   \begin{subfigure}[]{0.6\textwidth}
       \includegraphics[width=\textwidth,natwidth=690,natheight=518]{auv_image}    
   \end{subfigure}
-  \caption{Schematics and image of Gavia AUV }
+  \caption{Schematics and image of the Gavia AUV }
   \label{fig:gavia_auv}
 \end{figure}
 
@@ -452,7 +453,7 @@ Scallops counted were articulated shells in life position (left valve up) \cite{
 %                                                      
 \begin{table}                                                     
 \centering
-\begin{tabularx}{0.6\textwidth}{XX}
+\begin{tabularx}{\textwidth}{XX}
 \toprule[1pt]\\[-6pt]
 Attribute	&Specs\\[2pt]\midrule
 Name	&Point Grey Scorpion 20SO Low Light Research Camera\\
@@ -470,7 +471,10 @@ Image Format	&jpeg\\[2pt]\bottomrule[1pt]
 
 
 %========================================================================================
-\section{Automated Scallop Recognition Framework}
+\section{Methodology}
+
+The multi-layered scallop counting framework that comprises four layers of processing on underwater images for the purpose of obtaining scallop counts is discussed in this section. 
+The four layers involve the sequential application of Top-Down Visual Attention, Segmentation, Classification and False-Positive Filtering.
 
 \subsection{Layer I: Top-Down Visual Attention} \label{subsec:TDVA}
 
@@ -524,7 +528,7 @@ For the conspicuity maps, the center-surround scale weights $w_{cs}$ computed th
 are shown in Table \ref{tab:tdva_fm_wts}.
 For the saliency map computation, the weights resulting from the application of
 \eqref{eq:learning_wts_all} on the conspicuity maps are
-$w_{\bar{I}}= 1.1644$, $w{\bar{C}}= 1.4354$ and $w_{\bar{O}}= 0.4001$.  
+$w_{\bar{I}}= 1.1644$, $w_{\bar{C}}= 1.4354$ and $w_{\bar{O}}= 0.4001$.  
 The symmetry of the scallop shell in our low-resolution dataset 
 justifies the relatively small value of the orientation weight.
 
@@ -548,7 +552,7 @@ Orientation & $0^\circ$ & 0.7408 & 0.2448 & 0.2410 & 0.2788 & 0.3767 & 2.6826\\
 
                                                    
 
-\subsubsection*{Implementation and Testing}\label{sec:tdva-testing}
+\subsubsection{Implementation and Testing}\label{sec:tdva-testing}
 
 To test the performance of the customized \gls{tdva} algorithm, it is applied on
 two image datasets, the size of which is shown in Table~\ref{tab:count_results}.
@@ -625,9 +629,9 @@ At the same time, graph-cut segmentation process \cite{shi} is applied on the
 fixation window to decompose it into 10 separate regions
 as seen in Figure~\ref{subfig:graphimg}. The boundaries of these
 segments are matched with the edges in the edge segmented image.
-This leads to further filtering of the edges, and eventually leads to the region boundaries
+This leads to further filtering of the edges, and eventually to the region boundaries
 on Figure~\ref{subfig:regboundry}.
-This is followed by fitting of a circle to 
+This is followed by fitting a circle to 
 each of the contours in the filtered region boundaries (Figure~\ref{subfig:regboundry}). 
 Only circles with dimensions close to that of a scallop (diameter $20 - 70$ pixels) 
 are retained (Figure~\ref{subfig:regcircle}), which in turn helps in rejection of other 
@@ -636,8 +640,7 @@ non-scallop round objects.
 The choice of the
 shape to be fitted is suggested by the geometry of the scallop's shell.
 Finding the circle that fits best to a given set of points is formulated as
-an optimization problem along the lines of \cite{taubin}
-and \cite{chernov}.
+an optimization problem \cite{taubin,chernov}.
 
 Given a set of $n$ points on a connected contour each with coordinates $(x_i,y_i)$ ($i\in\{1,2,\ldots,n\}$), 
 define a  function of four parameters $A$, $B$, $C$, and $D$:
@@ -676,8 +679,8 @@ The binary classification problem solved in this layer consists of identifying s
 These images are obtained by a using a 
 camera at the nose of the AUV, illuminated by a strobe light close to its tail 
 (mounted to the hull of the control module at an oblique angle to the camera).
-Our hypothesis were that due to this camera-light configuration, scallops appear in the images with 
-a bright crescent at the lower part of its perimeter and a dark crescent at the top---a shadow 
+Our hypothesis is that due to this camera-light configuration, scallops appear in the images with 
+a bright crescent at the lower part of its perimeter and a dark crescent at the top---a shadow.
 Though crescents appear in images of most scallops, their prominence and relative position with respect to the scallop varies considerably.
 The hypothesis regarding the origin of the light artifacts implies that the approximate profile and orientation of the crescents is a function of their location in the image.
 
@@ -690,11 +693,11 @@ A statistical analysis was performed on  a dataset of $3\,706$ manually labeled 
 where $a,b$ are the horizontal and vertical coordinates of the scallop center, 
 and $R$ is its radius). 
 For this analysis, square windows of length $2.8\times R$ 
-centered on $(a,b)$ were used to crop out regions from the images containing scallops.
-(Using a slightly larger window size ($>2\times R$, the size of the scallop) includes
+centered on $(a,b)$ were used to crop out regions from the images containing scallops.\footnote{Using a slightly 
+larger window size ($>2\times R$, the size of the scallop) includes
 a neighborhood of pixels just outside the scallop which is where 
 crescents are expected.
-This also improves the performance of local contrast enhancement, leading to better edge detection.)
+This also improves the performance of local contrast enhancement, leading to better edge detection.}
 Each cropped region was filtered in grayscale, contrast stretched, and then normalized
 by resizing to $11 \times 11$ dimension or $121$ bins.
 To show the positional dependence of the scallop profiles,
@@ -733,7 +736,7 @@ To obtain the reference profile for a pixel location,
 the statistics from all the scallops whose centers lie inside a $40\times40$ window centered on the pixel is used.
 This look-up table can be compressed; it turns out that not all of the 121 bins ($11\times11$) within each map is equally informative, because bins close to the boundary are more likely to include a significant number of background pixels.
 For this reason, a circular mask with a radius covering 4 bins is applied to each map (Figure~\ref{fig:scallop_learning_mask}), thus reducing the number of bins that are candidates as features for identification to $61$.
-Out of these $61$ bins, an additional $15$ bins having the highest standard deviation is ignored, leading to a final set of $46$ bins.
+Out of these $61$ bins, $15$ additional bins having the highest standard deviation are ignored, leading to a final set of $46$ bins.
 The value in the selected $46$ bins from mean map forms a $46$-dimensional feature vector associated with that region. The corresponding $46$ bins from the standard deviation map are also recorded, and are used to weight the features
 (as seen later in \eqref{distance}).
 
@@ -809,7 +812,7 @@ If $D_\mathsf{obj}<D_\mathsf{thresh}$,
 the corresponding object
 is classified as a scallop.
 Based on Figures~\ref{subfig:precision_recall}--\ref{subfig:template_hist},
-the threshold value was chosen at $D_\mathsf{thresh}=7$ to give a recall \footnote{\emph{Recall} refers to the fraction of relevant instances
+the threshold value was chosen at $D_\mathsf{thresh}=7$ to give a recall\footnote{\emph{Recall} refers to the fraction of relevant instances
 identified: fraction of scallops detected over all ground truth scallops;
 \emph{precision} is the fraction of the instances returned that are really relevant
 compared to all instances returned: fraction of true scallops over all objects
@@ -842,7 +845,7 @@ To decrease the false positives that are produced in the classification layer, t
 The main objective here is to find a method that will retain a high percentage of true positive scallop and at the same time eliminate as many false positives from the classification layer as possible.
 
 \subsubsection{High-dimensional weighted correlation template matching (WCTM)}
-In this method, the templates used are generated from scallop images that are \emph{not} preprocessed, i.e., images that are not median-filtered, as did all the images that were processed by the first three layers. 
+In this method, the templates used are generated from scallop images that are \emph{not} preprocessed, i.e., images that are not median-filtered, unlike the images that were processed by the first three layers. 
 The intuition behind this is that although median filtering reduces speckle noise and may improve the performance of segmentation, it also weakens the edges and gradients in an image. 
 Avoiding median filtering helps to generate templates that are more accurate than the ones already used in the classification layer.
 
@@ -894,7 +897,7 @@ D_\mathsf{wctm} = \sum_{k=1}^v\frac{X^{\bar{t}}_{k}X^{\bar{u}}_k}{\bar{\sigma}_{
 The threshold set for the weighted correlation metric $D_\mathsf{wctm}$, in order to distinguish between likely true and false positives is at $0.0002222$, i.e., any object with a similarity score lower than this threshold is rejected. 
 This threshold value is justified from the precision-recall curves (see Figure~\ref{subfig:layer4_precision_recall}) of the weighted correlation metric values for the objects filtering down from the classification layer. 
 The threshold shown by the blue line corresponds to 96\% recall rate, i.e., 96\% of the true positive scallops from the classification layer pass through \gls{wctm}. 
-At the same time, the \gls{wctm} decreases the false positives by over 63\%.
+At the same time, \gls{wctm} decreases the false positives by over 63\%.
 %
 \begin{figure}
   \centering
@@ -979,8 +982,8 @@ This ensures that very few true positives are lost and their performance is prim
 \toprule[1pt]
 	&\multicolumn{2}{c}{\gls{hog}}	&\multicolumn{2}{c}{\gls{wctm}}\\
 	&Dataset 1	&Dataset 2	&Dataset 1	&Dataset 2\\ [2pt]\cline{1-5}\\[-5pt]
-TP\tnote{1} from Classification Layer	&183		&1\,759		&183		&1759\\
-FP\tnote{2} from Classification Layer	&7\,970		&52\,456		&7\,970		&52\,456\\
+TP\tnote{1} ~from Classification Layer	&183		&1\,759		&183		&1759\\
+FP\tnote{2} ~from Classification Layer	&7\,970		&52\,456		&7\,970		&52\,456\\
 TP after Layer IV 			&179		&1\,689		&176		&1\,685\\
 FP after Layer IV 			&7\,752		&51\,329		&2\,924		&16\,407\\
 Decrease in TP after Layer IV	&4 (2.2\%)	&70 (4\%)	&7 (3.8\%)	&74(4.2\%)\\
@@ -1010,7 +1013,7 @@ This was done to leave out scallops near the boundaries that were affected by se
 Such scallops were often too dark (see Figure~\ref{fig:scallopred}) and very difficult to correct using standard vignetting correction algorithms.
 Furthermore, the scallop templates for scallops near the boundaries are such that their prime feature, the dark crescents, blend into the dark borders of the image (see Figure~\ref{subfig:mean_quadrant}). 
 Inclusion of the boundaries would cause almost any objects near the boundary to be classified as scallops, resulting in a large number of false positives.
-It is also interesting to note that scallops only partially visible near the image boundaries were excluded in the manual counts performed in \cite{walker}.
+It is also interesting to note that scallops only partially visible near the image boundaries were excluded in the manual counts performed \cite{walker}.
 
 \begin{table*}
 \caption{Results of multi-layer scallop classification \label{tab:count_results}}
@@ -1042,18 +1045,18 @@ There is no clear reason for the better performance of this pipeline on dataset 
 
 The four-layer automated scallop detection approach discussed
 here works on feature-poor, low-light imagery and yields
-overall detection rates in the range of 60--75\% . 
+overall detection rates in the range of 60--75\%. 
 Related work on scallop detection using underwater imaging \cite{dawkins11,dawkings13},
 reported higher detection rates, but the quality of the images used was visibly better.  Specifically,
 the datasets on which the 
-algorithms of \cite{dawkings13}
+alternative algorithms \cite{dawkings13}
 operated on, exhibit much more uniform lighting conditions, higher resolution,
 brightness, contrast, and color variance between scallops and background 
 (see Figure~\ref{data-difference}). 
 Evidence of this can be seen in Figure~\ref{data-difference}: the color variation between scallops and background data is reflected in the
 saturation histogram of Figure~\ref{data-difference}. While the histograms
 of scallop regions in the datasets of Table~\ref{tab:count_results} is often 
-identical to the global histogram of the image, the histograms of the Woods Hole data used by \cite{dawkings13} present a bimodal saturation histogram
+identical to the global histogram of the image, the histograms of the Woods Hole data used by the alternative algorithms \cite{dawkings13} present a bimodal saturation histogram
 (Figure \ref{subfig:dawkins_hist}), from which 
 foreground and background are easily separable.
 
@@ -1063,49 +1066,56 @@ foreground and background are easily separable.
   \centering
   \begin{minipage}[c]{\textwidth}
     \centering
-    \begin{subfigure}[]{\textwidth}
-	\includegraphics[height=0.24\textwidth,natwidth=1280,natheight=1014]{77616}
+    \raisebox{1.5mm}{
+    \begin{subfigure}[]{0.3\textwidth}
+	\includegraphics[width=\textwidth,natwidth=1280,natheight=1014]{77616}
 	\caption{}
 	\label{subfig:dawkins}
     \end{subfigure}
+    }
     \begin{subfigure}[]{0.25\textwidth}
 	\includegraphics[width=\textwidth,natwidth=105,natheight=100]{dawkins_crop_resize}
 	\caption{}
 	\label{subfig:dawkins_crop}
 	\hskip 15pt
     \end{subfigure}
+    \raisebox{2mm}{
     \begin{subfigure}[]{0.33\textwidth}
 	\includegraphics[width=\textwidth]{dawkins_hist_sat}
 	\caption{}
 	\label{subfig:dawkins_hist}
     \end{subfigure}
+    }
   \end{minipage} 
 
   \vskip 10pt
   \begin{minipage}[c]{\textwidth}
   \centering
-    \begin{subfigure}[]{\textwidth}
-	\includegraphics[height=0.24\textwidth]{60} 
+    \raisebox{1.5mm}{
+    \begin{subfigure}[]{0.32\textwidth}
+	\includegraphics[width=\textwidth]{60} 
   	\caption{}
 	\label{subfig:typical}
-  \end{subfigure}
+    \end{subfigure}
+    }
     \begin{subfigure}[]{0.235\textwidth}
 	\includegraphics[width=\textwidth]{our_crop_resize}
 	\caption{}
 	\label{subfig:typical_crop}
 	\hskip 15pt
     \end{subfigure}
+    \raisebox{2mm}{
     \begin{subfigure}[]{0.35\textwidth}
 	\includegraphics[width=\textwidth]{our_hist_sat}
 	\caption{}
 	\label{subfig:typical_hist}
     \end{subfigure}
+    }
   \end{minipage}
   \caption{Representative samples of different imagery data on which
   scallop detection algorithms may be called to operate on.  Figures \ref{subfig:dawkins}
   and \ref{subfig:typical},
-  show an image containing a single scallop from the dataset used by
-  \cite{dawkings13} (used with permission from the authors) 
+  show an image containing a single scallop from the dataset used by Dawkins et al.\cite{dawkings13} (used with permission from the authors) 
   and the datasets used in this paper respectively.
   A magnified
   view of a scallop cropped from Figure \ref{subfig:dawkins} 
@@ -1120,20 +1130,20 @@ foreground and background are easily separable.
   saturation histogram of Figure \ref{subfig:typical_crop} to the right. The bimodal 
   nature of the scallop histogram
   in Figure~\ref{subfig:dawkins_hist} 
-  derived from the dataset used in \cite{dawkings13}, clearly portrays the distinguishing appearance of the scallop pixels from the rest of the image, making it easily identifiable. The datasets we
+  derived from the dataset used in Dawkins et al.\cite{dawkings13}, clearly portrays the distinguishing appearance of the scallop pixels from the rest of the image, making it easily identifiable. The datasets we
   used did not exhibit any such characteristics (as seen in Figure~\ref{subfig:typical_hist}) 
   to aid the identification of scallops.}
   \label{data-difference} 
 \end{figure*}
 
-Compared to an alternative approach that uses a series of bounding boxes to cover the entire image \cite{guomundsson}, the one reported here employs only ten windows per image, scanning the images at a much faster rate.   
-Additionally, the detection rates of \cite{guomundsson} were based on a dataset of just 20 images; statistically significant differences in performance rates between that approach and the one reported here would need much larger image samples.
+Compared to another alternative approach that uses a series of bounding boxes to cover the entire image \cite{guomundsson}, the one reported here employs only ten windows per image, scanning the images at a much faster rate.   
+Additionally, the detection rates there \cite{guomundsson} were based on a dataset of just 20 images; statistically significant differences in performance rates between that approach and the one reported here would need much larger image samples.
 
 %========================================================================================
 \section{Conclusions and Futurework}
 
 With the increasing use of underwater robotic platforms, terrabytes of imagery datasets featuring millions of images are becoming commonplace. 
-The current practice of manual processing of these underwater images becomes a bottleneck. 
+The current practice of manual processing of these underwater images introduces a bottleneck. 
 In the spirit of this scallop counting work, designing better and faster automated tools  to characterize animals and other natural underwater phenomenon from images is imperative for future marine environmental studies.
 
 This work is a step toward
@@ -1147,7 +1157,7 @@ The multilayer framework reported is verified to be modular, and it allows easy 
 Designing such tools with further improvements in form of higher detection rates and lower false positives is required to help advance future marine animal studies.
 
 %========================================================================================
-\section{Futurework}
+\section{Future Work}
 
 One future direction would be to further reduce false positives by enhancing the false positives filter layer by using multiple scallop reference templates for each pixel location. 
 These new templates could be designed to capture the bright crescents that sometimes appear due to the visible interior of the lower valve of a scallop when the scallop shell is partly open. As this crescent appearance is only dependent on the relative scallop orientation with respect to the camera, it can occur at any point in the periphery of a scallop. If these bright crescents were to be used in conjunction with dark crescents multiple templates will be required to model scallops at each pixel location.
