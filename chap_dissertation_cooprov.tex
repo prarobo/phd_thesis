@@ -41,7 +41,7 @@ In the current stage of development, CoopROV shows some resemblance to OpenROV a
       \includegraphics[width=\textwidth]{cooprov_top}
       \label{subfig:cooprov_top}
   \end{subfigure}
-  \caption{CoopROV shown in two different views}
+  \caption[CoopROV]{CoopROV shown in two different views}
   \label{fig:cooprov}
 \end{figure} 
 
@@ -80,7 +80,7 @@ different subsystems comprising hardware, electronics, software, sensors and pow
       \path [->, thick] ([yshift=-1ex]ss.west) edge node {control signal} ([yshift=-1ex]rov.east);
       \path [->, thick] (joy) edge node {user commands} (ss);
   \end{tikzpicture}
-\caption{Block diagram of high-level data flow between different components in CoopROV}
+\caption[CoopROV data-flow diagram]{Block diagram of high-level data flow between different components in CoopROV}
 \label{fig:cooprov_dataflow}
 \end{figure}
 
@@ -116,7 +116,7 @@ between the end cap and the acrylic tube.
         \caption{Isometric view (front)}
         \label{cooprov_labels}
     \end{subfigure}
-    \caption{Different views of the CoopROV \gls{cad} model with some labeled parts}
+    \caption[CoopROV CAD model]{Different views of the CoopROV \gls{cad} model with some labeled parts}
     \label{fig:cooprov_cad}
 \end{figure}
 
@@ -170,7 +170,7 @@ power supply components can be found in Section~\ref{sec:cooprov_power}.
       \path [<-, thick] ([xshift=-1ex]ard.north) edge node {} ([xshift=-1ex]ard.north|-rpi.south);
       \path [->, thick] ([xshift=1ex]ard.north) edge node {} ([xshift=1ex]ard.north|-rpi.south);
   \end{tikzpicture}
-  \caption{Block diagram depicting the connectivity between major components in the electronics schematics}
+  \caption[CoopROV electronics schematics]{Block diagram depicting the connectivity between major components in the electronics schematics}
   \label{fig:cooprov_electronics}
 \end{figure}
 
@@ -210,7 +210,7 @@ The software of CoopROV is structured using a \gls{ros} framework. The different
 \begin{figure}
   \centering
   \includegraphics[width=0.9\textwidth]{cooprov_software}
-  \caption{CoopROV software architecture showing all the \gls{ros}-nodes along with their functionality explained below.}
+  \caption[CoopROV software architecture]{CoopROV software architecture showing all the \gls{ros}-nodes along with their functionality explained below.}
   \label{fig:cooprov_software}
 \end{figure} 
 

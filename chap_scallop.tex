@@ -60,6 +60,7 @@ To identify \emph{difficult-to-spot} objects like scallops from low resolution u
 \item This multi-layered approach, specialized here to identify scallops, can be retrained with appropriate modifications to work with other objects or sea-animals.
 
 \end{enumerate}
+
 %========================================================================================
 \section{Introduction}
 
@@ -225,7 +226,7 @@ Equations \eqref{eq:learning_wts_all} are used for the selection of weights $w_{
 \begin{figure}
       \centering
       \includegraphics[width=0.6\textwidth]{scallopred}
-      \caption{\cite{prasanna_aslo} Seabed image with scallops shown in red circles}
+      \caption[Seabed image with scallops shown in red circles]{\cite{prasanna_aslo} Seabed image with scallops shown in red circles}
       \label{fig:scallopred}
 \end{figure} 
 
@@ -257,7 +258,7 @@ The results from using elementary image processing methods like thresholding and
       \caption{}
       \label{subfig:edge_scallop}
   \end{subfigure}
-\caption{\cite{prasanna_igi} (a) Scallop with yellowish tinge and dark crescent; (b) Scallop with yellowish tinge and bright shell rim crescent; (c) Scallop with no prominent crescents and texturally identical to the background (d) Scallop sample after thresholding; (c) Scallop sample after edge detection.
+\caption[Scallop features]{\cite{prasanna_igi} (a) Scallop with yellowish tinge and dark crescent; (b) Scallop with yellowish tinge and bright shell rim crescent; (c) Scallop with no prominent crescents and texturally identical to the background (d) Scallop sample after thresholding; (c) Scallop sample after edge detection.
 }
 \end{figure}
 
@@ -291,10 +292,9 @@ using position data logged (using \gls{dvl} and \gls{ins}) with each image.
 \subsection{Field Survey Process}
 %
 \begin{figure}
-%\vskip -5pt
 \centering
 \includegraphics[width=0.5\textwidth, natwidth=944, natheight=800]{survey_region}
-\caption{Map of the survey region from Shinnecock, New York to Cape May, New Jersey, 
+\caption[Map of the scallop survey region]{Map of the survey region from Shinnecock, New York to Cape May, New Jersey, 
 divided into eight blocks or strata}
 \label{fig:strata}
 \end{figure}
@@ -511,7 +511,7 @@ fixation was labeled a \emph{target}; otherwise, it is considered a \emph{distra
 % \vskip +6pt
 \centering
 \includegraphics[width=0.6\textwidth,natwidth=800,natheight=600]{fixation_example.pdf}
-\caption{Illustration of fixations (marked by yellow boundaries):
+\caption[Illustration of fixations]{Illustration of fixations (marked by yellow boundaries):
          red lines indicate the order in which the fixations were detected with the lower-left fixation being the first.
 }
 \label{fig:fixation}
@@ -577,7 +577,7 @@ $270\times270$ pixels; more than $91$\% of the scallops are accommodated inside 
 \begin{figure}
   \centering
   \includegraphics[width=0.60\textwidth,natwidth=800,natheight=600]{windowlength.pdf}
-  \caption{Percentage of scallops enclosed in the fixation window as a function of
+  \caption[Scallop fixation window dimension analysis]{Percentage of scallops enclosed in the fixation window as a function of
   window half length (in pixels)}
   \label{fig:window_length}
 \end{figure}
@@ -609,7 +609,7 @@ $270\times270$ pixels; more than $91$\% of the scallops are accommodated inside 
       \caption{}
       \label{subfig:regcircle}
   \end{subfigure}
-\caption{\subref{subfig:fixationwindow} Fixation window from layer I; \subref{subfig:edgeimg} Edge segmented image; \subref{subfig:graphimg} graph-cut segmented image; \subref{subfig:regboundry} Region boundaries obtained when the edge segmented image is used as a mask over the graph-cut segmented image boundaries; \subref{subfig:regcircle} circle fitted on the extracted region boundaries.
+\caption[Segmentation layer process flow]{\subref{subfig:fixationwindow} Fixation window from layer I; \subref{subfig:edgeimg} Edge segmented image; \subref{subfig:graphimg} graph-cut segmented image; \subref{subfig:regboundry} Region boundaries obtained when the edge segmented image is used as a mask over the graph-cut segmented image boundaries; \subref{subfig:regcircle} circle fitted on the extracted region boundaries.
 }
 \label{fig:segmentation_levels}
 \end{figure*}
@@ -721,7 +721,7 @@ The lower standard deviation found in the intensity maps of the crescents on the
       \caption{}
       \label{subfig:stddev_quadrant}
   \end{subfigure}
-  \caption{\subref{subfig:mean_quadrant} Mean map of scallops in each quadrant \subref{subfig:stddev_quadrant} Standard deviation map of scallops in each quadrant.
+  \caption[Mean and variance map of scallops in each quadrant]{\subref{subfig:mean_quadrant} Mean map of scallops in each quadrant \subref{subfig:stddev_quadrant} Standard deviation map of scallops in each quadrant.
   Red corresponds to higher numeric values and blue correspond to lower numeric values.}
   \label{fig:mean_stddev_quadrant}
 \end{figure*}
@@ -757,7 +757,7 @@ The value in the selected $46$ bins from mean map forms a $46$-dimensional featu
       \caption{}
       \label{subfig:mask_scallop}
   \end{subfigure}
-  \caption{Intensity statistics and mask for a region centered at a pixel with coordinates $470,63)$ in the image \subref{subfig:mean_scallop} Map of mean intensity; \subref{subfig:stddev_scallop} Map of intensity standard deviation;
+  \caption[Illustration of scallop profile hypothesis]{Intensity statistics and mask for a region centered at a pixel with coordinates $(470,63)$ in the image \subref{subfig:mean_scallop} Map of mean intensity; \subref{subfig:stddev_scallop} Map of intensity standard deviation;
   \subref{subfig:mask_scallop} Mask applied to remove background points.}
   \label{fig:scallop_learning_mask}
 \end{figure}
@@ -794,7 +794,7 @@ D_{t} = \sqrt{\sum_{k=1}^n\frac{\|X^{\bar{o}}_{k}-X^s_k\|^2}{\sigma_k}} \enspace
 \begin{figure}
 \centering
 \includegraphics[width=0.6\textwidth]{mask_offset}
-\caption{Nine different masks slightly offset from the center used to make the classification layer
+\caption[Template matching masks]{Nine different masks slightly offset from the center used to make the classification layer
 robust to errors in segmentation}
 \label{fig:scallop_masks}
 \end{figure}
@@ -833,7 +833,7 @@ Evident in Figure~\ref{subfig:precision_recall} is the natural trade-off between
       \caption{}
       \label{subfig:template_hist}
   \end{subfigure}
-  \caption{\subref{subfig:precision_recall} Precision-Recall curve with $D_\mathsf{thresh}$ shown as
+  \caption[Precision-Recall curves for Classification Layer]{\subref{subfig:precision_recall} Precision-Recall curve with $D_\mathsf{thresh}$ shown as
   a vertical line; \subref{subfig:template_hist} 
   Histogram of template match of segmented scallop objects.}
   \label{detection-curves}
@@ -911,7 +911,7 @@ At the same time, \gls{wctm} decreases the false positives by over 63\%.
       \caption{}
       \label{subfig:hog_precision_recall}
   \end{subfigure}
-  \caption{Precision recall curve for Layer IV candidate methods (a) \gls{wctm} and (b) \gls{hog}. The blue line marks thresholds $D_\mathsf{wctm}=0.0002222$ and $D_\mathsf{hog}=2.816$. It is important to note that \gls{wctm} is a similarity measure and \gls{hog} is a dissimilarity measure. This implies that only instances below the indicated threshold $D_\mathsf{wctm}$ in \gls{wctm}, and likewise instances above the threshold $D_\mathsf{hog}$ in \gls{hog}, are rejected as false positives. }
+  \caption[Precision-Recall curves for False-positive Filtering Layer]{Precision recall curve for Layer IV candidate methods (a) \gls{wctm} and (b) \gls{hog}. The blue line marks thresholds $D_\mathsf{wctm}=0.0002222$ and $D_\mathsf{hog}=2.816$. It is important to note that \gls{wctm} is a similarity measure and \gls{hog} is a dissimilarity measure. This implies that only instances below the indicated threshold $D_\mathsf{wctm}$ in \gls{wctm}, and likewise instances above the threshold $D_\mathsf{hog}$ in \gls{hog}, are rejected as false positives. }
 \end{figure}
 
 \subsubsection{Histogram of Gradients (HOG)}
@@ -1112,7 +1112,7 @@ foreground and background are easily separable.
     \end{subfigure}
     }
   \end{minipage}
-  \caption{Representative samples of different imagery data on which
+  \caption[Comparision of scallop recognition results with existing methods]{Representative samples of different imagery data on which
   scallop detection algorithms may be called to operate on.  Figures \ref{subfig:dawkins}
   and \ref{subfig:typical},
   show an image containing a single scallop from the dataset used by Dawkins et al.\cite{dawkings13} (used with permission from the authors) 

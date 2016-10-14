@@ -85,6 +85,7 @@ Identification is challenging and tricky; promising solutions can often fail; fo
     
 \end{enumerate}
 
+%=========================================================================================
 
 \section{Introduction}
 
@@ -157,10 +158,10 @@ This problem of recognizing artificial objects from natural scenes was encounter
       \caption{Image segmentation using basic morphological operations and edge detection}
       \label{subfig:subwaysegment}
   \end{subfigure}
-\caption{}
+\caption[Analysis of sonar backscatter image of Redbird reef]{}
 \end{figure}
 
-The sonar backscatter image of Redbird reef in Figure~\ref{subfig:subwayorig} shows the shape profiles of some sunken objects resting on the seabed. Two subway cars are marked using black rectangles. If we look for rectangular objects like the rectangle in Figure~\ref{subfig:subwayrect}, it is likely that eigen-value descriptors will distinguis the profiles of subway-cars, as there are no other objects with such rectangular shape profile in the seabed image (Figure~\ref{subfig:subwayorig}). 
+The sonar backscatter image of Redbird reef in Figure~\ref{subfig:subwayorig} shows the shape profiles of some sunken objects resting on the seabed. Two subway cars are marked using black rectangles. If we look for rectangular objects like the rectangle in Figure~\ref{subfig:subwayrect}, it is likely that eigen-value descriptors will distinguish the profiles of subway-cars, as there are no other objects with such rectangular shape profile in the seabed image (Figure~\ref{subfig:subwayorig}). 
 
 \begin{figure}
 \centering
@@ -174,7 +175,7 @@ The sonar backscatter image of Redbird reef in Figure~\ref{subfig:subwayorig} sh
       \caption{}
       \label{subfig:eigendistances}
   \end{subfigure}
-\caption{(a) Rectangular template used as reference shape (b) Plot of the weighted distance D between each segmented feature and the template rectangle. The threshold (D=3) is shown as a red line}
+\caption[Plot of similarity measures of different underwater objects to the subway car reference profile]{(a) Rectangular template used as reference shape (b) Plot of the weighted distance D between each segmented feature and the template rectangle. The threshold (D=3) is shown as a red line}
 \end{figure}
 
 
@@ -202,7 +203,7 @@ be subway cars, then we have a mechanism to detect subway cars from other object
       \caption{}
       \label{subfig:subwayworst}
   \end{subfigure}
-\caption{Parts (a) and (b) correspond to the blobs that are closest to the reference rectangle in Figure~\ref{subfig:subwayrect}. The shape of the blob is shown on left and the plot of shape descriptor $F(\Omega_j)$ of blob $j$ (red line) along with the plot of the reference rectangular profile (blue line) is shown on right. The distance measure $\Theta$ between the blob and the reference rectangle gives a picture of how close the given blob is to the reference rectangle. A contrasting view of the blob that matches the least with the reference rectangle is shown in (c).}
+\caption[Subway car recognition results]{Parts (a) and (b) correspond to the blobs that are closest to the reference rectangle in Figure~\ref{subfig:subwayrect}. The shape of the blob is shown on left and the plot of shape descriptor $F(\Omega_j)$ of blob $j$ (red line) along with the plot of the reference rectangular profile (blue line) is shown on right. The distance measure $\Theta$ between the blob and the reference rectangle gives a picture of how close the given blob is to the reference rectangle. A contrasting view of the blob that matches the least with the reference rectangle is shown in (c).}
 \end{figure}      
 
 
