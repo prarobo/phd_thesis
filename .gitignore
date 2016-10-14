@@ -16,3 +16,7 @@
 *.bib.backup
 *.tex.backup
 *.lof
+fig/orig_files/strawberry_distance_montage.eps
+fig/orig_files/orange_distance_montage.eps
+fig/orig_files/strawberry_distance_montage.fig
+fig/orig_files/orange_distance_montage.fig
