@@ -21,6 +21,7 @@
 \usepackage{multirow}
 \usepackage{tabularx}
 \usepackage{multicol}
+\usepackage[export]{adjustbox}
 
 \include{acronym_list}
 
@@ -59,19 +60,6 @@
 
 %================================================================================================================
 \section{Preliminaries}
-
-\subsection{Visual Attention}
-\label{sec:visual_attn}
-
-\begin{enumerate}
-	\item Visual attention is a hypothesis on the working of the human visual system to prioritize processing of \emph{interesting} regions in an image.
-
-	\item Features like color, gradients and intensity determine the level of interest or salience of each point in an image.
-	
-	\item The points with high salience values correspond to regions that contain objects dissimilar from the background.
-	
-	\item Visual attention offers a method to detect the presence of objects that are significantly dissimilar to the background from images.
-\end{enumerate}
 
 \subsection{Grabcut-in-one-cut Algorithm}
 \label{sec:onecut}
@@ -207,7 +195,7 @@ The formulation of set $\bar{\mathcal{B}}_e\subseteq\mathcal{B}$ can be restated
 Ultimately the $|\mathcal{B}|$-element histogram signature $\mathcal{H}_f$ encodes the histogram information while attempting to prevent noise present in sensor measurements from corrupting the computed histograms of an image.
 
 \section{Methodology}
-\label{sec:methodology}
+\label{sec:distdes_methodology}
 
 \begin{enumerate}
 	\item Any machine learning technique like the one used here for object recognition comprises a learning and a testing phase.
@@ -223,7 +211,7 @@ Ultimately the $|\mathcal{B}|$-element histogram signature $\mathcal{H}_f$ encod
 The algorithm developed in this paper is a form of machine learning technique. As in other machine learning techniques, there are two parts: learning and validation. In the learning phase features and other attributes of an object class are captured from labeled instances of the object available in the learning set. In the validation phase, the learned descriptor for an object class is validated against pre-labeled images to evaluate the performance of an algorithm. The data collection and annotation phases that provides data used for learning and testing parts of this algorithm is also discussed in detail.
 
 \subsection{Data Collection}
-
+\label{sec:distdes_data_collection}
 
 \begin{enumerate}
   \item 13 Images of each target is captured between heights of 32in and 8in with an interval of 2in.
@@ -254,7 +242,7 @@ Each subsequent image was captured 2 inches closer to the specimen}.
 \label{fig:height_specimen}
 \end{figure*}	
 %
-Due to the wide-angle fish-eye lens in the GoPro camera used, the ratio of the pixels of the object specimen to the background could be very small when the camera is far away from the target. In technical terms, when the images of a target are captured by a camera that is far away from the specimen, the number of pixels that correspond to the specimen in the image could be statistically insignificant. This object recognition procedure depends on histograms of images (more details of how the histogram is relevant is explained in Section~\ref{sec:methodology}). 
+Due to the wide-angle fish-eye lens in the GoPro camera used, the ratio of the pixels of the object specimen to the background could be very small when the camera is far away from the target. In technical terms, when the images of a target are captured by a camera that is far away from the specimen, the number of pixels that correspond to the specimen in the image could be statistically insignificant. This object recognition procedure depends on histograms of images (more details of how the histogram is relevant is explained in Section~\ref{sec:distdes_methodology}). 
 For the histogram to accurately capture the properties of a specimen, the images of the specimen need to have a high ratio of object pixels over background pixels. To improve the ratio of object pixels in the image, the images were cropped to discard the excess background. The strawberry and orange specimen shown in Figure~\ref{fig:strawberry_height_specimen} and Figure~\ref{fig:orange_height_specimen} are shown again in Figure~\ref{fig:strawberry_height_specimen_cropped} and 
 Figure~\ref{fig:orange_height_specimen_cropped} respectively, but after cropping of the excess background.
 
@@ -376,11 +364,11 @@ Figure~\ref{fig:orange_height_specimen_cropped} respectively, but after cropping
 
 
 \subsection{Annotation Process}
-\label{sec:annotation}
+\label{sec:distdes_annotation}
 
 Just like any other supervised machine learning algorithm, this method requires annotation of images into labeled background and foreground. The task of annotation is a costly and labor intensive process. The whole idea of developing an object recognition algorithm is often related to avoiding human annotation or any other form of manual intervention to identify objects from images. However, to accomplish this task an initial set of images need to be annotated manually to contribute to the learning set of a machine learning algorithm. In this object recognition method, each learning sample constitutes 13 images of a specimen from different heights. This increases the task of annotation 13-fold. To avoid or at least minimize the manual annotation involved, a semi-automated annotation framework was devised.
 
-In the first stage of the annotation process, visual attention (described in Section~\ref{sec:visual_attn}) is used to pick the most \textit{interesting} point in an image. According to the visual attention hypothesis, if a distribution of features can be used to characterize an image, the most interesting point or the first fixation corresponds to the point in the image which is most unlikely to belong to the distribution of features of the image. In other words, the first fixation corresponds to a point that does not belong to the background and hence most likely is a foreground object pixel. In the first stage of this annotation process, the first fixation point along with all its neighboring pixels within a rectangle of dimensions $15\% \,image\, width \times 15\% \,image\, height$ centered on the fixation are assumed to be foreground pixels. We will refer to this rectangle as the \textit{foreground hypothesis rectangle}.
+In the first stage of the annotation process, \gls{buva} technique (described in Section~\ref{sec:visual_attn}) is used to pick the most \textit{interesting} point in an image. According to the visual attention hypothesis, if a distribution of features can be used to characterize an image, the most interesting point or the first fixation corresponds to the point in the image which is most unlikely to belong to the distribution of features of the image. In other words, the first fixation corresponds to a point that does not belong to the background and hence most likely is a foreground object pixel. In the first stage of this annotation process, the first fixation point along with all its neighboring pixels within a rectangle of dimensions $15\% \,image\, width \times 15\% \,image\, height$ centered on the fixation are assumed to be foreground pixels. We will refer to this rectangle as the \textit{foreground hypothesis rectangle}.
 Since the data collection  process ensures that an object in an image is close to the center of the image rather than the edges of the image, the pixels in the boundary of the images can safely be assumed to be background pixels. Hence, rectangular blocks of pixels in the 4 corners of an image, of dimension $5\% \,image\, width \times 5\% \,image\, height$, are labeled as background seed pixels. The foreground and background pixel hypothesis thus obtained are used in the next stage of the annotation process to segment the image into foreground and background.
 
 The foreground and background seeds obtained before can be used to initialize a grabcut-in-one-cut algorithm \cite{onecut}. This grabcut-in-one-cut algorithm, a variant of graphcut algorithm (described in Section~\ref{sec:onecut}) bifurcates an input image into background and foreground by labeling pixels \textit{similar} in appearance to foreground seeds as foreground and the other pixels that appear closer to background seeds as background. The result of this graphcut algorithm is a binary labeling of an image into foreground and background pixels. 
@@ -479,6 +467,7 @@ In the machine learning technique developed in this paper, instead of using indi
 Since this object recognition algorithm is positioned to operate on images without prior segmentation. The features used in this algorithm should be sufficiently generic to capture the appearance of an object directly from an image without foreground segmentation. To achieve this, we use the histogram signatures (described in Section~\ref{sec:hist_signature}) to extract information from an image in HSI-colorspace. This information from multiple specimens belonging to the same object class is then combined to generate a feature distribution. The details of this process is described in the rest of this section.
 
 \subsubsection{Feature Distribution}
+\label{sec:distdes_feature_distr}
 
 The first part of the feature distribution generation process is the computation of the hue, saturation and intensity histogram signatures on the labeled foreground pixels only in the learning dataset. The parameters chosen for the histogram signature computation: the number of equally spaced bins in the histogram $|\mathcal{B}|=256$ and the upper bound on the number of pixels affected by noise $e=5\%$. Using these parameters the histogram signatures for all three components of the HSI-colorspace (hue, saturation and intensity) is calculated on all 13 height-tagged images of a specimen, only on the labeled foreground pixels in the image. Lets represent the histogram signature of the labeled foreground for specimen $k$ with height tag $h$ belonging to class $c$ as on the color component $f=\{H \text{ hue}, S \text{ saturation}, I \text{ intensity}\}$ be represented as $\mathcal{H}^{c_{hk}}_f$. Since there are 3 color components, we realize 3 histogram signatures per height-tagged image of a specimen. If we consider all the 13 height-tagged images available for a specimen, the total histogram signatures now available is 39 ($13 \times 3$).
 
@@ -516,23 +505,43 @@ Since there are 39 histograms in total, we also get a sequence of 39 $d_{chfk}$ 
 %
 where $h=\{8,10,12, \ldots,32\}$ and $f=\{H,S,I\}$.
 
-A sequence of distance measures $d_{ck}$ for each specimen $k$ among the $m$ specimens of class $c$ provides a representation of a feature vector of size 39 that describes the appearance of an image that contains a specimen of class $c$. If we consider the feature vectors of all the $m$ available specimens $d_{c1},d_{c2},\ldots,d_{cm}$, a feature distribution sequence $F_c$ that represents the appearance of images containing objects of class $c$ can be formulated. Lets assume that the $m$ values $d_{chf1}, d_{chf2},\ldots,d_{chfm}$ are drawn from a normal distribution $F_{chf}\sim\mathcal{N}(\mu_{chf},\sigma^2_{chf})$ where,
+A sequence of distance measures $d_{ck}$ for each specimen $k$ among the $m$ specimens of class $c$ provides a representation of a feature vector of size 39 that describes the appearance of an image that contains a specimen of class $c$. If we consider the feature vectors of all the $m$ available specimens $d_{c1},d_{c2},\ldots,d_{cm}$, a feature distribution sequence $F_c$ that represents the appearance of images containing objects of class $c$ can be formulated. Lets assume that the $m$ values $d_{chf1}, d_{chf2},\ldots,d_{chfm}$ are drawn from a normal distribution 
 %
 \begin{align}
- \mu_{chf}= &\frac{\sum_{k=1}^m d_{chfk}}{m}\\
- \sigma^2_{chf}= &\frac{\sum_{k=1}^m (d_{chfk}-\mu_{chf})^2}{m-1}
+ F_{chf}\sim &\mathcal{N}(\mu_{chf},\sigma^2_{chf})\label{eqn:normal_distr}\\
+ \mu_{chf}= &\frac{\sum_{k=1}^m d_{chfk}}{m}\label{eqn:normal_mean}\\
+ \sigma^2_{chf}= &\frac{\sum_{k=1}^m (d_{chfk}-\mu_{chf})^2}{m-1}\label{eqn:normal_stddev}.
 \end{align}
 %
 Then the feature distribution sequence $F_c$ can be represented as a sequence of 39 distributions,
-\begin{align}
+\begin{align}	\label{eqn:feat_distribution}
  F_c=F_{chf}\Big|_{h \times f}
 \end{align}
 where $h=\{1,2,\ldots,13\}$ and $f=\{H,S,I\}$. 
 
-This feature distribution $F_c$ which comprises a sequence of 39 distributions offers a way to test for the presence of an object of class $c$ in an image without prior segmentation. In essence the testing for the presence of an object can be broken down into 39 individual hypothesis tests to see if an image containing an object satisfies each of the 39 distributions in $F_c$. Not all of the 39 hypothesis tests might be equally informative-- some of them could be more relevant than others. To this end, a weighting factor $w_{v}$ can be attached to the $v$-th element in feature distribution sequence $F_c$.  The details involved in the computation of these weight factors is described in the Section~\ref{sec:feat_wts}.
+For the two classes of objects, Strawberry with 13 specimens and Orange with 11 specimens, their respective feature distributions $F_s$ and $F_o$ can be computed using the procedure discussed in this section. The feature distributions $F_s$ and $F_o$ are shown in Figure~\ref{fig:feat_distr}. The 39 distributions (see \eqref{eqn:normal_distr}) in the distribution sequence are shown along the $x$-axis. Each distribution here is represented by a dot and a bar adjoining it. The dot corresponds the mean and bar corresponds to the 95\% confidence interval or the $2\sigma$ standard deviation interval of the distribution shown in \eqref{eqn:normal_distr}.
+%
+\begin{figure*}
+  \centering
+  \begin{subfigure}[]{0.8\textwidth}
+      \includegraphics[width=\textwidth]{strawberry_learning_feature_distribution}
+      \caption{}
+      \label{fig:feat_distr_strawberry}
+  \end{subfigure}
+  \begin{subfigure}[]{0.8\textwidth}
+      \includegraphics[width=\textwidth]{orange_learning_feature_distribution}
+      \caption{}
+      \label{fig:feat_distr_orange}
+  \end{subfigure}
+\caption[Feature distribution]{Strawberry feature distribution sequence $F_s$ and Orange feature distribution sequence $F_o$ generated from 13 strawberry specimens and 11 orange specimens are shown in \subref{fig:feat_distr_strawberry} and \subref{fig:feat_distr_orange} respectively. The $x$-axis corresponds to the index of the distributions in feature distribution sequence. All 39 distributions \eqref{eqn:normal_distr} are shown along the $x$-axis. The  mean of each distribution (see \eqref{eqn:normal_distr}) shown as a dot along with a bar that corresponds to the 95\% confidence interval is also shown.}
+\label{fig:feat_distr}
+\end{figure*}	
+%
+
+This feature distribution $F_c$ which comprises a sequence of 39 distributions offers a way to test for the presence of an object of class $c$ in an image without prior segmentation. In essence the testing for the presence of an object can be broken down into 39 individual hypothesis tests to see if an image containing an object satisfies each of the 39 distributions in $F_c$. Not all of the 39 hypothesis tests might be equally informative-- some of them could be more relevant than others. To this end, a weighting factor $w_{v}$ can be attached to the $v$-th element in feature distribution sequence $F_c$.  The details involved in the computation of these weight factors is described in the Section~\ref{sec:distdes_feat_wts}.
 
 \subsubsection{Feature Weights}
-\label{sec:feat_wts}
+\label{sec:distdes_feat_wts}
 
 The feature weights offer a way to weight each distribution in the feature distribution sequence $F_c$. In case of a binary classification problem between objects of class $p$ and $q$, we choose the feature weights such that the distributions in the sequence with lower intra-class variance and minimal overlap between the distributions of classes $p$ and $q$ are weighted higher than other distributions in the feature distribution sequence. In the rest of this section the formulation of these feature distribution sequence weights is discussed.
 
@@ -540,20 +549,28 @@ For the object class $p$ and $q$, the corresponding feature distribution sequenc
 The the 95\% confidence interval of $F_{pv}$ is given by
 %
 \begin{align}	\label{eqn:conf_interval}
-C^{0.95}_{F_{pv}}=[\mu_{pv}-2 \times \sigma^2_{pv},\, \mu_{pv}+2 \times \sigma^2_{pv}].
+C^{0.95}_{F_{pv}}=[\mu_{pv}-2 \times \sigma_{pv},\, \mu_{pv}+2 \times \sigma_{pv}].
 \end{align}
 %
 The weight $w_{pv}$ of the $v$ component of $F_p$ is given by
 \begin{align}
- w'_{pv}= & \frac{1}{(1+ |C_{F_{pv}} \cap C_{F_{qv}}| )\times \sigma^2_{pv}} \label{eq:feat_wt}\\
+ w'_{pv}= & \frac{1}{(1+ |C_{F_{pv}} \cap C_{F_{qv}}| )\times \sigma_{pv}} \label{eq:feat_wt}\\
  w_{pv}= & \frac{w'_{pv}}{\sum_{j} w'_{pj}}, \label{eqn:feat_wt_norm}
 \end{align}
-where $|C_{F_{pv}} \cap C_{F_{qv}}|$ corresponds to the length of the interval obtained after the intersection of intervals $C_{F_{pv}}$ and $C_{F_{qv}}$. The first term in the denominator of \eqref{eq:feat_wt} penalizes distributions whose confidence intervals share common extents with the other class in this binary classification problem. In other words, this term penalizes distributions in $F_p$ whose confidence intervals overlap with similar  distribution in $F_q$. The second term in the denominator of \eqref{eq:feat_wt} penalizes distributions with high intra-class variance. Ultimately the weights are normalized as shown in \eqref{eqn:feat_wt_norm}.
+where $|C_{F_{pv}} \cap C_{F_{qv}}|$ corresponds to the length of the interval obtained after the intersection of intervals $C_{F_{pv}}$ and $C_{F_{qv}}$. The first term in the denominator of \eqref{eq:feat_wt} penalizes distributions whose confidence intervals share common extents with the other class in this binary classification problem. In other words, this term penalizes distributions in $F_p$ whose confidence intervals overlap with similar  distribution in $F_q$. The second term in the denominator of \eqref{eq:feat_wt} penalizes distributions with high intra-class variance. Ultimately the weights are normalized as shown in \eqref{eqn:feat_wt_norm}. The 39 feature weight sequence thus computed for a class will collectively be referred to as $W_c$. For the binary classification problem, between Strawberry and Orange specimens, the weight factors computed using \eqref{eqn:feat_wt_norm} are shown in the bar plot in Figure~\ref{fig:feat_weights}. The black bars show the Strawberry class weights and the red bars whow the corresponding orange class weights.
+%
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{feature_weights}
+  \caption[Feature weights]{The feature weight sequences for Strawberry class $F_s$ and  Orange class $F_o$ are shown as black and red bars respectively.}
+  \label{fig:feat_weights}
+\end{figure}	
+%
 
-The distribution components in $F_p$ with higher values of $w_v$ are weighted higher than the other distributions while performing hypothesis tests that will be discussed in the validation phase of this machine learning algorithm (Section~\ref{sec:validation}).
+The distribution components in $F_p$ with higher values of $w_p$ are weighted higher than the other distributions while performing hypothesis tests that will be discussed in the validation phase of this machine learning algorithm (Section~\ref{sec:distdes_validation}).
 
 \subsection{Validation}
-\label{sec:validation}
+\label{sec:distdes_validation}
 
 \begin{enumerate}
 	\item To detect the presence of a target in an image, multiple images of a target are used to compute the feature descriptor.
@@ -563,9 +580,38 @@ The distribution components in $F_p$ with higher values of $w_v$ are weighted hi
 	\item If a feature descriptor agrees with a feature distribution for a certain target object class, then the images currently under examination are considered to have sufficient evidence for the presence of an instance from the target object class.
 \end{enumerate}
 
-In the object recognition method developed in this paper, a series of height-tagged images of an object specimen can be used to perform a binary classification task and determine the class of the object. In other words, the 13 images of 13 height-tagged images will be used to decide if the object belongs to one of the two classes $p$ and $q$. In order to achieve this, the histogram signatures (described in Section~\ref{sec:hist_signature}) are computed on each of the 13 height tagged-images available for an object specimen. Note the full image is used here as we do not have any pre-specified label information. The computation performed is identical to the one in \eqref{eqn:hist_signature} that results in a sequence of 39 histogram signatures $\ddot{\mathcal{H}}^{c_{k}}$. 
+In the object recognition method developed in this paper, a series of height-tagged images of an object specimen can be used to perform a binary classification task and determine the class of the object. In other words, the 13 images of 13 height-tagged images will be used to decide if the object belongs to one of the two classes $p$ and $q$. In order to achieve this, the histogram signatures (described in Section~\ref{sec:hist_signature}) are computed on each of the 13 height tagged-images available for an object specimen. Note the full image is used here as we do not have any pre-specified label information. The computation performed is identical to the one in \eqref{eqn:hist_signature} that results in a sequence of 39 histogram signatures $\ddot{\mathcal{H}}^{k}$. 
 
-The next step in the validation procedure is computing the distance measure in \eqref{eqn:hist_signature_dist} between $\ddot{\mathcal{H}}^{c_{k}}$ and the generalized histogram signatures $\bar{\mathcal{H}}^{p}$ and $\bar{\mathcal{H}}^{q}$ of class $p$ and $q$ respectively. This results in 2 sequences of 39 distance values, $d^p_c$ against class $p$ and $d^q_c$ against class $q$, the computation of each of this sequence is identical to \eqref{eqn:dist_sequence}. The object is determined to belong to class $p$ if the 39 distance values satisfy $C^{0.95}_{F_{pv}}$ (see \eqref{eqn:conf_interval}) of all distributions in the feature distribution sequence $F_p$ of class $p$. In similar lines, if the 39 distance values of the object $d^q_c$ satisfies feature distribution sequence $F_q$ of class $q$, the object is considered to belong to class $q$.
+The next step in the validation procedure is computing the distance measure in \eqref{eqn:hist_signature_dist} between $\ddot{\mathcal{H}}^{k}$ and the generalized histogram signatures $\bar{\mathcal{H}}^{p}$ and $\bar{\mathcal{H}}^{q}$ of class $p$ and $q$ respectively. This results in 2 sequences of 39 distance values, $D^p_k$ against class $p$ and $D^q_k$ against class $q$, the computation of each of this sequence is identical to \eqref{eqn:dist_sequence}. The sequences $D^p_k$ and $D^q_k$ provide information about the \emph{closeness} of the sample specimen $k$ to each of the classes $p$ and $q$. The information in these sequences need to be further distilled down to eventually attribute specimen $k$ to either class $p$ or class $q$.
+
+Lets assume that specimen $k$ belongs to class $p$. According to this hypothesis, the $v$-th component of $D^p_k$ should satisfy the $v$-th distibution of the feature distribution sequence $F_p$. In other words, using \eqref{eqn:conf_interval}, we can state that in 95\% of the cases, the condition in \eqref{eqn:conf_interval_validation} is satisfied. If we call this hypothesis test $h^p_{kv}$, then passing of this hypothesis test $(h^p_{kv}=1)$ as shown in \eqref{eqn:hypothesis_test} determines that specimen $k$ belongs to class $p$.
+%
+\begin{align}
+  d^p_{kv} \in C^{0.95}_{F_{pv}}= &[\mu_{pv}-2 \times \sigma_{pv},\, \mu_{pv}+2 \times \sigma_{pv}]
+  \label{eqn:conf_interval_validation} \\
+ h^p_{kv} = &
+ \begin{cases}
+    1	&	d^p_{kv} \in C^{0.95}_{F_{pv}}\\
+    0	&	otherwise
+ \end{cases} \label{eqn:hypothesis_test}
+\end{align}
+%
+There are 39 such hypothesis tests $h^p_{k1}, h^p_{k2},\ldots, h^p_{k39}$ that can be performed to determine if specimen $k$ belongs to class $p$.
+The relevance of each of these hypothesis tests in attributing the identity of the specimen $k$ to class $p$ is dictated by the corresponding weight $w_{pv}$. The information available in form of hypothesis tests along with their associated weights can be combined to get a single numeric metric or \emph{class confidence} $H^p_k$ (shown in \eqref{eqn:numeric_class_metric}) that measures the confidence in specimen $k$ belonging to class $p$.
+%
+\begin{align} \label{eqn:numeric_class_metric}
+ H^p_k=\sum_{v=1}^{39} h^p_{kv} w_{pv} 
+\end{align}
+%
+Its important to note that based on the construction in ~\eqref{eqn:feat_wt_norm} that $H^p_c\in[0,1]$. If $H^p_k=1$, then we can say with 100\% confidence that specimen $k$ belongs to class $p$. On the fli side, the value $H^p_k$ indicates that its unlikely that speciamne $k$ belongs to class $p$. A similar metric $H^q_k$ can be computed to determine confidence in
+specimen $k$ belonging to class $q$. Finally the binary classification task that classifies specimen $k$ into class $p$ or class $q$ is decided based on the magnitude of $H^p_k$ and $H^q_k$ as described in \eqref{eqn:binary_classification}.
+%
+\begin{align}	\label{eqn:binary_classification}
+ H^p_k > H^q_k	&{} &\text{specimen}\, k \in \text{class}\, p\nonumber\\
+ H^p_k < H^q_k	&{} &\text{specimen}\, k \in \text{class}\, q\nonumber\\
+ H^p_k = H^q_k	&{} &\text{Undetermined}
+\end{align}
+
 
 %================================================================================================================
 \section{Results}
@@ -578,6 +624,56 @@ The next step in the validation procedure is computing the distance measure in \
 	
 	\item The feature descriptor plot for each specimen is compared against the feature distributions of the strawberry and orange class.
 \end{enumerate}
+
+The data collected during the experiments consisted of images from 11 specimens from Orange class and 13 specimens from Strawberry class. Data on each specimen included images from 13 different heights, starting at 32 inches from the ground upto 8 inches away from the ground with the specimens placed below the camera on the ground. The imaging experiment was conducted in a test tank filled with water using the imaging rig shown in Figure~\ref{fig:im_rig}. More details of the data collection process can be found in Section~\ref{sec:distdes_data_collection}. Following the data collection process, the feature distribution sequence $F_{s}$ and $F_{o}$ for Strawberry and Orange classes respectively are computed using the procedure discussed in Section~\ref{sec:distdes_feature_distr} and the results are shown in Figure~\ref{fig:feat_distr}.
+
+As an initial validation step both learning and testing is done on the entire dataset of 24 specimens. The learning procedure
+results in the feature distributions for Strawberry and Orange shown in Figure~\ref{fig:feat_distr}. Then each specimen is first evaluated against both Strawberry and Orange feature distributions as described in Section~\ref{sec:distdes_validation} to get distance metric $D^s_k$ and $D^o_k$. The 13 strawberry specimens evaluated against Strawberry and Orange feature distribution sequence $F_{s}$ and $F_{o}$ is shown in Figure~\ref{fig:feat_results_strawberry} and respectively Figure~\ref{fig:feat_results_orange}. The solid blue line in Figure~\ref{fig:feat_results_strawberry}-\textit{top} along with the grey band is an alternate representation of Figure~\ref{fig:feat_distr_strawberry} with the indices $v$ arranged in the decreasing order of their importance as dictated by the Strawberry feature weights $W_s$. In other words, the first distribution in \subref{fig:feat_results_strawberry}-top corresponds to the feature distribution with the highest feature weight in $W_{s}$ and the last distribution is the feature distribution with the lowest feature weight in $W_{s}$. Similarly the feature distribution sequence shown in Figure~\ref{fig:feat_results_strawberry}-\textit{bottom} is an alternate form of  Figure~\ref{fig:feat_distr_orange} with the indices $v$ again arranged in the decreasing order of Strawberry feature weights $W_s$. The colored lines in \subref{fig:feat_results_strawberry} are the $D^s_k$ values (in \subref{fig:feat_results_strawberry}-top) and $D^o_k$ (in \subref{fig:feat_results_strawberry}-bottom) respectively for the 13 Strawberry specimens. Similarly, the two plots in Figure~\ref{fig:feat_results_orange}-textit{top} and Figure~\ref{fig:feat_results_orange}-textit{bottom} provide a representation of Figure~\ref{fig:feat_distr_strawberry} and Figure~\ref{fig:feat_distr_orange} respectively with the indices in both cases arranged in the decreasing order of Orange feature weights $W_o$. The colored lines in Figure~\ref{fig:feat_results_orange}-textit{top} and Figure~\ref{fig:feat_results_orange}-textit{bottom} show the $D^s_k$ and $D^o_k$ values of the 11 Orange specimens. In Figure~\ref{fig:feat_results_strawberry} the colored lines mostly lie inside the 95\% confidence interval band of the Strawberry feature distribution sequence $F_s$ shown in Figure~\ref{fig:feat_results_strawberry}-textit{top} when compared against Figure~\ref{fig:feat_results_strawberry}-textit{bottom} indicating that the Strawberry specimens match better with their own class. The same can be said from Figure~\ref{fig:feat_results_strawberry}-textit{bottom} which shows that the orange specimens match better with the Orange distribution sequence $F_o$ rather than the Strawberry distribution sequence $F_s$.
+%
+\begin{figure*}
+  \centering
+  \vskip -10pt
+  \begin{subfigure}[]{0.6\textwidth}
+      \hskip -0.5cm
+      \includegraphics[width=\textwidth, trim={0.5cm 0 3.8cm 0}, clip]{strawberry_learning_results}
+      \caption{}
+      \label{fig:feat_results_strawberry}
+  \end{subfigure}
+  \vskip -2pt
+  \begin{subfigure}[]{0.6\textwidth}
+      \hskip -0.5cm
+      \includegraphics[width=\textwidth, trim={0.5cm 0 3.8cm 0}, clip]{orange_learning_results}
+      \caption{}
+      \label{fig:feat_results_orange}
+  \end{subfigure}
+\caption[Validation results showing the conformance of the specimens to the learnt feature distributions]{Results obtained by using the learning dataset for testing. The plots in \subref{fig:feat_results_strawberry} shows the 13 starwberry specimens evaluated against the feature distribution sequences of Strawberry $F_s$ (top plot of \subref{fig:feat_results_strawberry} or \subref{fig:feat_results_strawberry}-top) and Orange (bottom plot of \subref{fig:feat_results_strawberry} or \subref{fig:feat_results_strawberry}-bottom). The feature distribution represented here with mean shown as a solid blue line with the 95\% confidence interval shown as a grey band around the mean is an alternate representation of Figure~\ref{fig:feat_distr_strawberry}. The sequence of feature distributions indexed by $v$ here is arranged in the decreasing order of importance as dictated by the Strawberry feature weights $W_s$. Since the results shown in \subref{fig:feat_results_strawberry} are only for Strawberry specimens both the Strawberry distribution (\subref{fig:feat_results_strawberry}-top) and Orange distribution (\subref{fig:feat_results_strawberry}-bottom) are ordered using the Strawberry feature weights $W_s$. The colored lines in \subref{fig:feat_results_strawberry} are the $D^s_k$ values (in \subref{fig:feat_results_strawberry}-top) and $D^o_k$ (in \subref{fig:feat_results_strawberry}-bottom) for the different Strawberry specimens. 
+The plots in \subref{fig:feat_results_orange} are similar to \subref{fig:feat_results_strawberry}, except that they are the evaluation results of Orange specimens against Strawberry feature sequence $F_s$ (\subref{fig:feat_results_orange}-top) and Orange distribution sequence $F_o$ (\subref{fig:feat_results_orange}-bottom). The indices $v$ in \subref{fig:feat_results_orange} are arranged in the decreasing order of Orange feature weights $W_o$. Both Orange and Strawberry specimens matching with most distributions of their corresponding class is a visual indicator validating the machine learning solution developed in this chapter.}
+\label{fig:feat_results}
+\end{figure*}	
+%
+
+A more concrete validation of the machine learning approach discussed in this paper is by computing the \emph{class confidence} $H^s_k$ and $H^o_k$ of each specimen against the Strawberry and Orange classes respectively and deciding on the class of the specimen as described in Section~\ref{sec:distdes_validation}. One thing to note here is that the class confidence measure is a comparison of a specimen against the Strawberry and Orange feature distribution sequences one of which utilized the specimen images while it was evaluated. It is a general rule to separate the learning and testing datasets before validating a machine learning approach. In this case, since the data set consists of only 24 specimens, a leave-one-out cross-validation\footnote{Leave-one-out cross-validation is used in cases where the number of specimens available is very small which makes if ineffective to split the available labeled dataset into learning and testing sets. In leave-one-out cross-validation, during each iteration 1 specimen is chosen as the testing set and the all other specimens are chosen as the learning set resulting in repeatedly performing the learning procedure for each iteration.} \cite{alpaydin} was implemented. The class confidence values $H^s_k$ and $H^o_k$ of the 13 Strawberry specimens are shown as black and red bars respectively in Figure~\ref{fig:results_strawberry}. Its clear that the black bars are taller than the red bars in all cases. According to hypothesis test \eqref{eqn:hypothesis_test}, this impies that that all Strawberry specimens are classified correctly. The same can be said for the results from Orange specimens in Figure~\ref{fig:results_orange}, since all the red bars are taller than the back bars, all the orange specimens are also classified correctly.
+
+%
+\begin{figure*}
+  \centering
+  \begin{subfigure}[]{0.7\textwidth}
+      \includegraphics[width=\textwidth]{classification_metric_strawberry}
+      \caption{}
+      \label{fig:results_strawberry}
+  \end{subfigure}
+  \vskip -2pt
+  \begin{subfigure}[]{0.7\textwidth}
+      \includegraphics[width=\textwidth]{classification_metric_orange}
+      \caption{}
+      \label{fig:results_orange}
+  \end{subfigure}
+\caption[Classification results]{}
+\label{fig:results}
+\end{figure*}	
+%
+
+The validation procedure confirms the ability of this machine learning technique to combine data from multiple images of a specimen to do a binary classification task. The 24 specimens collectively belonging to Starwberry and Orange classes were correctly classified by the machine learning algorithm developed here.
 
 %================================================================================================================
 \section{Discussion}

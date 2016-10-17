@@ -59,6 +59,7 @@ In the this chapter, we discuss the details of the multi-layered scallop recogni
 \section{Preliminaries}
 
 \subsection{Visual Attention}
+\label{sec:visual_attn}
 
 Visual attention is a neuro-physiologically inspired machine learning method \cite{koch}
 that attempts to mimic the human brain function in its ability to rapidly single out
@@ -136,7 +137,7 @@ $w_{\bar{O}}$ for orientation, the saliency map can be expressed mathematically 
 \end{equation}
 %
 
-In a methodological variant of visual attention known as BUVA, all streams are weighted equally: $w_{cs}$ is constant for all $c\in\{2,3,4\}$,  $s=c+\delta$ ($\delta\in\{3,4\}$)
+In a methodological variant of visual attention known as \gls{buva}, all streams are weighted equally: $w_{cs}$ is constant for all $c\in\{2,3,4\}$,  $s=c+\delta$ ($\delta\in\{3,4\}$)
 and $w_{\bar{I}}=w_{\bar{C}}=w_{\bar{O}}$. 
 A winner-takes-all neural network is typically used \cite{itti,walther} 
 to compute the maxima, or fixations, on this map---other discrete optimization methods are of course possible.
@@ -429,7 +430,7 @@ to sift automatically through the body of imagery data, and focus on
 regions of interest that are more likely to contain scallops.
 The process of designing the \gls{tdva} algorithm is described below.
 
-The first step is a small-scale, bottom-up (BUVA) saliency computation. 
+The first step is a small-scale, \gls{buva} based saliency computation. 
 The saliency computation is performed 
 on a collection of randomly selected 243 annotated images, collectively containing 300 scallops.
 This collection constitutes the \emph{learning set}.
