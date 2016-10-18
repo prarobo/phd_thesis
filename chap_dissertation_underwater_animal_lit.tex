@@ -1,113 +1,9 @@
-% This file (dissertation-main.tex) is the main file for a dissertation.
-\documentclass {udthesis}
-% preamble
-
-% Include graphicx package for the example image used
-% Use LaTeX->PDF if including graphics such as .jpg, .png or .pdf.
-% Use LaTeX->PS->PDF if including graphics such as .ps or .eps
-% Best practice to not specify the file extension for included images,
-% so when LaTeX is building it will look for the appropriate image type.
-\usepackage{graphicx}
-\usepackage[acronym]{glossaries}
-\usepackage{enumitem}
-\usepackage{amsmath}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{url}
-\usepackage{booktabs}
-\usepackage{tikz}
-\usetikzlibrary{matrix,shapes,arrows,positioning,chains}
-
-\include{acronym_list}
-
-\makeglossaries
-\graphicspath{{fig/}}
-
-\begin{document}
-
 %=========================================================================================
 % Chap4: Literature review on underwater animal detection
 
 \chapter{Underwater Animal Recognition}
 \label{chap:animal_lit}
 
-%=========================================================================================
-% Outlines
-%=========================================================================================
-% Chap4: Literature review on underwater animal detection
-
-\section{Outline}
-
-Previous efforts to recognize underwater organisms in their natural environments exist; these methods are constrained to specific type of organisms and do not translate to other application domains.
-
-\begin{enumerate}[label=Section \arabic*:, start=0]
-\item Intro
-
-\item Attempts to count moving sea-animals like fish using stationary cameras is performed through background subtraction.
-
-  \begin{enumerate} [label=Para \arabic*:, start=1]
-   
-   \item One way to detect animals in natural environments is through background subtraction; in this method a snapshot of the environment is taken and any change to this snapshot is considered to be evidence of a moving animal.
-   
-   \item Detected animals are further classified into different species based on their appearance characteristics.
-   
-   \item Background subtraction is only applicable in scenarios where the background is static and the camera is stationary.   
-   
-  \end{enumerate}
-
-
-\item Background subtraction is inherently challenging when dealing with sedentary animals like scallops that require mobile robotic platforms for image acquisition.
-
-  \begin{enumerate} [label=Para \arabic*:, start=1]
-      
-   \item Sedentary animals do not move and hence cannot be detected from their motion as in background subtraction, in this case the imaging platform is required to move to capture images.
-   
-   \item Movement of the camera results in changing background and hence generating a static model for the environment becomes problematic.
-   
-   \item Lack of a background model and lack of motion based segmentation makes background subtraction in applicable in the context of sedentary animals like scallops.
-   
-  \end{enumerate}
-
-\item Previous scallop recognition efforts involve artificial scallop beds with controlled imaging conditions or natural image databases with few tens of images.
-
-  \begin{enumerate} [label=Para \arabic*:, start=1]
-   
-   \item Proof of concept studies for validating scallop recognition algorithms are often tested on artificial scallop beds with controlled conditions that do not represent the variability of environmental conditions observed in natural images.
-   
-   \item Previous scallop recognition efforts on natural image datasets are limited to small set of few tens of images which do represent the ability of the algorithms to generalize on large databases containing thousands to millions of images. 
-   
-  \end{enumerate}
-
-\item Currently existing methods do not offer effective frameworks for counting stationary animals like scallops from noisy low-resolution underwater image datasets.
-
-  \begin{enumerate} [label=Para \arabic*:, start=1]
-   
-   \item Currently existing methods are primarily focused on detecting moving animals like fish through background subtraction.
-   
-   \item Existing methods that work on sedentary animals are primarily trained to operate on controlled environments and lack the robustness to deal with the wide gamut of conditions exhibited by natural environments.
-   
-   \item The methods that work on natural images are restricted to select set of images bringing into question their ability to generalize over large datasets that exhibit wide variability and substantial amount of noise.
-   
-   \item There is no existing method that can count stationary animals like scallops from noisy low-resolution underwater images.   
-   
-  \end{enumerate}
-
-
-\item A general object recognition tool, easily customizable to recognize any type of target, needs to be developed for automated processing of large natural image datasets. 
-
-  \begin{enumerate} [label=Para \arabic*:, start=1]
-   
-   \item With the availability of robotic platforms that can collect staggering amounts of data in form of millions of images, there is a need for data-processing tools that can automate the processing of natural image datasets.
-   
-   \item Marine scientists and government agencies involved in wildlife surveys require tools that can automatedly process imagery data to determine population statistics of animal species.
-   
-   \item A generalized object recognition tool that can sift through large datasets and produce population counts from natural image datasets need to be developed.
-   
-  \end{enumerate}
-
-\end{enumerate}
-
-%========================================================================================
 \section{Introduction}
 
 In natural settings, living organisms often tend to blend into their environments to evade detection via camouflage. Webster's thesis work \cite{webster} provides a detailed exposition on the visual camouflage mechanisms adopted by animals to blend into their background. Under such circumstances of camouflage, there are very limited visual cues that can be used to identify animals. Even in the presence of visual cues, the task of identifying animals from natural scenes is shown to be a cognitively challenging and complex task \cite{wichmann}.
@@ -250,11 +146,3 @@ can be generalized to organisms like sea-anemones. With an additional requiremen
 a generalized multi-layered framework that can be used to detect and count underwater organisms has been proposed \cite{prasanna_med, prasanna_aslo, prasanna_igi}. This method has been evaluated on a scallop population assessment effort on a dataset containing over 8000 images, the details of which can be found in Chapter~\ref{chap:scallop_recog}.
 
 %========================================================================================
-
-\printglossary[type=\acronymtype]                  
-\include{bibtex}   % This file (bibtex.tex) contains the text
-                   % for a bibliography if using BibTeX with
-                   % sample.bib
-\end{document}
-
-
