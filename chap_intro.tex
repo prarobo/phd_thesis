@@ -1,0 +1,190 @@
+% This file (dissertation-main.tex) is the main file for a dissertation.
+\documentclass {udthesis}
+% preamble
+
+% Include graphicx package for the example image used
+% Use LaTeX->PDF if including graphics such as .jpg, .png or .pdf.
+% Use LaTeX->PS->PDF if including graphics such as .ps or .eps
+% Best practice to not specify the file extension for included images,
+% so when LaTeX is building it will look for the appropriate image type.
+\usepackage{graphicx}
+\usepackage[acronym]{glossaries}
+\usepackage[inline]{enumitem}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{matrix,shapes,arrows,positioning,chains}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage[export]{adjustbox}
+
+\include{acronym_list}
+
+\makeglossaries
+\graphicspath{{fig/}}
+
+\begin{document}
+
+%=========================================================================================
+% Introduction
+
+\chapter{Introduction}
+\label{chap:thesis_intro}
+
+%=========================================================================================
+\section{Outline}
+
+\begin{enumerate}[label=Chapter \arabic*:]
+  \item If robotic systems are to decrease the strain on human workforce, they need to be autonomous; 
+  perception and data interpretation with in-built robustness to noise are central to autonomy. 
+
+  \begin{enumerate}[label=Section \arabic*:, start=0]
+  \item Intro
+
+  \item Robotics systems are beneficial for handling tasks characterized as dull, dirty and dangerous for humans.
+  
+    \begin{enumerate}[label=Para \arabic*:, start=1]
+       
+      \item Robotics systems are beneficial in environments hazardous or inaccessible to humans like war zones, nuclear radiation prone regions, and deep sea.
+      
+      \item When the reasoning ability and intelligence of a human expert is sometimes deemed necessary to deal with various elements in a potentially inhospitable environment, robots can still be tele-operated by human operators.
+      
+    \end{enumerate}
+
+  \item Unmanned aerial, ground and underwater vehicles mostly rely on human decision making via teleoperation while working in natural environments.
+  
+    \begin{enumerate}[label=Para \arabic*:, start=1]
+    
+      \item Tele-operation allows for a human operator to make decision for a robot in real-time.
+      
+      \item Though tele-operation solution can combine the durability of a robotic agent and intellect of a human, it has to deal with sometimes unreliable communication links and constant need for human attention.
+
+      \item Automated decision making is essential for robots that do not have a human operator.
+	\end{enumerate}
+	    
+  \item To make informed automated decisions, robotic systems need to sense and interpret the state of their environments.
+
+    \begin{enumerate}[label=Para \arabic*:, start=1]
+
+      \item Sensors allow a robotic system to gather data about its environment.
+      
+      \item Interpreting the state of an environment involves identifying objects and gaining a semantic undestanding of different elements in the environment.
+            
+      \item Knowing the state of the environment is essential to make \emph{informed} automated decisions.
+      
+    \end{enumerate}
+                    
+  \item The capability of a robot to image and label objects in its surroundings, or in other words do object recognition, is more challenging in unstructured natural environments than in man-made environments.
+  
+    \begin{enumerate}[label=Para \arabic*:, start=1]
+      \item Robots in the past have been specialized to do tasks in well defined environments like assembly lines  where environmental variables like visibility and lighting can be controlled.      
+      
+      \item In natural environments, despite the its unstructured nature and unpredictable variations in environmental conditions, a robot needs to understand and parse the environment into labeled objects.
+      
+      \item To work in natural environments, the object recognition capabilities of robotic system needs to be robust to noise and variations in  environmental conditions.
+      
+    \end{enumerate}
+
+  \item Noise in sensor data obtained in natural environments limits the amount of useful information that can be extracted for the object recognition process.
+    
+    \begin{enumerate}[label=Subsection \arabic*:, start=1]
+      \item The sources of noise associated with an application need to be carefully analyzed before designing appropriate filters to mitigate the noise.
+      
+      \begin{enumerate}[label=Para \arabic*:, start=1]
+	
+	\item Noise can enter sensor data through several forms, for example the noise in a camera sensor can be sub-divided as: noise inherent to the sensor, noise due to the setup associated with data collection and noise introduced by the environment.
+	
+	\item To understand the noise inherent to a sensor, as an example, the various noise sources in a camera sensor can be analyzed.
+	
+	\item Noise can be introduced by the data-collection setup, in form of movement or vibration of the sensing apparatus.
+	
+	\item Environmental conditions can themselves be sources of noise, in the context of an underwater camera, this can be in form of poor lighting, light absorption by water or scattering from suspended particles in water.
+	
+	\item A method that is designed to work in natural environments, requires dedicated effort to filter noise to get useful information from sensor data.
+	
+      \end{enumerate}
+    
+      \item Once the noise sources are analyzed, dedicated filters, some specialized for the sensing apparatus and others specialized for the sensing environment need to be designed as a part of the object recognition procedure.
+
+      \begin{enumerate}[label=Para \arabic*:, start=1]
+        
+        \item Filters that deal with a specific sensing apparatus are required to work with the noise generated by the sensor.
+        
+	\item Specialized filters are required to deal with the noise from the environment conditions that robot will be exposed to.
+	
+	\item Analyzing and filtering noise is an important component of object recognition systems that work in natural environments.
+    
+      \end{enumerate}
+      
+    \end{enumerate}
+
+  \item Existing object recognition methods do not generally translate from one application domain to another.
+    
+    \begin{enumerate}[label=Para \arabic*:, start=1]
+      
+      \item Since object recognition is a challenging problem, researchers often specialize their object recognition modules to work in specific controlled environments to optimize performance.
+      
+      \item Object recognition methods designed for specific controlled environments do not fare well with wide variations in environmental conditions.
+      
+      \item Porting an object recognition method specialized for a specific environment condition to work on an entirely different application with drastically different environmental conditions can be a laborious process and might no longer offer the previous levels of performance.
+          
+    \end{enumerate}
+
+  \item To work in natural environments, the object recognition process should be robust and sufficiently general to deal with various kinds of objects.
+  
+    \begin{enumerate}[label=Para \arabic*:, start=1]
+      \item To work in natural environments with unpredictable conditions, the object recognition techniques should be robust to noise and variations in environmental conditions.
+      
+      \item Multi-layered object recognition frameworks with dedicated modules for dealing with different sub-problems like filtering and hypothesis testing allow easy customization of layers based on application requirements.
+      
+      \item Layered Object recognition frameworks designed for natural environments with inbuilt robustness to variations in environmental conditions can be easily ported to a multitude of applications. 
+      
+    \end{enumerate}
+  
+  \item Object recognition is central to building robots capable of automated and informed decision making, and thus achieving full autonomy; especially while operating in noisy natural environments.
+
+    \begin{enumerate}[label=Para \arabic*:, start=1]
+      
+      \item Object recognition capability allows a robot to interpret its environment.
+      
+      \item Informed decision making  comprises using information about the state of the environment to making decisions.
+      
+      \item Noisy natural environments pose a challenge to object recognition and hence dealing with noise is critical for a robotic system the depend on object recognition to make automated decisions.
+      
+      \item Robust object recognition capabilities translates to autonomous decision making, this combined with autonomous actuation
+      results in full robot autonomy.
+
+    \end{enumerate}
+    
+\end{enumerate}
+\end{enumerate}
+
+%================================================================================================================
+\section{Benefits of Robotic Systems}
+
+Robotic systems are beneficial for tasks that come under the purview of the \emph{3-D}'s--dirty, dull and dangerous. Currently manufacturing and assembly lines where tasks of repititive nature, otherwise considered dull, are places where robotic systems are ubiquitous. Tasks like traversing tunnels and sewer, dirty in nature, are being delegated to teleoperated-robots. The other avenue where robotic systems are being promoted relate to activities deemed dangerous for humans like deep sea exploration, operation in radiation prone zones, or war zones. With enabling new advances in the field of robotics, robots are beginning to take over new roles to complement and assist humans in various ways.
+
+Though advances in robotic systems have enabled robots to outperform humans in certain specialized tasks like competing in 
+games like Go \cite{deepmind} and Chess \cite{deepblue}, robotic systems still lack the ability to reason and operate
+autonomously in most unpredictable real world environments. 
+In such cases a human expert is deemed necessary to reason for the robot and guide the machine
+to accomplish its objectives. This case of tele-operation of robots by humans is seen a solution to accomplish
+tasks in inhospitable environments without exposing humans to risk. Some prime examples of such remote operation in
+dangerous enviroments include the rescue and repair effort at radiation affected zones in Fukushima Daichii nuclear power plant \cite{fukushima} or remotely operated weapons like Packbot \cite{packbot} and Predator \cite{predator}
+at war zones in the middle-east countries. Though tele-operation appears offer a soultion, more scalable solution
+is aiming for full autonmoy of robotic systems to minimize the strain on human workforce.
+ 
+%================================================================================================================
+
+\printglossary[type=\acronymtype]                  
+\include{bibtex}   % This file (bibtex.tex) contains the text
+                   % for a bibliography if using BibTeX with
+                   % sample.bib
+\end{document}
+
+
