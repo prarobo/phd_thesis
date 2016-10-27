@@ -342,7 +342,7 @@ recognition framework \cite{prasanna_aslo, prasanna_igi} offers one such multi-l
 In conclusion, layered object recognition frameworks offer a flexible solution to researchers to solve automated object recognition problem. Customizing a multi-layered object recognition framework to work with different specialized problem amount to picking the right layers that would be effective to solve the specific problem. The layers used can be adaptions of available computer vision or machine learning tools. For cases where there is no available solution to solve a certain sub-problem, a researcher can engineer a multilayered framework with existing tools along with a custom designed sub-layer to deal with the specialized sub-problems.
 
 %================================================================================================================
-\section{Object recognition as a path to Robot Autonomy}
+\section{Object Recognition as a path to Robot Autonomy}
 
 Object recognition capability allows a robotic system to identify and label the different components in its environment. Such understanding of individual objects in its surrounding is required to build a semantic model that captures the relationship between the different components in an environment.
 Cognitive reasoning relies on such semantic models to determine the best possible action for an agent to undertake given its knowledge about the state of the environment. Thus we can conclude that object recognition capabilities are essential to build robotic systems capable of automated informed descision making.
@@ -353,6 +353,55 @@ a robotic agent needs to employ noise filters to extract the underlaying signal 
 
 In conclusion, object recognition capabilites, with robustness to noise, is required to build systems that operate in natural environemnts. Object recognition coupled with an ability to model and reason about the state of the environment allows a robotic system to make automated informed descisions. Automated informed descision making in conjunction with automous actuation paves the way for a robotic system to be fully autonomous. Fully autonomous systems can act independently without any human support in remote natural environments. Such systems can ease the strain on human work force by taking up tasks that are physically challenging or risky for a human to perform.
 
+%================================================================================================================
+\section{Approach Overview}
+
+Since we have established that object recognition in noisy environments is critical for robot autonomy, the rest
+of this disseration will propose a series of techniques designed to solve the object recognition problem in noisy environments.
+Furthermore, since operation in natural environment is typically characterized by noisy sensor measurements, we choose
+underwater object recognition as the primary domain to conduct the experimental vaidation for all the approaches discussed in this disseratation.
+The rest of this section will offer a brief overview of the different object recognition techniques developed as a part of this 
+dissertation along with insights on the problems they address.
+
+Recognizing submerged subway cars from seabed images was the first application that initiated the need for 
+an object recognition technique capable of operating in noisy seabed images. Since recognizing subway cars can be reduced 
+to detecting rectangles, eigen-ratio based shape descriptors with in-built \gls{rst} invariance was the candidate technique tested
+to solve this specific object recognition problem. Eigen-value based shape descriptors were successful in detecting 
+simple shapes like rectangles from images.
+However several shortcomings of eigen-value shape descriptors with regards to operating in noisy domains and dealing with objects with complex shape profiles were exposed. Chapter~\ref{chap:eigen} of this disseratation offers a detailed treatment of the eigen value shape descriptors and the results of the subway car recognition problem they were tested on.
+
+When the scope of the object recognition problem was expanded from simple shapes like rectangles to underwater organisms characterized by complex profiles,
+the shortcomings of eigen-value shape descriptors became more apparent. The primary application domain that drove the design of this object recognition system 
+was scallop recognition system 
+capable of automated scallop enumeration to support benthic survey efforts through images collected from an \gls{auv}. To support this 
+scallop population assessment effort,
+a multi-layered object recognition system capable of recognising objects from noisy natural images was proposed. The method was capable of detecting 60-75\% of scallops. This method was expressly designed to deal with noise introduced by non-uniform lighting, low resolution images and large levels of speckle noise, that previous scallop recognition efforts were not equipped to handle. Chapter~\ref{chap:scallop_recog} talks in detail about this multi-layered object recognition framework.
+
+Despite the ability of the multi-layered object recognition framework proposed in \ref{chap:scallop_recog} to detect objects from noisy images, there were 
+several instances of false positives in the ensuing detections. This prompted the need for a classification technique that can recognize object will lesser
+false positives. One way to accomplish this was to merge information multiple views of an object before determining its identity. The details involved in this
+multi-view object recognition approach is discussed in Chapter~\ref{chap:dist_des}.
+
+During the course of development of these object recognition algorithms, the need for a low-cost research platform 
+that can be used as a test bed to evaluate different object recognition algorithms was realized.
+In response to this, CoopROV, a low cost underwater \gls{rov} was developed. CoopROV's specifications and 
+design procedure is discussed in Chapter~\ref{cooprov}.
+
+%================================================================================================================
+\section{Dissertation Organization}
+
+The rest of this dissertation is organized as follows 
+\begin{enumerate*}[label=(\roman*)] 
+  \item Chapter~\ref{chap:eigen} discusses the eigen-value shape descriptors and the subway car detection problem they were evaluated on.
+  \item The multi-layered object recognition technique developed in response to the requirement automated scallop survey effort 
+  is discussed Chapter~\ref{chap:scallop_recog}.
+  \item This is followed by the muli-view object recognition technique that allows to combine information from multiple views 
+  of a target object to decrease false positives seen in the multi-layered object recognition technique.
+  \item Chapter~\ref{sec:cooprov} provides details on the underwater \gls{rov} designed as a research to act as a test bed for object recognition algorithms.
+  \item Finally, Chapter~\ref{chap:conclusion} expresses the insights gleaned during the course of development of the different object recognition techniques designed to deal with noisy natural images and possible future directions that can be explored.
+\end{enumerate*}
+
+%================================================================================================================
 \printglossary[type=\acronymtype]                  
 \include{bibtex}   % This file (bibtex.tex) contains the text
                    % for a bibliography if using BibTeX with
