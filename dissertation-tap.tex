@@ -12,41 +12,40 @@
 % No special character or commands can be used for the PDF definition; 
 % use the [options] paramater to specify a different title or author 
 % to remove special characters or commands like \\ for example.
-\title[First Line of Title Second Line of Title]{First Line of Title\\
-Second Line of Title}
-\author{Author}
+\title[Object Recognition in Noisy Natural Images]{Object Recognition in Noisy Natural Images}
+\author{Prasanna Kannappan}
 \type{dissertation}
 \degree{Doctor of Philosophy}
-\majorfieldtrue\majorfield{Major}
-\degreedate{Semester Year}
+\majorfieldtrue\majorfield{Mechanical Engineering}
+\degreedate{Winter 2017}
 % Optional PDF properties
-\keywords{Keyord,Keyword,Keyword}
-\subject{Subject}
+\keywords{robotics, computer vision, object recognition, underwater image analysis, natural images}
+\subject{Object recognition in Noisy Natural Images}
 
 \maketitlepage % Generates Title Page
 
 \begin{approvalpage}
-\chair{Xxxx Xxxx, Highest Degree}{Chair of the Department of Xxxx}
-\dean{Xxxx Xxxx, Highest Degree}{Dean of the College of Xxxx}
+\chair{Suresh G. Advani, Ph.D.}{Chair of the Department of Mechanical Engineering}
+\dean{Babatunde A. Ogunnaike, Ph.D.}{Dean of the College of Engineering}
 \end{approvalpage}
 
 \begin{signedpage} % Up to 4 signatures
-\profmember{Xxxx Xxxx, Highest Degree}
-\member{Xxxx Xxxx, Highest Degree}
-\member{Xxxx Xxxx, Highest Degree}
-\member{Xxxx Xxxx, Highest Degree}
+\profmember{Herbert G. Tanner, Ph.D.}
+\member{Ioannis Poulakakis, Ph.D.}
+\member{Christopher Rasmussen, Ph.D.}
+\member{Guoquan Huang, Ph.D.}
 \end{signedpage}
 
 % For additional signatures beyond 4, uncomment and use
-% \begin{signedpagecont}
+ \begin{signedpagecont}
+ \member{Arthur Trembanis, Ph.D.}
 % \member{Xxxx Xxxx, Highest Degree}
-% \member{Xxxx Xxxx, Highest Degree}
-% \end{signedpagecont}
+ \end{signedpagecont}
 
 \begin{front} % Starts front material (Roman style page numbers)
 
 \prefacesection{Acknowledgements}
-%\input{acknowl} % This file (acknowl.tex) contains the text
+\input{acknowl} % This file (acknowl.tex) contains the text
                 % for the acknowledgments or type text here.
 
 
@@ -66,7 +65,7 @@ Second Line of Title}
 \maketocloflot
 
 \prefacesectiontoc{Abstract}
-%\input{abstract} % This file (abstract.tex) contains the text
+\input{abstract} % This file (abstract.tex) contains the text
                  % for an abstract or type text here.
 
 \end{front}
