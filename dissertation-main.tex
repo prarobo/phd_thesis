@@ -21,29 +21,32 @@
 \usepackage{multirow}
 \usepackage{tabularx}
 \usepackage{multicol}
+\usepackage{notoccite}
 
 \makeglossaries
 \graphicspath{{fig/}}
 \include{acronym_list}
-               
+
 \begin{document}
 \hypersetup{pageanchor=false}
 \include{dissertation-tap}
-                   % This file (dissertation-tap.tex) contains the Title
-                   % and Approval Page information for a dissertation.
 \hypersetup{pageanchor=true}
 
-% \include{chap_dissertation_eigen}
+\include{chap_dissertation_intro}
 
-% \include{chap_dissertation_underwater_animal_lit}
+\include{chap_dissertation_eigen}
 
-% \include{chap_dissertation_scallop}
+\include{chap_dissertation_underwater_animal_lit}
 
-% \include{chap_dissertation_cooprov}
+\include{chap_dissertation_scallop}
 
-% \include{bibtex}	 % This file (bibtex.tex) contains the text
-                   % for a bibliography if using BibTeX with
-                   % sample.bib
+\include{chap_dissertation_distance_descriptor}
+
+\include{chap_dissertation_cooprov}
+
+\include{chap_dissertation_conclusion}
+
+\include{bibtex}
                                       
 \printglossary[type=\acronymtype]                  
                           
