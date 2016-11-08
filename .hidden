@@ -9,6 +9,7 @@ dissertation-tap.aux
 chap_dissertation_scallop.aux
 chap_dissertation_eigen.aux
 chap_dissertation_conclusion.aux
+chap_distance_descriptor.aux
 dissertation-main.acn
 chap_scallop.acn
 chap_underwater_animal_lit.acn
@@ -18,6 +19,7 @@ chap_distance_descriptor.acn
 chap_conclusion.acn
 chap_cooprov.acn
 chap_eigen.acn
+chap_distance_descriptor.bbl
 dissertation-main.bbl
 chap_eigen.glo
 dissertation-main.glo
@@ -31,9 +33,12 @@ chap_disseratation_cooprov.glo
 chap_cooprov.log
 chap_dissertation_scallop.log
 thesis_ref.log
+chap_dissertation_intro.log
 chap_distance_descriptor.log
+chap_dissertation_distance_descriptor.log
 dissertation-main.log
 acknowl.log
+chap_dissertation_conclusion.log
 chap_conclusion.log
 chap_eigen.log
 chap_scallop.log
@@ -96,6 +101,7 @@ chap_intro.acr
 chap_eigen.acr
 chap_distance_descriptor.acr
 dissertation-main.blg
+chap_distance_descriptor.blg
 chap_scallop.tex.backup
 abstract.tex.backup
 thesis_ref.bib.backup
