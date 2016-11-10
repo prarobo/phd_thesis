@@ -64,6 +64,8 @@ To identify \emph{difficult-to-spot} objects like scallops from low resolution u
 %========================================================================================
 \section{Introduction}
 
+Recognizing marine organisms, like scallops, is a challenging problem. A previously introduced approach, named eigen-value based shape descriptors (in Chapter~\ref{chap:eigen}), is incapable of utilizing textural information. Thus, eigen-value shape descriptors are unsuitable for recognizing organisms with prominent textural markers. Sensitivity to discretization noise, exhibited by Eigen-value based shape descriptors is another factor that discourages their use in noisy natural images. The multi-layered object recognition approach discussed in this chapter combines both shape and textural cues to recognize objects. This framework is also expressly designed to deal with noise present in images. A scallop enumeration problem is used as a means to validate this multi-layered approach.
+
 The sea scallop \textit{(Placopecten magellanicus)} fishery in the 
 US EEZ (Exclusive Economic Zone) of the northwest Atlantic Ocean has been, and still is, one of 
 the most valuable fisheries in the United States. 
@@ -93,7 +95,7 @@ The workflow of this scallop recognition framework involves 4 processing layers:
 customized \gls{tdva} pre-processing, robust image 
 segmentation, and object classification and false positive filtering layers. 
 
-The value of the proposed approach in this disseration is primarily in  providing a novel engineering solution to a real-world problem with economic
+The value of the proposed approach in this dissertation is primarily in  providing a novel engineering solution to a real-world problem with economic
 and societal significance, which goes beyond the particular domain of scallop population
 assessment, and can possibly extend to other problems of environmental monitoring,
 or even defense (e.g.\ mine detection).  
@@ -109,12 +111,144 @@ offers an efficient tool to benthic habitat specialists for processing
 large image datasets.
 
 In the this chapter, we discuss the details of the multi-layered scallop recognition system  
-\cite{prasanna_med, prasanna_aslo, prasanna_igi}. This chapter also lists information about the data collection effort that provided the scallop data for the scallop enumeration survey. Finally, an in depth comparison of the differences between this multi-layered framework and an earlier scallop recognition work \cite{dawkings13} is discussed. For an overview of the existing literature on other scallop recognition work, refer to Chapter~\ref{chap:animal_lit}.
+\cite{prasanna_med, prasanna_aslo, prasanna_igi}. This chapter also lists information about the data collection effort that provided the scallop data for the scallop enumeration survey. Finally, an in depth comparison of the differences between this multi-layered framework and an earlier scallop recognition work \cite{dawkings13} is discussed.
+
+%========================================================================================
+\section{Background}
+
+\subsection{Underwater Animal Recognition}
+\label{sec:animal_lit}
+
+In natural settings, living organisms often tend to blend into their environments to evade detection via camouflage. Webster's thesis work \cite{webster} provides a detailed exposition on the visual camouflage mechanisms adopted by animals to blend into their background. Under such circumstances of camouflage, there are very limited visual cues that can be used to identify animals. Even in the presence of visual cues, the task of identifying animals from natural scenes is shown to be a cognitively challenging and complex task \cite{wichmann}.
+
+Previous efforts to detect animals like plankton~\cite{mcgavin_plankton, stelzer_rotifier}, clam~\cite{forrest_clam} and a range of other benthic megafauna~\cite{schoening} exist. Most of these methods here are specialized to a specific species, or only tested in controlled environments. In some cases, the methods require specialized apparatus (like in the plankton recognition studies~\cite{mcgavin_plankton, stelzer_rotifier}). 
+A series of automated tools like specialized color correction, segmentation and classification modules along with some level of manual expert support, can be combined identification of several marine organisms like sea anemones and sponges from natural image datasets~\cite{schoening}. 
+
+The existing techniques for marine animal recognition can be broadly divided into methods devised for identifying mobile organisms and methods for sedentary organisms. The former category is useful in dealing with a wide range of sea organisms like the varied species of fish that swim through water. The latter category is less studied. It includes identifying sedentary marine animals like scallops, corrals and sponges. Both categories present their own set of challenges. In the rest of this section we visit the techniques relevant to moving animals and show how they are different from the methods employed for sedentary animals. An overview of the existing literature on recognizing sedentary animals follows, with special emphasis on methods developed for identifying scallops.
+
+%========================================================================================
+
+\subsubsection{Methods for Recognition of Moving Underwater Organisms}
+
+Recognizing and counting mobile marine life like fish~\cite{spampinato, edgington, williams} and studies in aquaculture \cite{zion} have been attempted. The recurring theme in these efforts involves the use of stationary cameras to detect the presence of moving species, provided that the background can be described by a prior model. This technique of assuming a known background, and using changes in the background as an evidence for the presence of a moving object entering the field of view of a sensor, is called background subtraction. In the marine species identification case, any changes to the background are assumed to be caused by a moving marine organism. The pixels in the image that deviate from the background model can be labeled as the pixels belonging to the organism.
+
+Once a marine organism is detected through background subtraction, then other computer vision or machine learning techniques can be used to classify the organism into a specific species based on its visible characteristics. This classification task can be achieved through conventional machine learning approaches. For instance the salmon species classification algorithm developed by Williams et al. \cite{williams} uses active contours to model the shape of the fish before comparing these contours to known salmon species. However, if the pixels corresponding to the organism are contaminated by high levels of noise, a specialized technique that is robust to noise might be required.
+
+Background subtraction requires a mathematical model that describes the distribution of background pixels. In an underwater setting, such a background model can only be obtained if the camera is stationary and is observing a static background, or in the case that the background model represents , the evolution of which over time can be captured through a mathematical model. Such well defined background models are not always available. An opportunity to employ the background subtraction-based techniques arises in underwater environments with stationary fixtures designed to study a specific underwater location. In instances where such stationary arrangement of cameras is not available, background subtraction is inapplicable due to the lack of a background model.
+
+%========================================================================================
+
+\subsubsection{Methods for Recognition of Sedentary Underwater Organisms}
+
+Since sedentary marine animals like scallops do not typically move (unless chased by a predator), a mobile robotic platform is required to traverse subsea relief to image and recognize those marine animals. Extending background subtraction to work with mobile robotic platforms is challenging, since the motion of the platform causes changes in its background. Generating a model for the background to perform background subtraction in these cases is problematic. This makes the task of detecting sedentary organisms with moving sensors even more challenging than detecting moving organism with stationary sensors. The lack of background model in these cases motivates the development of a foreground model. If a foreground model is available, the task of detecting an organism can be realized as a search for pixels satisfying the foreground model in the image.
+
+Detecting an organism typically involves segmenting all pixels of the organism, in order for one to classify the organism into a known category. 
+The motion-based segmentation of marine animals that involves subtracting a known model of background from a snapshot of the environment, followed by attributing the pixels with non-zero values to the foreground is inapplicable in cases where the background model does not exist. 
+Furthermore, the task of segmentation can be challenging in noisy images with weak edges, since the boundary pixels of the foreground object cannot be easily distinguished from background pixels.
+
+Thus, the lack of background model makes background subtraction problematic. This leads to the need for techniques that depend on foreground models, and use of other features to detect and segment organisms from the background. This task becomes even more complicated if the organism does not present significant visual cues that make it distinctive from the background, as in the case of creatures exhibiting camouflage. High levels of noise or unpredictable environmental variables could also significantly affect the effectiveness of any animal recognition mechanism.
+
+%========================================================================================
+
+\subsubsection{Scallop Recognition Methods}
+
+
+There are several aspects that make scallop recognition challenging.
+Scallops, especially when viewed in low resolution, do not provide features
+that would clearly distinguish them from their natural environment.  This
+presents a major challenge in designing an automated identification process 
+based on visual data.  To compound this problem, visual data collected
+from the species' natural habitat contain a
+significant amount of speckle noise.
+Some scallops are also partially or almost completely
+covered by sediment, obscuring the scallop shell features.
+A highly robust detection mechanism is required to overcome these impediments.
+
+There is a range of previously developed methods specialized for scallop recognition 
+\cite{dawkings13,guomundsson,enomoto9,enomoto10,fearn, prasanna_med, prasanna_aslo, prasanna_igi} 
+that operate on different assumptions, either with regards to the environmental conditions or the quality of data.
+Existing approaches to automated scallop counting in artificial environments
+ \cite{enomoto9, enomoto10} employ a detection mechanism based on intricate distinguishing features 
+like fluted patterns in scallop shells and exposed shell rim of scallops, respectively.
+Imaging these intricate scallop shell features might
+be possible in artificial scallop beds with stationary cameras and 
+minimal sensor noise, but this level of detail 
+is difficult to obtain from low resolution images of scallops in their natural environment. 
+A major factor that contributes to the poor image resolution is the fact that sometimes the image of a target
+is captured several meters away from it. 
+Overcoming this problem by operating an underwater vehicle much closer to the ocean floor 
+will adversely impact the image footprint (i.e. area covered by an image) and increase the risk of damaging the vehicle.
+
+Furthermore, existing work on scallop detection \cite{dawkings13, guomundsson} in their natural
+environment is limited to small datasets (often less than 100 images). 
+A sliding window approach has been used \cite{guomundsson} to focus the search for the presence of scallops. The large number of overlapping windows that need to be processed per image raises scalability concerns if this method were to operate 
+on a large dataset containing millions of images. Additionally, the small number of natural images used as a test set raises questions about the generalizibility of this method and its ability to function under varied environmental conditions.
+The work by Dawkins \cite{dawkings13} is more detailed in its treatment of the natural environmental conditions spanning the scallop habitat. The images used here are collected using a towed camera system that minimizes noise, a fact which greatly enhances the performance of the machine learning and computer vision algorithms. Despite the elaborate imaging setup designed to minimize noise, the results reported are derived only from a few tens to hundreds of images.
+It is not clear if those machine learning methods \cite{dawkings13} can extend to noisy image data captured by \gls{auv}s.
+From these studies alone, it is not clear if such methods can be used effectively
+in cases of large datasets comprising several thousand seabed images.
+An interesting example of machine-learning methods applied to the
+problem of scallop detection \cite{fearn} 
+utilizes the concept of \gls{buva}.
+The approach is promising but it does not use any ground truth for validation.  
+
+There is more work \cite{prasanna_med, prasanna_aslo, prasanna_igi} that offers a multi-layered object recognition framework validated on
+a natural image dataset for scallop recognition application. 
+The main emphasis there (and in this dissertation) is to develop a technique that can work on low quality noisy sensor data collected using \gls{auv}s.
+The other objective is to build a scalable architecture that can operate on 
+large image datasets in the order of thousands to millions of images
+and can be generalized for recognizing other marine organisms.
+A detailed comparison between the scallop recognition approaches in Dawkins et al. \cite{dawkings13} and Kannappan et al.\cite{prasanna_igi} is provided in Section~\ref{sec:scallop_discussion}.
+
+%========================================================================================
+
+\subsection{Motivation for a Generalized Automated Object Recognition Tool}
+
+Understanding the parameters that affect the habitat of underwater organisms is of interest to marine
+biologists and government officials charged with regulating a multi-million dollar fishing industry. Dedicated
+marine surveys are needed to obtain population assessments. One traditional scallop survey method, still
+in use today,  is a dredge-based survey. Dredge-based surveys have been extensively used for scallop population density
+assessment \cite{nefsc}. The process involves dredging part of the ocean floor, and manually counting the
+animals of interest found in the collected material. In addition to being invasive and
+detrimental to the creatures’ habitat \cite{jenkins}, these methods have accuracy
+limitations and can only generalize population numbers up to a certain extent.
+There is a need for non-invasive and accurate survey alternatives.
+
+The availability of a range of robotic systems in form of towed camera and Autonomous Underwater Vehicle
+(auv) systems offer possibilities for such non-invasive alternatives. Optical imaging surveys using underwater
+robotic platforms provide higher data densities. The large volume of image data (in the order of thousands
+to millions of images) can be both a blessing and a curse. On one hand, it provides a detailed picture of
+the species habitat; on the other requires extensive manpower and time to process the data.
+While improvements in robotic platform and image acquisition systems have enhanced our capabilities to
+observe and monitor the habitat of a species, we still lack the required arsenal of data processing tools. This
+need motivates the development of automated tools to analyze benthic imagery data containing scallops.
+
+One of the earliest video based surveys of scallops \cite{rosenkratz} reports that
+it took from 4 to 10 hours of tedious manual analysis in order to review and process one hour
+of collected seabed imagery. The report suggests that an automated computer technique for
+processing of the benthic images would be a great leap forward; to this time, however, no
+such system is available. There is anecdotal evidence of in-house development efforts by the
+HabCam group \cite{gallager} towards an automated system but as yet no such
+system has emerged to the community of researchers and managers. A recent manual count
+of our AUV-based imagery dataset indicated that it took an hour to process 2080 images,
+whereas expanding the analysis to include all benthic macro-organisms reduced the rate
+down to 600 images/hr \cite{walker}. Another manual counting effort \cite{oremland} 
+reports a processing time of 1 to 10 hours per person to process each image tow
+transect (the exact image number per tow was not reported). The same report indicates that
+the processing time was reduced to 1–2 hours per tow by subsampling 1\% of the images.
+
+Future benthic studies can be geared towards increasing data densities with the help of robotic optical surveys.
+It is clear that the large datasets, in the order of millions of images, generated by these surveys will impose 
+a strain on researchers if the images are to be process manually. This strongly suggests the need for automated tools
+that can process underwater image datasets. Motivated by the need to reduce human effort, Schoening \cite{schoening} has proposed a range of tools that
+can be generalized to organisms like sea-anemones. With an additional requirement of being able to work with low-resolution noisy underwater images, 
+a generalized multi-layered framework that can be used to detect and count underwater organisms has been proposed \cite{prasanna_med, prasanna_aslo, prasanna_igi}. This method has been evaluated on a scallop population assessment effort on a dataset containing over 8000 images, the details of which is the subject of this chapter.
 
 %========================================================================================
 \section{Preliminaries}
 
 \subsection{Visual Attention}
+\label{sec:visual_attn}
 
 Visual attention is a neuro-physiologically inspired machine learning method \cite{koch}
 that attempts to mimic the human brain function in its ability to rapidly single out
@@ -192,7 +326,7 @@ $w_{\bar{O}}$ for orientation, the saliency map can be expressed mathematically 
 \end{equation}
 %
 
-In a methodological variant of visual attention known as BUVA, all streams are weighted equally: $w_{cs}$ is constant for all $c\in\{2,3,4\}$,  $s=c+\delta$ ($\delta\in\{3,4\}$)
+In a methodological variant of visual attention known as \gls{buva}, all streams are weighted equally: $w_{cs}$ is constant for all $c\in\{2,3,4\}$,  $s=c+\delta$ ($\delta\in\{3,4\}$)
 and $w_{\bar{I}}=w_{\bar{C}}=w_{\bar{O}}$. 
 A winner-takes-all neural network is typically used \cite{itti,walther} 
 to compute the maxima, or fixations, on this map---other discrete optimization methods are of course possible.
@@ -226,7 +360,7 @@ Equations \eqref{eq:learning_wts_all} are used for the selection of weights $w_{
 \begin{figure}
       \centering
       \includegraphics[width=0.6\textwidth]{scallopred}
-      \caption[Seabed image with scallops shown in red circles]{\cite{prasanna_aslo} Seabed image with scallops shown in red circles}
+      \caption[Seabed image with scallops shown in red circles]{Seabed image with scallops shown in red circles}
       \label{fig:scallopred}
 \end{figure} 
 
@@ -258,7 +392,7 @@ The results from using elementary image processing methods like thresholding and
       \caption{}
       \label{subfig:edge_scallop}
   \end{subfigure}
-\caption[Scallop features]{\cite{prasanna_igi} (a) Scallop with yellowish tinge and dark crescent; (b) Scallop with yellowish tinge and bright shell rim crescent; (c) Scallop with no prominent crescents and texturally identical to the background (d) Scallop sample after thresholding; (c) Scallop sample after edge detection.
+\caption[Scallop features]{(a) Scallop with yellowish tinge and dark crescent; (b) Scallop with yellowish tinge and bright shell rim crescent; (c) Scallop with no prominent crescents and texturally identical to the background (d) Scallop sample after thresholding; (c) Scallop sample after edge detection.
 }
 \end{figure}
 
@@ -485,7 +619,7 @@ to sift automatically through the body of imagery data, and focus on
 regions of interest that are more likely to contain scallops.
 The process of designing the \gls{tdva} algorithm is described below.
 
-The first step is a small-scale, bottom-up (BUVA) saliency computation. 
+The first step is a small-scale, \gls{buva} based saliency computation. 
 The saliency computation is performed 
 on a collection of randomly selected 243 annotated images, collectively containing 300 scallops.
 This collection constitutes the \emph{learning set}.
@@ -1042,6 +1176,7 @@ There is no clear reason for the better performance of this pipeline on dataset 
 
 %========================================================================================
 \section{Discussion}
+\label{sec:scallop_discussion}
 
 The four-layer automated scallop detection approach discussed
 here works on feature-poor, low-light imagery and yields
@@ -1165,6 +1300,8 @@ This idea is supported by inspection of recently collected high-resolution scall
 We believe that even without major changes to the current framework, testing on higher resolution images could produce much better performance outcomes (both in terms of detection and false positive rates). 
 The unavailability of ground truth for the new datasets makes it hard to provide evidence of any performance at this point. 
 It is also expected that using more targeted color and light correction methods \cite{dawkings13} as a part of image preprocessing will improve results.
+
+Building robust object classification techniques capable of handling noisy data, is one of the primary directions where improvement is necessary. It is possible that a single noisy image of a target object might lack the information needed to accurately recognize it. With this in mind, a multi-view object recognition approach that combines information from multiple images is proposed in Chapter~\ref{chap:distdes}.
 
 %========================================================================================
 
