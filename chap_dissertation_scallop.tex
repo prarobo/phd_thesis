@@ -8,6 +8,8 @@
 
 \section{Introduction}
 
+Recognizing marine organisms, like scallops, is a challenging problem. A previously introduced approach, named eigen-value based shape descriptors (in Chapter~\ref{chap:eigen}), is incapable of utilizing textural information. Thus, eigen-value shape descriptors are unsuitable for recognizing organisms with prominent textural markers. Sensitivity to discretization noise, exhibited by Eigen-value based shape descriptors is another factor that discourages their use in noisy natural images. The multi-layered object recognition approach discussed in this chapter combines both shape and textural cues to recognize objects. This framework is also expressly designed to deal with noise present in images. A scallop enumeration problem is used as a means to validate this multi-layered approach.
+
 The sea scallop \textit{(Placopecten magellanicus)} fishery in the 
 US EEZ (Exclusive Economic Zone) of the northwest Atlantic Ocean has been, and still is, one of 
 the most valuable fisheries in the United States. 
@@ -35,7 +37,7 @@ In response to this need for an automated scallop enumeration system, a multi-la
 recognition framework was proposed \cite{prasanna_med, prasanna_aslo, prasanna_igi}.
 The workflow of this scallop recognition framework involves 4 processing layers:
 customized \gls{tdva} pre-processing, robust image 
-segmentation, and object classification and false positive filtering layers. 
+segmentation, object classification and false positive filtering layers. 
 
 The value of the proposed approach in this dissertation is primarily in  providing a novel engineering solution to a real-world problem with economic
 and societal significance, which goes beyond the particular domain of scallop population
@@ -64,7 +66,7 @@ In the this chapter, we discuss the details of the multi-layered scallop recogni
 In natural settings, living organisms often tend to blend into their environments to evade detection via camouflage. Webster's thesis work \cite{webster} provides a detailed exposition on the visual camouflage mechanisms adopted by animals to blend into their background. Under such circumstances of camouflage, there are very limited visual cues that can be used to identify animals. Even in the presence of visual cues, the task of identifying animals from natural scenes is shown to be a cognitively challenging and complex task \cite{wichmann}.
 
 Previous efforts to detect animals like plankton~\cite{mcgavin_plankton, stelzer_rotifier}, clam~\cite{forrest_clam} and a range of other benthic megafauna~\cite{schoening} exist. Most of these methods here are specialized to a specific species, or only tested in controlled environments. In some cases, the methods require specialized apparatus (like in the plankton recognition studies~\cite{mcgavin_plankton, stelzer_rotifier}). 
-A series of automated tools like specialized color correction, segmentation and classification modules along with some level of manual expert support, can be combined identification of several marine organisms like sea anemones and sponges from natural image datasets~\cite{schoening}. 
+A series of automated tools like specialized color correction, segmentation and classification modules along with some level of manual expert support, can be combined to perform identification of several marine organisms like sea anemones and sponges from natural image datasets~\cite{schoening}. 
 
 The existing techniques for marine animal recognition can be broadly divided into methods devised for identifying mobile organisms and methods for sedentary organisms. The former category is useful in dealing with a wide range of sea organisms like the varied species of fish that swim through water. The latter category is less studied. It includes identifying sedentary marine animals like scallops, corrals and sponges. Both categories present their own set of challenges. In the rest of this section we visit the techniques relevant to moving animals and show how they are different from the methods employed for sedentary animals. An overview of the existing literature on recognizing sedentary animals follows, with special emphasis on methods developed for identifying scallops.
 
@@ -76,13 +78,13 @@ Recognizing and counting mobile marine life like fish~\cite{spampinato, edgingto
 
 Once a marine organism is detected through background subtraction, then other computer vision or machine learning techniques can be used to classify the organism into a specific species based on its visible characteristics. This classification task can be achieved through conventional machine learning approaches. For instance the salmon species classification algorithm developed by Williams et al. \cite{williams} uses active contours to model the shape of the fish before comparing these contours to known salmon species. However, if the pixels corresponding to the organism are contaminated by high levels of noise, a specialized technique that is robust to noise might be required.
 
-Background subtraction requires a mathematical model that describes the distribution of background pixels. In an underwater setting, such a background model can only be obtained if the camera is stationary and is observing a static background, or in the case that the background model represents , the evolution of which over time can be captured through a mathematical model. Such well defined background models are not always available. An opportunity to employ the background subtraction-based techniques arises in underwater environments with stationary fixtures designed to study a specific underwater location. In instances where such stationary arrangement of cameras is not available, background subtraction is inapplicable due to the lack of a background model.
+Background subtraction requires a mathematical model that describes the distribution of background pixels. In an underwater setting, such a background model can only be obtained if the camera is stationary and is observing a static background. Additionally, there can also be cases where the evolution of a non-static background over time can be captured through a mathematical model. Such well defined background models are not always available. An opportunity to employ the background subtraction-based techniques arises in underwater environments with stationary fixtures designed to study a specific underwater location. In instances where such stationary arrangement of cameras is not available, background subtraction is inapplicable due to the lack of a background model.
 
 %========================================================================================
 
 \subsubsection{Methods for Recognition of Sedentary Underwater Organisms}
 
-Since sedentary marine animals like scallops do not typically move (unless chased by a predator), a mobile robotic platform is required to traverse subsea relief to image and recognize those marine animals. Extending background subtraction to work with mobile robotic platforms is challenging, since the motion of the platform causes changes in its background. Generating a model for the background to perform background subtraction in these cases is problematic. This makes the task of detecting sedentary organisms with moving sensors even more challenging than detecting moving organism with stationary sensors. The lack of background model in these cases motivates the development of a foreground model. If a foreground model is available, the task of detecting an organism can be realized as a search for pixels satisfying the foreground model in the image.
+Since sedentary marine animals like scallops do not typically move (unless chased by a predator), a mobile robotic platform is required to traverse sub-sea relief to image and recognize those marine animals. Extending background subtraction to work with mobile robotic platforms is challenging, since the motion of the platform causes changes in its background. Generating a model for the background to perform background subtraction in these cases is problematic. This makes the task of detecting sedentary organisms with moving sensors even more challenging than detecting moving organism with stationary sensors. The lack of background model in these cases motivates the development of a foreground model. If a foreground model is available, the task of detecting an organism can be realized as a search for pixels satisfying the foreground model in the image.
 
 Detecting an organism typically involves segmenting all pixels of the organism, in order for one to classify the organism into a known category. 
 The motion-based segmentation of marine animals that involves subtracting a known model of background from a snapshot of the environment, followed by attributing the pixels with non-zero values to the foreground is inapplicable in cases where the background model does not exist. 
@@ -156,8 +158,7 @@ detrimental to the creatures’ habitat \cite{jenkins}, these methods have accur
 limitations and can only generalize population numbers up to a certain extent.
 There is a need for non-invasive and accurate survey alternatives.
 
-The availability of a range of robotic systems in form of towed camera and Autonomous Underwater Vehicle
-(auv) systems offer possibilities for such non-invasive alternatives. Optical imaging surveys using underwater
+The availability of a range of robotic systems in form of towed camera and \gls{auv} systems offer possibilities for such non-invasive alternatives. Optical imaging surveys using underwater
 robotic platforms provide higher data densities. The large volume of image data (in the order of thousands
 to millions of images) can be both a blessing and a curse. On one hand, it provides a detailed picture of
 the species habitat; on the other requires extensive manpower and time to process the data.
@@ -168,11 +169,11 @@ need motivates the development of automated tools to analyze benthic imagery dat
 One of the earliest video based surveys of scallops \cite{rosenkratz} reports that
 it took from 4 to 10 hours of tedious manual analysis in order to review and process one hour
 of collected seabed imagery. The report suggests that an automated computer technique for
-processing of the benthic images would be a great leap forward; to this time, however, no
+processing of benthic images would be a great leap forward; to this time, however, no
 such system is available. There is anecdotal evidence of in-house development efforts by the
 HabCam group \cite{gallager} towards an automated system but as yet no such
 system has emerged to the community of researchers and managers. A recent manual count
-of our AUV-based imagery dataset indicated that it took an hour to process 2080 images,
+of our \gls{auv}-based imagery dataset indicated that it took an hour to process 2080 images,
 whereas expanding the analysis to include all benthic macro-organisms reduced the rate
 down to 600 images/hr \cite{walker}. Another manual counting effort \cite{oremland} 
 reports a processing time of 1 to 10 hours per person to process each image tow
@@ -334,7 +335,7 @@ The results from using elementary image processing methods like thresholding and
       \caption{}
       \label{subfig:edge_scallop}
   \end{subfigure}
-\caption[Scallop features]{(a) Scallop with yellowish tinge and dark crescent; (b) Scallop with yellowish tinge and bright shell rim crescent; (c) Scallop with no prominent crescents and texturally identical to the background (d) Scallop sample after thresholding; (c) Scallop sample after edge detection.
+\caption[Scallop features]{(\subref{subfig:dcrescent_scallop}) Scallop with yellowish tinge and dark crescent; (\subref{subfig:bcrescent_scallop}) Scallop with yellowish tinge and bright shell rim crescent; (\subref{subfig:thresh_scallop}) Scallop sample after thresholding; (\subref{subfig:edge_scallop}) Scallop sample after edge detection.
 }
 \end{figure}
 
@@ -356,10 +357,10 @@ project (Titled: ``A Demonstration Sea Scallop Survey of the
 Federal Inshore Areas of the New York Bight using a Camera Mounted Autonomous Underwater
  Vehicle'')
 was a proof-of-concept project that successfully used a digital, rapid-fire camera integrated 
-to a Gavia AUV, to collect a continuous record of photographs for mosaicking, 
+to a Gavia \gls{auv}, to collect a continuous record of photographs for mosaicking, 
 and subsequent scallop enumeration. 
 In July 2011, transects were completed in the northwestern waters of the mid-Atlantic 
-Bight at depths of 25-50 m.  The AUV continuously photographed the 
+Bight at depths of 25-50 m.  The \gls{auv} continuously photographed the 
 seafloor along each transect at a constant distance of 2\,m above the seafloor.  
 Parallel sets of transects were spaced as close as 4\,m.  
 Georeferenced images were manually analyzed for the presence of sea scallops 
@@ -378,19 +379,19 @@ divided into eight blocks or strata}
 
 In the 2011 demonstration survey, the federal inshore scallop grounds from Shinnecock, New York to Ocean View, Delaware, was divided into eight blocks or strata (as shown in Figure~\ref{fig:strata}).  
 The \textit{f/v Christian and Alexa} served as the surface support platform 
-from which a Gavia AUV (see Figure~\ref{fig:gavia_auv}) was deployed and recovered.  The AUV 
+from which a Gavia \gls{auv} (see Figure~\ref{fig:gavia_auv}) was deployed and recovered.  The \gls{auv} 
 conducted photographic surveys of the seabed for a continuous duration of approximately
 3 hours during each dive, repeated 3--4 times in each stratum, with
 each stratum involving roughly 10 hours of imaging and an area of about $45\,000$ 
 m$^2$.
-The AUV collected altitude (height above the seabed) and 
+The \gls{auv} collected altitude (height above the seabed) and 
 attitude (heading, pitch, roll) data, allowing the georectification of each image 
 into scaled images for size and counting measurements.  During the 2011 pilot study 
 survey season, over $250\,000$ images of the seabed were collected. 
 These images were analyzed in the University of Delaware's Coastal Sediments, Hydrodynamics and Engineering 
 Laboratory for estimates of scallop
 abundance and size distribution.  The \textit{f/v Christian and Alexa} provided 
-surface support, and made tows along the AUV transect to ground-truth the presence of 
+surface support, and made tows along the \gls{auv} transect to ground-truth the presence of 
 scallops and provide calibration for the size distribution. 
 Abundance and sizing estimates were computed manually for each image using a GUI-based 
 digital sizing software. 
@@ -402,7 +403,7 @@ allowed it to be incorporated into existing benthic image classification systems
 % to existing benthic image classification systems (HabCam mip \citep{Dawkings13}).
 
 During this proof of concept study, in each stratum the f/v
-\textit{Christian and Alexa} made one 15-minute dredge tow along the AUV 
+\textit{Christian and Alexa} made one 15-minute dredge tow along the \gls{auv} 
 transect to ground-truth the presence of scallops and other fauna, 
 and provide calibration for the size distribution.  The vessel was maintained 
 on the dredge track by using Differential GPS.  
@@ -415,9 +416,9 @@ After dredging, the catch was sorted, identified, and weighed.
 Length-frequency data were obtained for the caught scallops.  
 This information was recorded onto data logs and then entered into a laptop computer database aboard ship for comparison to the camera image estimates.
 
-The mobile platform of the AUV provided a more expansive and continuous coverage 
+The mobile platform of the \gls{auv} provided a more expansive and continuous coverage 
 of the seabed compared to traditional fixed drop camera systems or towed camera systems. 
-In a given day, the AUV surveys covered about $60\,000$\;m$^2$ of seabed 
+In a given day, the \gls{auv} surveys covered about $60\,000$\;m$^2$ of seabed 
 from an altitude of 2\;m above the bed, simultaneously producing broad sonar 
 swath coverage and measuring the salinity, temperature, dissolved oxygen, and 
 chlorophyll-a  in the water.
@@ -426,20 +427,20 @@ chlorophyll-a  in the water.
 \subsection{Sensors and Hardware}
 \label{section:equipment}
 
-The University of Delaware AUV (Figure \ref{fig:gavia_auv}) was used to collect 
+The University of Delaware \gls{auv} (Figure \ref{fig:gavia_auv}) was used to collect 
 continuous images of the benthos, and simultaneously map the texture and topography of 
 the seabed. Sensor systems associated with this vehicle include: \begin{enumerate*}[label=(\arabic*):, start=1] 
 \item a 500\;kHz GeoAcoustics GeoSwath Plus phase measuring bathymetric 
 sonar; \item a 900/1800\;kHz Marine Sonic dual-frequency high-resolution 
 side-scan sonar; 
-\item a Teledyne Rd Instruments 1200 kHz acoustic doppler velocity log (DVL)/Acoustic doppler current profiler (ADCP); 
+\item a Teledyne Rd Instruments 1200 kHz acoustic \gls{dvl}/\gls{adcp}; 
 \item a Kearfott T-24 inertial navigation system; 
 \item an Ecopuck flntu combination fluorometer / turbidity sensor; 
 \item a Point Grey Scorpion model 20SO digital camera and LED strobe array; 
 \item an Aanderaa Optode dissolved oxygen sensor; 
 \item a temperature and density sensor; and, \item an altimeter. \end{enumerate*} 
 Each sensor separately records time and spatially stamped data with frequency and spacing.
-The AUV is capable of very precise dynamic positioning, adjusting to the variable 
+The \gls{auv} is capable of very precise dynamic positioning, adjusting to the variable 
 topography of the seabed while maintaining a constant commanded altitude offset.
 
 \begin{figure}
@@ -450,21 +451,21 @@ topography of the seabed while maintaining a constant commanded altitude offset.
   \begin{subfigure}[]{0.6\textwidth}
       \includegraphics[width=\textwidth,natwidth=690,natheight=518]{auv_image}    
   \end{subfigure}
-  \caption{Schematics and image of the Gavia AUV }
+  \caption{Schematics and image of the Gavia \gls{auv} }
   \label{fig:gavia_auv}
 \end{figure}
 
 \subsection{Data Collection}
 
 The data was collected over two separate five-day cruises in July 2011.   
-In total, 27 missions were run using the AUV to photograph the seafloor (For list of missions see Table \ref{tab:mission_list}).  
-Mission lengths were constrained by the 2.5 to 3.5 hour battery life of the AUV.  
-During each mission, the AUV was instructed to follow a constant height of 2\;m
+In total, 27 missions were run using the \gls{auv} to photograph the seafloor (For list of missions see Table \ref{tab:mission_list}).  
+Mission lengths were constrained by the 2.5 to 3.5 hour battery life of the \gls{auv}.  
+During each mission, the \gls{auv} was instructed to follow a constant height of 2\;m
 above the seafloor.  In addition to the $250\,000$ images that were collected, the 
-AUV also gathered data about water temperature, salinity, dissolved oxygen, 
+\gls{auv} also gathered data about water temperature, salinity, dissolved oxygen, 
 geoswath bathymetry, and side-scan sonar of the seafloor.
 
-The camera on the AUV, a Point Grey Scorpion model 20SO (for camera specifications see Table \ref{tab:camera_specs}), 
+The camera on the \gls{auv}, a Point Grey Scorpion model 20SO (for camera specifications see Table \ref{tab:camera_specs}), 
 was mounted inside the nose module of the vehicle.
 It was focused at 2\;m, and captured
 images at a resolution of $800\times600$.  The camera lens had a horizontal viewing 
@@ -537,7 +538,7 @@ Image Sensor	&8.923 mm Sony ccd\\
 Horizontal Viewing Angle	&44.65 degrees (underwater)\\
 Mass	&125 g\\
 Frame rate	&3.75 fps\\
-Memory	&Computer housed in AUV nose cone\\
+Memory	&Computer housed in \gls{auv} nose cone\\
 Image Resolution	&800 $\times$ 600\\
 Georeferenced metadata	&Latitude, longitude, altitude, depth\\
 Image Format	&jpeg\\[2pt]\bottomrule[1pt]
@@ -685,7 +686,7 @@ $270\times270$ pixels; more than $91$\% of the scallops are accommodated inside 
       \caption{}
       \label{subfig:regcircle}
   \end{subfigure}
-\caption[Segmentation layer process flow]{\subref{subfig:fixationwindow} Fixation window from layer I; \subref{subfig:edgeimg} Edge segmented image; \subref{subfig:graphimg} graph-cut segmented image; \subref{subfig:regboundry} Region boundaries obtained when the edge segmented image is used as a mask over the graph-cut segmented image boundaries; \subref{subfig:regcircle} circle fitted on the extracted region boundaries.
+\caption[Segmentation layer process flow]{(\subref{subfig:fixationwindow}) Fixation window from layer I; (\subref{subfig:edgeimg}) Edge segmented image; (\subref{subfig:graphimg}) graph-cut segmented image; (\subref{subfig:regboundry}) Region boundaries obtained when the edge segmented image is used as a mask over the graph-cut segmented image boundaries; (\subref{subfig:regcircle}) circle fitted on the extracted region boundaries.
 }
 \label{fig:segmentation_levels}
 \end{figure*}
@@ -698,7 +699,7 @@ This processing layer consists of
 three separate sub-layers: edge based segmentation (involves basic morphological 
 operations like smoothing, adaptive thresholding and edge detection), graph-cut 
 segmentation, and shape fitting. 
-The flow of the segmentation process for a typical fixation window containing  scallop is illustrated in Figure~\ref{fig:segmentation_levels}. 
+The flow of the segmentation process for a typical fixation window containing a scallop is illustrated in Figure~\ref{fig:segmentation_levels}. 
 Figure~\ref{subfig:fixationwindow} shows a fixation window.
 Edge-based segmentation on this window yields the edge segmented image of Figure~\ref{subfig:edgeimg}.
 At the same time, graph-cut segmentation process \cite{shi} is applied on the 
@@ -753,7 +754,7 @@ in manual counts  used as ground truth \cite{walker} have a measurement error of
 
 The binary classification problem solved in this layer consists of identifying specific features in the images which mark the presence of scallops.
 These images are obtained by a using a 
-camera at the nose of the AUV, illuminated by a strobe light close to its tail 
+camera at the nose of the \gls{auv}, illuminated by a strobe light close to its tail 
 (mounted to the hull of the control module at an oblique angle to the camera).
 Our hypothesis is that due to this camera-light configuration, scallops appear in the images with 
 a bright crescent at the lower part of its perimeter and a dark crescent at the top---a shadow.
@@ -797,7 +798,7 @@ The lower standard deviation found in the intensity maps of the crescents on the
       \caption{}
       \label{subfig:stddev_quadrant}
   \end{subfigure}
-  \caption[Mean and variance map of scallops in each quadrant]{\subref{subfig:mean_quadrant} Mean map of scallops in each quadrant \subref{subfig:stddev_quadrant} Standard deviation map of scallops in each quadrant.
+  \caption[Mean and variance map of scallops in each quadrant]{(\subref{subfig:mean_quadrant}) Mean map of scallops in each quadrant; (\subref{subfig:stddev_quadrant}) Standard deviation map of scallops in each quadrant.
   Red corresponds to higher numeric values and blue correspond to lower numeric values.}
   \label{fig:mean_stddev_quadrant}
 \end{figure*}
@@ -833,8 +834,8 @@ The value in the selected $46$ bins from mean map forms a $46$-dimensional featu
       \caption{}
       \label{subfig:mask_scallop}
   \end{subfigure}
-  \caption[Illustration of scallop profile hypothesis]{Intensity statistics and mask for a region centered at a pixel with coordinates $(470,63)$ in the image \subref{subfig:mean_scallop} Map of mean intensity; \subref{subfig:stddev_scallop} Map of intensity standard deviation;
-  \subref{subfig:mask_scallop} Mask applied to remove background points.}
+  \caption[Illustration of scallop profile hypothesis]{Intensity statistics and mask for a region centered at image coordinates $(470,63)$: (\subref{subfig:mean_scallop}) Map of mean intensity; (\subref{subfig:stddev_scallop}) Map of intensity standard deviation;
+  (\subref{subfig:mask_scallop}) Mask applied to remove background points.}
   \label{fig:scallop_learning_mask}
 \end{figure}
 
@@ -909,8 +910,8 @@ Evident in Figure~\ref{subfig:precision_recall} is the natural trade-off between
       \caption{}
       \label{subfig:template_hist}
   \end{subfigure}
-  \caption[Precision-Recall curves for Classification Layer]{\subref{subfig:precision_recall} Precision-Recall curve with $D_\mathsf{thresh}$ shown as
-  a vertical line; \subref{subfig:template_hist} 
+  \caption[Precision-Recall curves for Classification Layer]{(\subref{subfig:precision_recall}) Precision-Recall curve with $D_\mathsf{thresh}$ shown as
+  a vertical line; (\subref{subfig:template_hist}) 
   Histogram of template match of segmented scallop objects.}
   \label{detection-curves}
 \end{figure*}
@@ -1118,6 +1119,7 @@ There is no clear reason for the better performance of this pipeline on dataset 
 
 %========================================================================================
 \section{Discussion}
+\label{sec:scallop_discussion}
 
 The four-layer automated scallop detection approach discussed
 here works on feature-poor, low-light imagery and yields
@@ -1188,11 +1190,11 @@ foreground and background are easily separable.
     \end{subfigure}
     }
   \end{minipage}
-  \caption[Comparision of scallop recognition results with existing methods]{Representative samples of different imagery data on which
+  \caption[Comparison of scallop recognition results with existing methods]{Representative samples of different imagery data on which
   scallop detection algorithms may be called to operate on.  Figures \ref{subfig:dawkins}
   and \ref{subfig:typical},
   show an image containing a single scallop from the dataset used by Dawkins et al.\cite{dawkings13} (used with permission from the authors) 
-  and the datasets used in this paper respectively.
+  and the datasets used in this chapter respectively.
   A magnified
   view of a scallop cropped from Figure \ref{subfig:dawkins} 
   and \ref{subfig:typical} can be seen in Figures \ref{subfig:dawkins_crop} 
@@ -1216,7 +1218,7 @@ Compared to another alternative approach that uses a series of bounding boxes to
 Additionally, the detection rates there \cite{guomundsson} were based on a dataset of just 20 images; statistically significant differences in performance rates between that approach and the one reported here would need much larger image samples.
 
 %========================================================================================
-\section{Conclusions and Futurework}
+\section{Conclusions}
 
 With the increasing use of underwater robotic platforms, terrabytes of imagery datasets featuring millions of images are becoming commonplace. 
 The current practice of manual processing of these underwater images introduces a bottleneck. 
