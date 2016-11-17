@@ -549,7 +549,6 @@ specimen $k$ belongs to class $q$. Finally, the binary classification task that 
 %================================================================================================================
 \section{Results}
 
-
 The data collected during the experiments involve images from 11 specimens of both orange class and strawberry class. Data on each specimen included images taken from 13 different heights, starting at 32 inches from the ground, down to 8 inches, away from the ground. The imaging experiment was conducted in a test tank filled with water using the imaging rig shown in Figure~\ref{fig:im_rig}. More details of the data collection process can be found in Section~\ref{sec:distdes_data_collection}. Following the data collection process, the feature distribution sequence $F_{s}$ for strawberry class, and $F_{o}$  for orange class, are computed using the procedure discussed in Section~\ref{sec:distdes_feature_distr}; the results are shown in Figure~\ref{fig:feat_distr}.
 
 As part of an initial validation step, both learning and testing is done on the entire dataset of 22 specimens. The learning procedure
@@ -650,7 +649,6 @@ Since this approach relies on multiple images for each specimen, imaging time an
 
 %================================================================================================================
 \section{Conclusion}
-
 
 The machine learning method developed here offers a way to perform binary classification using global descriptors generated from multiple images of a specimen. This technique was successful in recognizing all the 22 specimens available in our dataset of 11 strawberries and 11 oranges. The performance of this technique on this (admittedly small) dataset is the absolute theoretical maximum that can be obtained for a machine learning technique. This exceptional performance, despite the presence of noise and several uncontrolled variables in the data collection process, is indicative of the robustness of this algorithm. Additionally, the ability of this algorithm to perform object recognition via histogram based global descriptors, avoids segmentation entirely during the testing phase. Since segmentation can be problematic in noisy images where the edges of objects is hard to determine, doing away with segmentation is a great incentive to adopt this technique for noisy images.
 %================================================================================================================
