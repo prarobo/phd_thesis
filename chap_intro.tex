@@ -168,7 +168,7 @@
 \section{Benefits of Robotic Systems}
 
 Robotic systems are useful for tasks that come under the purview of the ``\emph{3D}'s''--dirty, dull and dangerous. 
-Currently, manufacturing and assembly lines, where tasks of repetitive nature are places where robotic systems are ubiquitous. ``Dirty'' tasks like traversing tunnels or sewers are being slowly delegated to tele-operated robots. 
+Currently, manufacturing and assembly lines, where tasks are of repetitive nature, are places where robotic systems are ubiquitous. ``Dirty'' tasks like traversing tunnels or sewers are being slowly delegated to tele-operated robots. 
 The other avenue where robotic systems are being promoted relates to activities deemed dangerous for humans, like deep sea exploration, operation in radiation, biologically, or chemically contaminated zones, or conflict areas. With enabling new advances in the field of robotics, robots are beginning to take over new roles to complement and assist humans in various ways.
 
 Though advances in robotic systems have enabled robots to outperform humans in certain complicated tasks that are usually considered to require intelligence, such as competing in games like Go \cite{deepmind} and Chess \cite{deepblue}, 
@@ -185,17 +185,17 @@ is aiming for full autonomy of robotic systems to minimize the strain and demand
 
 Tele-operation offers an avenue for humans to leverage the benefits posed by a robotic system to perform activities 
 that are \emph{dirty} or \emph{dangerous} without being physically present on the site of operation. During tele-operation, the human operator 
-typically operates the robot from a safe distance away from the point of activity of the robot. This safe distance could range from a few meters to over a few hundred kilometers, based on the nature of the activity. For instance, in case of a tunnel or sewer inspection, the operator can stay a few meters outside the structure and drive a robot that is traversing inside. On the other hand, in case of weaponized drones like the predator \cite{predator}, the operator typically controls the drone from a safe remote command center, several hundred kilometers from the point of action of the drone. Tele-operation allows the operator to process the sensory information collected by the robot and make \emph{informed decisions} for the robot. The robot then translates an \emph{informed decision} into a sequence of actions. The tele-operation solution allows a human operator to safely accomplish her objective 
+typically operates the robot from a safe distance away from the point of activity of the robot. This safe distance could range from a few meters to over a few hundred kilometers, based on the nature of the activity. For instance, in case of a tunnel or sewer inspection, the operator can stay a few meters outside the structure and drive a robot that is traversing inside. On the other hand, in case of weaponized drones like the predator \cite{predator}, the operator typically controls the drone from a safe remote command center, several hundred kilometers from the point of action of the drone. Tele-operation allows the operator to process the sensory information collected by the robot and make \emph{informed decisions} for the robot. The robot then translates an \emph{informed decision} into a sequence of actions. The tele-operation solution allows a human operator to safely accomplish an objective 
 without being in discomfort or risk. 
 
-Tele-operation brings together durability of a robotic agent and human intelligence to provide a powerful solution to solve problems ranging from deep sea exploration to safe operation in combat zones. Despite its attractiveness, tele-operation still requires the constant attention and involvement of a human operator. Additionally, since the human operator is not present, a reliable communication channel is essential to remotely control the robot. If the communication links are unreliable, or subject to willful sabotage by an enemy in a war-zone, the robotic system can get diconnected from the human operator. Such communication interruptions could possibly result is mission failure. The constant need for a human operator and the need for reliable communication channels are some of the shortcomings that limit the applicabilities of tele-operated systems.
+Tele-operation brings together durability of a robotic agent and human intelligence to provide a powerful solution to solve problems ranging from deep sea exploration to safe operation in combat zones. Despite its attractiveness, tele-operation still requires the constant attention and involvement of a human operator. Additionally, since the human operator is not present, a reliable communication channel is essential to remotely control the robot. If the communication links are unreliable, or subject to willful sabotage by an enemy in a war-zone, the robotic system can get disconnected from the human operator. Such communication interruptions could possibly result is mission failure. The constant need for a human operator and the need for reliable communication channels are some of the shortcomings that limit the applicability of tele-operated systems.
 
-If the objective is to move towards decreasing the strain on human workforce, it is imperative to decrease the reliance of robots on humans for operation. This emphasizes the need for automated descision-making in robotic systems. Furthermore, building automated, decision-making capable robotic systems obviates the need for reliable communication channels. Thus improving the cognitive capabilities to enable automated decision-making is essential to build robust self-sufficient robotic systems.
+If the objective is to move towards decreasing the strain on human workforce, it is imperative to decrease the reliance of robots on humans for operation. This emphasizes the need for automated decision-making in robotic systems. Furthermore, building automated, decision-making capable robotic systems obviates the need for reliable communication channels. Thus improving the cognitive capabilities to enable automated decision-making is essential to build robust self-sufficient robotic systems.
 
 %================================================================================================================
 \section{Components of Automated Informed Decision-Making}
 
-The first component of informed descision-making is gathering the information needed to make a decision. 
+The first component of informed decision-making is gathering the information needed to make a decision. 
 For a robotic system,
 information about the environment and the objective it needs to accomplish, dictate the decisions it makes. 
 Collecting sensory data, is the prime 
@@ -214,7 +214,7 @@ to actively participate in the robot's planned actions.
 
 The ability of a robot to detect and label objects in its environment is an important step towards gaining semantic understanding of its environment.
 Since semantic understanding of a scene dictates the ability of a robotic system to make informed decisions, object recognition capability
-is central to automated informed descision-making.
+is central to automated informed decision-making.
 
 %================================================================================================================
 \section{Automated Decision-Making in Natural Environment}
@@ -231,10 +231,8 @@ Section~\ref{sec:nat_environ_def} states the definition of natural environment i
 
 The word \emph{Natural Environment} in this dissertation refers to uncontrolled and unstructured real world environments, with scenes containing predominantly naturally occurring objects; the robot has 
 no direct control over any environment parameter. (However we assume that the robot can use accessories, like artificial light sources, to influence the state of the environment and thereby enhance sensor measurements.) 
-Due to the wide variability in natural environments, 
-they are very challenging to model.
 Natural environments are typically challenging to model due to the unpredictability in the environment parameters and unknown noise parameters. 
-Having described a natural environment as such, deep sea or forest landscapes with vegetation as some prime examples.
+Deep sea or forest landscapes with vegetation are some prime examples of such natural environments.
 
 
 \subsection{Robotic Systems in Natural Environments}
@@ -277,7 +275,7 @@ In the specific case of imaging applications that employ a camera sensor in natu
 into \begin{enumerate*}[label=(\roman*)] \item noise inherent to the sensor, \item noise associated with data collection setup, and \item noise introduced by the environment. \end{enumerate*} For instance, in the case of an underwater imaging application using an \gls{auv}, the noise associated with the imaging setup constitutes noise introduced due to vibration in the motion of the \gls{auv}. Additionally, the environmental parameters associated with deep sea environments could introduce noise which could further degrade the sensor measurements. Further details about the different noise sources of this type is discussed in the rest of this section.
 
 In an imaging application, some noise is inherent to the camera sensor. Studies \cite{irie} have analyzed the various constituents of noise 
-in a \gls{ccd} video-camera. According the these studies, the sources of noise in a camera can further be divided into 3 categories, namely: illumination-independent noise, illumination-dependent noise, and digital processing noise. After further analysis, this work suggests that there are four major noise sources that contribute to the camera sensor noise. Out of these four sources, \emph{readout noise} and \emph{fixed pattern noise} are constant illumination-independent noise sources. One of the factors that determine the value of readout noise and fixed pattern noise is the temperature of the sensor. The remaining two primary contributing noise sources, \emph{photo-shot noise} and \emph{photo-response non-uniformity noise} are illumination-dependent noise sources. Its important to note that, illumination dependent noise sources the intensity of noise is a function of the intensity value of the pixel. Modeling all the noise sources for different camera sensors poses a challenge in itself.
+in a \gls{ccd} video-camera. According the these studies, the sources of noise in a camera can further be divided into three categories, namely: illumination-independent noise, illumination-dependent noise, and digital processing noise. After further analysis, this work suggests that there are four major noise sources that contribute to the camera sensor noise. Out of these four sources, \emph{readout noise} and \emph{fixed pattern noise} are constant illumination-independent noise sources. One of the factors that determine the value of readout noise and fixed pattern noise is the temperature of the sensor. The remaining two primary contributing noise sources, \emph{photo-shot noise} and \emph{photo-response non-uniformity noise} are illumination-dependent noise sources. Its important to note that, in illumination dependent noise sources the intensity of noise is a function of the intensity value of the pixel. Modeling all the noise sources for different camera sensors poses a challenge in itself.
 
 Another source of noise is the physical setup which holds the camera. This setup could be an \gls{auv} or just a stationary imaging rig. Such physical structures that hold the camera can introduce noise in form of vibration or motion of the structure during imaging. Such motion could lead to out-of-focus or blurred pictures. There could also be cases where the physical setup can produce artifacts like shadows that could affect the sensor measurements. The few examples mentioned here are not all encompassing. Each imaging setup needs to be studied to identify the possible sources of noise it can introduce into sensor measurements.
 
@@ -293,7 +291,7 @@ a camera. Modeling these environment variables and accounting for the noise indu
 information from the sensor data.
 
 Any object recognition method has to account for the different noise sources that can affect sensor measurements. Especially in case of natural environments, environmental conditions typically act as major noise sources. 
-In any case, it is important to design appropriate ways to mitigate the effect of noise 
+In any case, it is important to take appropriate steps to mitigate the effect of noise 
 in the sensor measurements before useful information can be extracted. 
 Even in the absence of accurate models of different noise sources, it is important to attempt to model the noise seen in the sensor data
 and devise filters to extract the underlying signal from recorded sensor measurements.
@@ -316,7 +314,7 @@ by Jaffe \cite{jaffe} describes different existing filter models available to de
 In most cases, modeling all the environment parameters is intractable. Hence identifying the dominant noise source or simply identifying the nature of noise affecting the images are possible alternatives.
 For instance, in scallop recognition \cite{prasanna_aslo}, the \gls{auv} images used were corrupted by speckle noise, hence a median filter \cite{despeckle} was used to minimize noise without elaborate modeling of noise sources.
 
-Since extracting useful information from sensor data is essential for object recognition, noise filters constitute a core component of object recognition systems. The first stage in noise filtering involves identifying noise sources and modeling them. Accurate modeling of noise sources in often challenging, hence most systems use simplified models that only capture dominant noise sources. Since there are several filtering mechanisms available, filter design often involves human intuition to pick appropriate filters that can handle the noise pattern seen. Ultimately, noise filtering allows distilling useful information for informed descision-making.
+Since extracting useful information from sensor data is essential for object recognition, noise filters constitute a core component of object recognition systems. The first stage in noise filtering involves identifying noise sources and modeling them. Accurate modeling of noise sources in often challenging, hence most systems use simplified models that only capture dominant noise sources. Since there are several filtering mechanisms available, filter design often involves human intuition to pick appropriate filters that can handle the noise pattern seen. Ultimately, noise filtering allows distilling useful information for informed decision-making.
 
 %================================================================================================================
 \section{Object Recognition in Natural Environments}
@@ -330,8 +328,8 @@ often do not transfer to other application domains. An example of object recogni
 
 Building specialized object recognition frameworks that translate between different application domains is challenging. 
 At the same time, it is equally challenging to build a generalized object recognition method that can accommodate wide variations in environmental conditions. 
-One approach to this problem is the use of Multi-layered object recognition frameworks. Multi-layered object recognition frameworks with dedicated modules for dealing with different sub-problems, like filtering and hypothesis testing, allow easy customization of layers based on application requirements. 
-Thus Multi-layered frameworks allow researchers to configure specialized layers that are custom designed for their object recognition problem. The scallop
+One approach to this problem is the use of \emph{multi-layered} object recognition frameworks. Multi-layered object recognition frameworks with dedicated modules for dealing with different sub-problems, like filtering and hypothesis testing, allow easy customization of layers based on application requirements. 
+Thus multi-layered frameworks allow researchers to configure specialized layers that are custom designed for their object recognition problem. The scallop
 recognition framework \cite{prasanna_aslo, prasanna_igi} offers one such multi-layered framework. Another interesting example is the set of underwater object recognition tools \cite{schoening} used for recognizing organisms like sea-anemones.
 
 In conclusion, multi-layered object recognition frameworks offer a flexible solution to automated object recognition problems. Customizing a multi-layered object recognition framework to work with a specific problem amounts to picking the right layers that would be effective in solving the problem. The layers used can be adaptations of existing computer vision or machine learning tools. For cases where there is no such off-the-shelf solution, specialized layers can be engineered to fit the problem. A researcher can thus build a multi-layered framework with existing tools in tandem with custom designed solutions to solve specialized object recognition applications.
@@ -340,33 +338,33 @@ In conclusion, multi-layered object recognition frameworks offer a flexible solu
 \section{Object Recognition as a path to Robot Autonomy}
 
 Object recognition capabilities allow a robotic system to identify and label the different components in its environment. Such understanding of individual objects in the robot's surrounding is required to build a semantic model that captures the relationship between the different components in an environment.
-Cognitive reasoning relies on such semantic models to determine the best possible action for a robot given its knowledge about the state of the environment. This is why object recognition capabilities are essential to building robotic systems capable of automated informed descision-making.
+Cognitive reasoning relies on such semantic models to determine the best possible action for a robot given its knowledge about the state of the environment. This is why object recognition capabilities are essential to building robotic systems capable of automated informed decision-making.
 
 The task of object recognition and understanding the state of the environment becomes challenging in the presence of noise. Sensor measurements
 that are supposed to measure the state of the environment could be corrupted due to the presence of noise. In order to avoid being misled by bad measurements,
 a robotic system needs to employ noise filters to extract the underlaying signal from sensor measurements. Noise filters become a core component of the perception system that aggregates sensor measurements to gain knowledge about the state of the environment. Building accurate models of the surroundings despite the presence of noise is key to the success of a robotic system that is intended to operate autonomously in natural environments.
 
-In conclusion, object recognition capabilities, with robustness to noise, are required for building systems that operate in natural environments. Object recognition, coupled with an ability to model and reason about the state of an environment, allows a robotic system to make automated informed decisions. Automated informed descision-making, in conjunction with autonomous actuation, paves the way for robot autonomy. Autonomous systems can act independently without any human support in a range of environments. Such systems can ease the strain on human work force by taking up tasks that are physically challenging or risky for a human to perform.
+In conclusion, object recognition capabilities, with robustness to noise, are required for building systems that operate in natural environments. Object recognition, coupled with an ability to model and reason about the state of an environment, allows a robotic system to make automated informed decisions. Automated informed decision-making, in conjunction with autonomous actuation, paves the way for robot autonomy. Autonomous systems can act independently without any human support in a range of environments. Such systems can ease the strain on human work force by taking up tasks that are physically challenging or risky for a human to perform.
 
 %================================================================================================================
 \section{Approach Overview}
 
 Given that object recognition in noisy environments is critical for robot autonomy, this dissertation proposes a series of techniques designed to address the object recognition problem in noisy environments.
 We choose
-underwater object recognition as the primary domain to conduct the experimental validationfor the approach, since operation in natural environment is typically characterized by noisy sensor measurements.
+underwater object recognition as the primary domain to conduct the experimental validation for this approach, since operation in natural environment is typically characterized by noisy sensor measurements.
 The rest of this section offers a brief overview of the different object recognition techniques developed as a part of this overall approach, along with insights on the particular problems they address.
 
 Recognizing submerged subway cars from seabed images was the first application that motivated the development of the need for 
 an object recognition technique capable of operating in noisy seabed images. Since recognizing subway cars can be reduced 
-to detecting rectangles, eigen-value based shape descriptors with in-built \gls{rst} invariance, were the candidate technique tested
+to detecting rectangles, eigen-value based shape descriptors with in-built \gls{rst} invariance, were tested
 to solve this specific object recognition problem. Eigen-value based shape descriptors were successful in detecting 
 simple shapes like rectangles from images.
-During the course of the study, several shortcomings of eigen-value shape descriptors were exposed: Poor performance in noisy domains, and inability to identify objects characterized by complex shape profiles given constraints on image discretization. Chapter~\ref{chap:eigen} of this dissertation offers a detailed treatment of the eigen value shape descriptors, and the results of the subway car recognition problem they were tested on.
+During the course of the study, several shortcomings of eigen-value shape descriptors were exposed: poor performance in noisy domains, and inability to identify objects characterized by complex shape profiles given constraints on image discretization. Chapter~\ref{chap:eigen} of this dissertation offers a detailed treatment of the eigen value shape descriptors, and the results of the subway car recognition problem they were tested on.
 
 When the scope of the object recognition problem was expanded from simple shapes like rectangles to underwater organisms characterized by complex profiles,
 eigen-value shape descriptors were no longer a viable choice. The primary application driver for the design of the multi-layered object recognition system in Chapter~\ref{chap:scallop_recog} was the need for a 
 scallop recognition system in image-based benthic survey efforts capable of automated scallop enumeration. 
-The multi-layered object recognition system thus designed was capable of recognizing objects from noisy natural images. The method detected 60-75\% of scallops, present in a dataset of over 8000 images. One important point here is that the method was explicitly designed to deal with noise introduced by non-uniform lighting, low resolution, and large levels of speckle noise, that previous scallop recognition efforts were not equipped to handle. Chapter~\ref{chap:scallop_recog} elaborates on the multi-layered object recognition framework developed to meet this challenge.
+The multi-layered object recognition system thus designed was capable of recognizing objects from noisy natural images. This method detected 60--70\% of scallops, present in a dataset of over 8000 images. One important point here is that the method was explicitly designed to deal with noise introduced by non-uniform lighting, low resolution, and large levels of speckle noise, that previous scallop recognition efforts were not equipped to handle. Chapter~\ref{chap:scallop_recog} elaborates on the multi-layered object recognition framework developed to meet this challenge.
 
 Despite this multi-layered object recognition framework proposed in Chapter~\ref{chap:scallop_recog}, being able to detect objects from noisy images, there were 
 several instances of false positives in the ensuing detections. This prompted the need for a classification technique that can recognize objects with smaller percentage of
