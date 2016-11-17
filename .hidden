@@ -1,9 +1,11 @@
 dissertation-main.aux
 bibtex.aux
+chap_cooprov.aux
 chap_conclusion.aux
 chap_dissertation_cooprov.aux
 chap_dissertation_intro.aux
 chap_dissertation_distance_descriptor.aux
+chap_intro.aux
 chap_dissertation_underwater_animal_lit.aux
 acronym_list.aux
 chap_eigen.aux
@@ -24,8 +26,10 @@ chap_cooprov.acn
 chap_eigen.acn
 chap_distance_descriptor.bbl
 dissertation-main.bbl
+chap_cooprov.bbl
 chap_eigen.bbl
 chap_scallop.bbl
+chap_intro.bbl
 chap_conclusion.bbl
 chap_eigen.glo
 dissertation-main.glo
@@ -113,6 +117,8 @@ dissertation-main.blg
 chap_distance_descriptor.blg
 chap_scallop.blg
 chap_conclusion.blg
+chap_intro.blg
+chap_cooprov.blg
 chap_scallop.tex.backup
 abstract.tex.backup
 thesis_ref.bib.backup
