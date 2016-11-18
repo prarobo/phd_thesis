@@ -1,5 +1,5 @@
 %% 
-%% This is file `udthesis.cls', generated on <2013/03/07>
+%% This is file `udthesis.cls', generated on <2016/09/20>
 %% Depends on report.cls, hyperref and hypcap package.
 %% 
 \NeedsTeXFormat{LaTeX2e}
@@ -14,10 +14,11 @@
 \LoadClass{report}
 
 % Automatically load hyperref for rich PDF
+% Added breaklinks to allow hypenation and breaking for long citations
 
 \AtEndOfClass{%
         \usepackage[bookmarksnumbered,linktocpage,colorlinks,%
-        linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}%
+        linkcolor=blue,citecolor=blue,urlcolor=blue,breaklinks]{hyperref}%
         \def\@pdfcreator{LaTeX2e, UDThesis class, hyperref package}%
         \usepackage[all]{hypcap}}
 \AtBeginDocument{%
@@ -164,7 +165,7 @@
 \def\@part[#1]#2{%
     \ifnum \c@secnumdepth >-2\relax
       \refstepcounter{part}%
-      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+      \addcontentsline{toc}{part}{\partname\ \protect\numberline{\thepart}\protect\uppercase{#1}}%
     \else
       \addcontentsline{toc}{part}{#1}%
     \fi
@@ -177,7 +178,7 @@
        \par
        \vskip 20\p@
      \fi
-     \bfseries #2\par}%
+     \bfseries \uppercase{#2}\par}%
     \@endpart}
     
 \renewcommand{\appendix}{\if\app0\def\@chapapp{Appendix}
@@ -193,6 +194,7 @@
 \def\@appendix[#1]#2{\ifnum \c@secnumdepth >\m@ne
  \refstepcounter{chapter}
  \typeout{\@chapapp\space\thechapter.}
+ \phantomsection
  \addcontentsline{toc}{appendix}{\protect\numberline{\thechapter}#1}
  \else\addcontentsline{toc}{chapter}{#1}\fi
  \chaptermark{#1}
@@ -281,9 +283,10 @@
  \begingroup
  \parindent \z@
  \parfillskip -\@pnumwidth
- \hangindent\@tempdima
+ %\hangindent\@tempdima
+ \hangindent 4.1em
  \leavevmode
- {\uppercase{\bfseries #1}}\nobreak\leaders\hbox{$\m@th \mkern \@dotsep
+ {\bfseries #1}\nobreak\leaders\hbox{$\m@th \mkern \@dotsep
 mu.\mkern
  \@dotsep mu$}\hfill \nobreak \hbox to\@pnumwidth{\bfseries\hfil #2}\par
  \endgroup}
@@ -684,8 +687,8 @@ mu.\mkern
 			  \hangindent\wd 1
 	          #2\par} 
 \newcommand{\provost}{\renewcommand{\baselinestretch}{1}\large\normalsize
-	\approval{James G. Richards, Ph.D.}
-    Vice Provost for Graduate and Professional Education\par}
+	\approval{Ann L. Ardis, Ph.D.}
+    Senior Vice Provost for Graduate and Professional Education\par}
 \newcommand{\maketitlebox}{\vbox{\begin{center}\baselineskip\titlebaselineskip
 				  {\bfseries\uppercase\expandafter{\@title}}\end{center}}}
 \newcommand{\makeauthorbox}{\vbox{\begin{center}\baselineskip\titlebaselineskip
