@@ -146,7 +146,7 @@ Detecting an organism typically involves segmenting all pixels of the organism, 
 The motion-based segmentation of marine animals that involves subtracting a known model of background from a snapshot of the environment, followed by attributing the pixels with non-zero values to the foreground is inapplicable in cases where the background model does not exist. 
 Furthermore, the task of segmentation can be challenging in noisy images with weak edges, since the boundary pixels of the foreground object cannot be easily distinguished from background pixels.
 
-Thus, the lack of background model makes background subtraction problematic. This leads to the need for techniques that depend on foreground models, and use of other features to detect and segment organisms from the background. This task becomes even more complicated if the organism does not present significant visual cues that make it distinctive from the background, as in the case of creatures exhibiting camouflage. High levels of noise or unpredictable environmental variables could also significantly affect the effectiveness of any animal recognition mechanism.
+Thus, the lack of background model makes background subtraction problematic. This leads to the need for techniques that depend on foreground models, and the use of other features to detect and segment organisms from the background. This task becomes even more complicated if the organism does not present significant visual cues that make it distinctive from the background, as in the case of creatures exhibiting camouflage. High levels of noise or unpredictable environmental variables could also significantly affect the effectiveness of any animal recognition mechanism.
 
 %========================================================================================
 
@@ -154,7 +154,7 @@ Thus, the lack of background model makes background subtraction problematic. Thi
 
 
 There are several aspects that make scallop recognition challenging.
-Scallops, especially when viewed in low resolution, do not provide features
+Scallops, especially when viewed in low resolution, do not have features
 that would clearly distinguish them from their natural environment.  This
 presents a major challenge in designing an automated identification process 
 based on visual data.  To compound this problem, visual data collected
@@ -179,18 +179,17 @@ is captured several meters away from it.
 Overcoming this problem by operating an underwater vehicle much closer to the ocean floor 
 will adversely impact the image footprint (i.e. area covered by an image) and increase the risk of damaging the vehicle.
 
-Furthermore, existing work on scallop detection \cite{dawkings13, guomundsson} in their natural
-environment is limited to small datasets (often less than 100 images). 
+Furthermore, there exists work on scallop detection \cite{dawkings13, guomundsson, fearn} in their natural
+environments.
+An interesting machine-learning approach applied to the problem of scallop detection \cite{fearn} 
+utilizes the concept of \gls{buva}. This approach is promising but it does not use any ground truth for validation.  
+On the other hand, scallop detection methods \cite{dawkings13, guomundsson} is limited to small datasets (often less than 100 images). 
 A sliding window approach has been used \cite{guomundsson} to focus the search for the presence of scallops. The large number of overlapping windows that need to be processed per image raises scalability concerns if this method were to operate 
-on a large dataset containing millions of images. Additionally, the small number of natural images used as a test set raises questions about the generalizibility of this method and its ability to function under varied environmental conditions.
+on a large dataset containing millions of images. Additionally, the small number of natural images used as a test set raises questions about the generalization of this method and its ability to function under varied environmental conditions.
 The work by Dawkins \cite{dawkings13} is more detailed in its treatment of the natural environmental conditions spanning the scallop habitat. The images used here are collected using a towed camera system that minimizes noise, a fact which greatly enhances the performance of the machine learning and computer vision algorithms. Despite the elaborate imaging setup designed to minimize noise, the results reported are derived only from a few tens to hundreds of images.
 It is not clear if those machine learning methods \cite{dawkings13} can extend to noisy image data captured by \gls{auv}s.
 From these studies alone, it is not clear if such methods can be used effectively
 in cases of large datasets comprising several thousand seabed images.
-An interesting example of machine-learning methods applied to the
-problem of scallop detection \cite{fearn} 
-utilizes the concept of \gls{buva}.
-The approach is promising but it does not use any ground truth for validation.  
 
 There is more work \cite{prasanna_med, prasanna_aslo, prasanna_igi} that offers a multi-layered object recognition framework validated on
 a natural image dataset for scallop recognition application. 
@@ -212,21 +211,22 @@ assessment \cite{nefsc}. The process involves dredging part of the ocean floor, 
 animals of interest found in the collected material. In addition to being invasive and
 detrimental to the creatures’ habitat \cite{jenkins}, these methods have accuracy
 limitations and can only generalize population numbers up to a certain extent.
-There is a need for non-invasive and accurate survey alternatives.
+Hence, there is a need for non-invasive and accurate survey alternatives.
 
-The availability of a range of robotic systems in form of towed camera and \gls{auv} systems offer possibilities for such non-invasive alternatives. Optical imaging surveys using underwater
+The availability of a range of robotic systems in form of towed camera and \gls{auv} systems offer such 
+possibilities for such non-invasive alternatives. Optical imaging surveys using underwater
 robotic platforms provide higher data densities. The large volume of image data (in the order of thousands
 to millions of images) can be both a blessing and a curse. On one hand, it provides a detailed picture of
 the species habitat; on the other requires extensive manpower and time to process the data.
 While improvements in robotic platform and image acquisition systems have enhanced our capabilities to
 observe and monitor the habitat of a species, we still lack the required arsenal of data processing tools. This
-need motivates the development of automated tools to analyze benthic imagery data containing scallops.
+need serves as motivation to develop automated tools to analyze benthic imagery data containing scallops.
 
 One of the earliest video based surveys of scallops \cite{rosenkratz} reports that
 it took from 4 to 10 hours of tedious manual analysis in order to review and process one hour
 of collected seabed imagery. The report suggests that an automated computer technique for
-processing of benthic images would be a great leap forward; to this time, however, no
-such system is available. There is anecdotal evidence of in-house development efforts by the
+processing of benthic images would be a great leap forward. However, there is no
+such system is available until now. There is anecdotal evidence of in-house development efforts by the
 HabCam group \cite{gallager} towards an automated system but as yet no such
 system has emerged to the community of researchers and managers. A recent manual count
 of our \gls{auv}-based imagery dataset indicated that it took an hour to process 2080 images,
@@ -238,7 +238,7 @@ the processing time was reduced to 1–2 hours per tow by subsampling 1\% of the
 
 Future benthic studies can be geared towards increasing data densities with the help of robotic optical surveys.
 It is clear that the large datasets, in the order of millions of images, generated by these surveys will impose 
-a strain on researchers if the images are to be process manually. This strongly suggests the need for automated tools
+a strain on the researchers if the images are to be process manually. This strongly suggests the need for automated tools
 that can process underwater image datasets. Motivated by the need to reduce human effort, Schoening \cite{schoening} has proposed a range of tools that
 can be generalized to organisms like sea-anemones. With an additional requirement of being able to work with low-resolution noisy underwater images, 
 a generalized multi-layered framework that can be used to detect and count underwater organisms has been proposed \cite{prasanna_med, prasanna_aslo, prasanna_igi}. This method has been evaluated on a scallop population assessment effort on a dataset containing over 8000 images, the details of which is the subject of this chapter.
@@ -364,7 +364,7 @@ Equations \eqref{eq:learning_wts_all} are used for the selection of weights $w_{
 \end{figure} 
 
 A visual scallop population assessment process involves identifying these animals in image datasets.
-A representative example of an image from the dataset we had to work with is shown in  Figure~\ref{fig:scallopred} (scallops marked within red circles).
+A representative example of an image from the dataset we had to work with is shown in  Figure~\ref{fig:scallopred}, where the scallops are marked within red circles.
 A general solution to automated image annotation might not necessarily be effective for the dataset at hand.
 The need here is to identify algorithms and methods that will work best under \emph{poor} lighting and imaging conditions, characteristic of this particular scallop counting application. 
 The results from using elementary image processing methods like thresholding and edge detection on the images (see Figure~\ref{subfig:thresh_scallop} and \ref{subfig:edge_scallop}) demonstrate the need for a more sophisticated approach (possibly a hybrid combination of several techniques).
@@ -396,7 +396,7 @@ The results from using elementary image processing methods like thresholding and
 \end{figure}
 
 Another challenge, related to the issue of low image resolution and high levels of speckle noise, is the selection of appropriate scallop features that would enable distinguishing between these organisms and other objects. 
-In the particular dataset, one recurrent visual pattern is a dark crescent on the upper perimeter of the scallop shell, which is the shadow cast by the upper open scallop shell produced from the \gls{auv} strobe light (see Figure~\ref{subfig:dcrescent_scallop}). 
+In the particular dataset, one recurrent visual pattern is a dark crescent on the upper perimeter of the scallop shell, which is the shadow cast by the upper open scallop shell that is produced due to the \gls{auv} strobe light (see Figure~\ref{subfig:dcrescent_scallop}). 
 Another pattern that could serve as a feature in this dataset is a bright crescent on the periphery of the scallop, generally associated with the visible interior of the bottom half when the scallop shell is partly open (see Figure~\ref{subfig:bcrescent_scallop}).
 A third pattern may be a yellowish tinge associated with the composition of the scallop image (see Figure~\ref{subfig:bcrescent_scallop}).
 
@@ -531,7 +531,7 @@ Each image was saved in jpeg format, with metadata that included position inform
 (including latitude, longitude, depth, altitude, pitch, heading and roll)  
 and the near-seafloor environmental conditions analyzed in this study.  
 This information is stored in the header file, making the images readily comparable and 
-able to be incorporated into existing \gls{rsa} image databases, such as the 
+ready to be incorporated into existing \gls{rsa} image databases, such as the 
 HabCam database.
 A manual count of the number of scallops in each image was performed and used to obtain overall scallop
 abundance assessment.
@@ -812,8 +812,8 @@ The binary classification problem solved in this layer consists of identifying s
 These images are obtained by a using a 
 camera at the nose of the \gls{auv}, illuminated by a strobe light close to its tail 
 (mounted to the hull of the control module at an oblique angle to the camera).
-Our hypothesis is that due to this camera-light configuration, scallops appear in the images with 
-a bright crescent at the lower part of its perimeter and a dark crescent at the top---a shadow.
+Our hypothesis is that scallops appear in the images with 
+a bright crescent at the lower part of its perimeter and a dark crescent at the top---a shadow, due to this camera-light configuration.
 Though crescents appear in images of most scallops, their prominence and relative position with respect to the scallop varies considerably.
 The hypothesis regarding the origin of the light artifacts implies that the approximate profile and orientation of the crescents is a function of their location in the image.
 
@@ -821,10 +821,10 @@ The hypothesis regarding the origin of the light artifacts implies that the appr
 
 \subsubsection{Scallop Profile Hypothesis} \label{subsubsec:scallop_profile_hypothesis}
 
-A statistical analysis was performed on  a dataset of $3\,706$ manually labeled scallops 
-(each scallop is represented as $(a,b,R)$ 
+A statistical analysis was performed on  a dataset of $3\,706$ manually labeled scallops.
+Here, each scallop is represented as $(a,b,R)$ 
 where $a,b$ are the horizontal and vertical coordinates of the scallop center, 
-and $R$ is its radius). 
+and $R$ is its radius. 
 For this analysis, square windows of length $2.8\times R$ 
 centered on $(a,b)$ were used to crop out regions from the images containing scallops.\footnote{Using a slightly 
 larger window size ($>2\times R$, the size of the scallop) includes
@@ -839,7 +839,7 @@ Scallops whose centers lie within each grid square are segregated.
 The mean (Figure~\ref{subfig:mean_quadrant}) and standard deviation (Figure~\ref{subfig:stddev_quadrant}) 
 of the $11 \times 11$ scallop profiles of all scallops per grid square 
 over the whole dataset of $3\,706$ images was recorded.
-The lower standard deviation found in the intensity maps of the crescents on the side of the scallop facing away from the camera reveal that these artifacts are more consistent as markers compared to the ones closer to the lens. 
+The lower standard deviation found in the intensity maps of the crescents on the scallop-rim facing away from the camera reveal that these artifacts are more consistent as markers compared to the ones closer to the lens. 
 
 
 \begin{figure*}
@@ -863,7 +863,7 @@ The lower standard deviation found in the intensity maps of the crescents on the
 
 \subsubsection{Scallop Profile Learning} \label{subsubsec:scallop_profile_learning}
 
-The statistics of the dataset of $3\,706$ images used to produce Figure~\ref{fig:mean_stddev_quadrant} form a look-up table that represents reference scallop profile (mean and standard deviation maps) 
+The statistics of the dataset of $3\,706$ images, used to build the illustration in Figure~\ref{fig:mean_stddev_quadrant}, form a look-up table that represents reference scallop profile (mean and standard deviation maps) 
 as a function of scallop center pixel location.
 To obtain the reference profile for a pixel location, 
 the statistics from all the scallops whose centers lie inside a $40\times40$ window centered on the pixel is used.
@@ -983,7 +983,7 @@ The intuition behind this is that although median filtering reduces speckle nois
 Avoiding median filtering helps to generate templates that are more accurate than the ones already used in the classification layer.
 
 Based on the observation that the scallop templates are dependent on their position in the image (Figure~\ref{fig:mean_stddev_quadrant}), a new scallop template is generated for each object that is classified as a scallop in Layer III. 
-As indicated before, such an object would be represented by a triplet $(a_o,b_o,R_o)$, where $a_o$ and $b_o$ represent the spatial Cartesian coordinates of object's geometric center, and $R_o$ gives its radius. 
+As indicated earlier, such an object would be represented by a triplet $(a_o,b_o,R_o)$, where $a_o$ and $b_o$ represent the spatial Cartesian coordinates of object's geometric center, and $R_o$ gives its radius. 
 The representative scallop template is now generated from all scallops in the learning set (containing 3\,706 scallops), of which the center is within a $40\times40$ window in the neighborhood of the object center $(a_o,b_o)$. 
 Each of these scallops is then extracted using a window of size $2.5R\times2.5R$ where $R$ is the scallop radius. 
 Since these scallops in the learning set can be of different dimensions, it is resized (scaled) to a window of size $2.5R_o\times2.5R_o$. 
@@ -1276,7 +1276,7 @@ Additionally, the detection rates there \cite{guomundsson} were based on a datas
 %========================================================================================
 \section{Conclusions}
 
-With the increasing use of underwater robotic platforms, terrabytes of imagery datasets featuring millions of images are becoming commonplace. 
+With the increasing use of underwater robotic platforms, terrabytes of imagery datasets featuring millions of images is becoming increasingly common. 
 The current practice of manual processing of these underwater images introduces a bottleneck. 
 In the spirit of this scallop counting work, designing better and faster automated tools  to characterize animals and other natural underwater phenomenon from images is imperative for future marine environmental studies.
 
@@ -1293,14 +1293,16 @@ Designing such tools with further improvements in form of higher detection rates
 %========================================================================================
 \section{Future Work}
 
-One future direction would be to further reduce false positives by enhancing the false positives filter layer by using multiple scallop reference templates for each pixel location. 
+To further this analysis and reduce false positives, the false positives filter layer can be enhanced by using multiple scallop reference templates for each pixel location. 
 These new templates could be designed to capture the bright crescents that sometimes appear due to the visible interior of the lower valve of a scallop when the scallop shell is partly open. As this crescent appearance is only dependent on the relative scallop orientation with respect to the camera, it can occur at any point in the periphery of a scallop. If these bright crescents were to be used in conjunction with dark crescents multiple templates will be required to model scallops at each pixel location.
 This idea is supported by inspection of recently collected high-resolution scallop data, which indicate additional definitive features connecting the position of the bright and dark crescents along with their relative intensities. 
 We believe that even without major changes to the current framework, testing on higher resolution images could produce much better performance outcomes (both in terms of detection and false positive rates). 
 The unavailability of ground truth for the new datasets makes it hard to provide evidence of any performance at this point. 
 It is also expected that using more targeted color and light correction methods \cite{dawkings13} as a part of image preprocessing will improve results.
 
-Building robust object classification techniques capable of handling noisy data, is one of the primary directions where improvement is necessary. It is possible that a single noisy image of a target object might lack the information needed to accurately recognize it. With this in mind, a multi-view object recognition approach that combines information from multiple images is proposed in Chapter~\ref{chap:distdes}.
+Though this multi-layered algorithm works decently well, there is still scope for building a more robust object classification technique that is capable of handling noisy data.
+Building robust object classification techniques capable of handling noisy data, is one of the primary directions where improvement is necessary. 
+It may also be the case that a single noisy image of a target object might lack the information needed to accurately recognize it. With this in mind, a multi-view object recognition approach that combines information from multiple images is proposed in Chapter~\ref{chap:distdes}.
 
 %========================================================================================
 

@@ -67,9 +67,9 @@ over 25\,000 dollars. Bigger \gls{rov}s like the Outland ROV~\cite{outlandrov} c
 
 The other league of underwater robotic solutions come in form of low-cost \gls{dyi} style robots like the OpenROV \cite{openrov} and the Fathom One~\cite{fathomrov}. Such solutions offer a lot of potential for custom hardware and software modifications. However being small-scale development projects, the associated hardware in these cases is not well tested and can be prone to failures (e.g. water leaks). The capability of these systems to withstand the harsh conditions of a marine environment may be limited. In terms of software, the source code is often available and comes with an open-source license (as in the case of OpenROV). However such software often does not come with \gls{api}s to encourage users to extend or modify the capabilities of the robot. Additionally, the limited documentation available makes the task of directly modifying the source code cumbersome. Since the focus of most of these \gls{dyi} projects are to offer low-cost options that primarily enable hobbyists to explore underwater, a 
 teleoperation 
-interface and access to a camera feed from the robot typically suffices. For researchers that may have very specialized interests, an ideal robotic solution should offer finer control of the hardware and software with options to easily extend the base capabilities of the system.
+interface and access to a camera feed from the robot typically suffices. For researchers that may have very specialized interests, a professionally developed robotic solution should offer finer control of the hardware and software with options to easily extend the base capabilities of the system.
 
-There are two primary requirements for a professionally developed robotic solution that is intended for research. The first is the need for a tough exterior shell that can hold up against high values of water pressure which is common with deep sea operation. This exterior shell should also be resilient to water leaks and at the same time offer the ability to retrofit sensors. The second requirement is for the robotic system to offer a well built software interface with \gls{api}s that allows researchers to extend the capabilities of the system. It will be beneficial if the software \gls{api}s adhere to popular robotics research architectures like the \gls{ros}~\cite{ros, ros_paper} or \gls{moos}~\cite{moos, moos_paper}. A robot with \gls{ros}-support will greatly enhance the versatility of the robot by allowing access to a plethora of existing software tools. Furthermore, software development based on open-source tools like \gls{ros} can be supported by an active base of researchers that can provide feedback, 
+There are two primary requirements for a professionally developed robotic solution that is intended for research. The first is the need for a tough exterior shell that can hold up against high values of water pressure which is common with deep sea operation. This exterior shell should also be resilient to water leaks and at the same time offer the ability to retrofit sensors. The second requirement is for the robotic system to offer a well built software interface with \gls{api}s that allows researchers to extend the capabilities of the system. It will be beneficial if the software \gls{api}s adhere to popular robotics research architectures like the \gls{ros}~\cite{ros, ros_paper} or \gls{moos}~\cite{moos, moos_paper}. A robot with \gls{ros}-support will greatly enhance the versatility of the robot by allowing access to a plethora of existing software tools. Furthermore, software development based on open-source tools like \gls{ros} can be supported by an active base of researchers who can provide feedback, 
 tips and advice. Currently the underwater research community lacks a variety of low-cost submersible 
 robotic platforms with resilient hardware design and well-engineered software.
 
@@ -78,7 +78,7 @@ robotic platforms with resilient hardware design and well-engineered software.
 The chief requirements that led to the design of CoopROV was the need for a low-cost submersible robotic platform that can serve as a test-bed for computer vision and control algorithms. Before the effort to build CoopROV was initiated, existing solutions were evaluated. Commercial robotic solutions like the Videoray were clearly outside the budget of this research project. OpenROV 2.5~\cite{openrov}, the first version of OpenROV, was a good candidate primarily due to it sub-1000 dollar price tag. The original OpenROV design came with a beaglebone and browser based graphical user interface that used node.js \cite{nodejs} in the backend to drive the robot. However, multiple tests revealed that the water proofing design and electronics package had several glitches making it unsuitable for deployment in its original configuration. Furthermore, most of the algorithm development till that point was in \gls{ros}, hence \gls{ros} support was one of the 
 preferred requirements for the submersible robot. The initial experimental evaluation of OpenROV provided useful insights into the core components and associated problems that need to be tackled to design a submersible robot. The design of CoopROV was initiated to address the shortcomings of OpenROV's hardware in terms of waterproofing and electronics. Additional features of the target design was to allow easy interfacing of new sensors along with full \gls{ros} software support for sensors and actuators.
 
-In the current stage of development, CoopROV shows some resemblance to OpenROV as both of them share the same frame and actuators. However, all electronics, power-supply and sensors in CoopROV have diverged completely from OpenROV 2.5. Two views of CoopROV a frontal view and its appearance when deployed in a test tank are shown in Figure~\ref{fig:cooprov}.
+In the current stage of development, CoopROV shows some resemblance to OpenROV as both of them share the same frame and actuators. However, all electronics, power-supply and sensors in CoopROV diverge completely from OpenROV 2.5. Two views of CoopROV a frontal view and its appearance when deployed in a test tank are shown in Figure~\ref{fig:cooprov}.
 %
 \begin{figure}
   \centering
@@ -100,6 +100,22 @@ CoopROV is a \gls{rov}-class submersible that is connected to a surface station 
 account of 
 different sub-systems comprising hardware, electronics, software, sensors and power supply is given in the following sections.
 %
+\begin{figure} 
+  \centering
+  \begin{tikzpicture}[node distance = 4cm, auto]
+      % Place nodes
+      \node [rectangle, draw] (rov) {ROV};
+      \node [right= of rov, rectangle, draw] (ss) {surface station};
+      \node [right= of ss, rectangle, draw] (joy) {joystick};
+      % Draw edges
+      \path [->, thick] ([yshift=1ex]rov.east) edge node {sensor data} ([yshift=1ex]ss.west);
+      \path [->, thick] ([yshift=-1ex]ss.west) edge node {control signal} ([yshift=-1ex]rov.east);
+      \path [->, thick] (joy) edge node {user commands} (ss);
+  \end{tikzpicture}
+\caption[CoopROV data-flow diagram]{Block diagram of high-level data flow between different components in CoopROV}
+\label{fig:cooprov_dataflow}
+\end{figure}
+
 \begin{table}	
   \begin{tabular}{lll} 
   \toprule
@@ -117,26 +133,12 @@ different sub-systems comprising hardware, electronics, software, sensors and po
   \label{tab:cooprov_specs}
 \end{table}
   
-\begin{figure} 
-  \centering
-  \begin{tikzpicture}[node distance = 4cm, auto]
-      % Place nodes
-      \node [rectangle, draw] (rov) {ROV};
-      \node [right= of rov, rectangle, draw] (ss) {surface station};
-      \node [right= of ss, rectangle, draw] (joy) {joystick};
-      % Draw edges
-      \path [->, thick] ([yshift=1ex]rov.east) edge node {sensor data} ([yshift=1ex]ss.west);
-      \path [->, thick] ([yshift=-1ex]ss.west) edge node {control signal} ([yshift=-1ex]rov.east);
-      \path [->, thick] (joy) edge node {user commands} (ss);
-  \end{tikzpicture}
-\caption[CoopROV data-flow diagram]{Block diagram of high-level data flow between different components in CoopROV}
-\label{fig:cooprov_dataflow}
-\end{figure}
-
 
 \subsection{Hardware}
 
-The exterior shell of CoopROV is composed of an acrylic frame that holds all housing tubes together. There are 3 housing tubes in total: an electronics tube, a connector tube and a battery tube. A \gls{cad} model of CoopROV in Figure~\ref{fig:cooprov_cad} illustrates the position of the housing tubes on the CoopROV frame. The electronics tube is a long transparent acrylic tube that holds all sensors and most electronics of the robot. The connector housing tube is a relatively short transparent acrylic tube with a molex connector plug inside it. This connector tube serves as a water proof connector plug that allows to change the sensor package by swapping out the electronics tube. The battery tube is a PVC pipe that holds 11.1 V Li Ion batteries. The clips and clamps that hold the tubes in place were made out of 3D-printed plastic parts. One big design improvement over OpenROV is the water proof seals. The waterproof seals comprise a delrin end cap with an O-ring seal along with 3 threaded rods to maintain 
+The exterior shell of CoopROV is composed of an acrylic frame that holds all housing tubes together. There are 3 housing tubes in total: an electronics tube, a connector tube and a battery tube. A \gls{cad} model of CoopROV in Figure~\ref{fig:cooprov_cad} illustrates the position of the housing tubes on the CoopROV frame. The electronics tube is a long transparent acrylic tube that holds all sensors and most electronics of the robot. The connector housing tube is a relatively short transparent acrylic tube with a molex connector plug inside it. This connector tube serves as a water proof connector plug that allows to change the sensor package by swapping out the electronics tube. The battery tube is a PVC pipe that holds 11.1 V Li Ion batteries. The clips and clamps that hold the tubes in place were made out of 3D-printed plastic parts. 
+
+One of the bigger design improvement over OpenROV is the water proof seals. The waterproof seals comprise a delrin end cap with an O-ring seal along with 3 threaded rods to maintain 
 the tension between the end caps and the acrylic tube. 
 %
 \begin{figure}	
@@ -171,10 +173,11 @@ the tension between the end caps and the acrylic tube.
 
 \subsection{Electronics}
 
-The electronic components inside the electronics tube are responsible for controlling the thrusters and relaying the sensor data back to the surface station. The RaspberryPi and the surface station together constitute a distributed \gls{ros} system. For communication purposes, a \gls{tcp} link is established between the RaspberryPi and the surface station via the tether cable. The Arduino is connected to the RaspberryPi via the serial bridge and behaves like a node on the \gls{ros} system. The Arduino logs the data from the depth sensor and the \gls{imu}. Additionally, the arduino is also responsible for translating the motor commands into signals for the motor driver. Image data acquisition from the stereo camera is directly handled through a usb interface on the RaspberryPi.
+The electronic components inside the electronics tube are responsible for controlling the thrusters and relaying the sensor data back to the surface station. The RaspberryPi and the surface station together constitute a distributed \gls{ros} system. For communication purposes, a \gls{tcp} link is established between the RaspberryPi and the surface station via the tether cable. The Arduino is connected to the RaspberryPi via the serial bridge and behaves like a node on the \gls{ros} system. The Arduino logs the data from the depth sensor and the \gls{imu}. Additionally, the Arduino is also responsible for translating the motor commands into signals for the motor driver. Image data acquisition from the stereo camera is directly handled through a usb interface on the RaspberryPi.
 
-There are two parallel data streams. One enables the flow of control commands throughout the system and other handles the data being logged from the various sensors. The control commands from the joystick flow through the surface station and RaspberryPi to reach the Arduino. The Arduino translates these motor velocity commands into \gls{pwm} signals, that enable the motor driver to run the propellers. The sensor data logged by the Arduino and RaspberryPi are served to other nodes on the \gls{ros} system through a \emph{publish-subscribe} communication paradigm \cite{eugster}. The block diagram in Figure~\ref{fig:cooprov_electronics} provides a graphical overview of the connections between the major electronic components on CoopROV. It is important to note that only one motor and motor driver are shown in Figure~\ref{fig:cooprov_electronics}, but in the actual system, there are 3 motors with dedicated motor drivers. Figure~\ref{fig:cooprov_electronics} also shows the two power supplies in the system. More details 
-on the power supply components can be found in next section.
+There are two parallel data streams. One enables the flow of control commands throughout the system and other handles the data that is logged from the various sensors. The control commands from the joystick flow through the surface station and RaspberryPi to reach the Arduino. The Arduino translates these motor velocity commands into \gls{pwm} signals, that enable the motor driver to run the propellers. The sensor data logged by the Arduino and RaspberryPi are served to other nodes on the \gls{ros} system through a \emph{publish-subscribe} communication paradigm \cite{eugster}. The block diagram in Figure~\ref{fig:cooprov_electronics} provides a graphical overview of the connections between the major electronic components on CoopROV. It is important to note that only one motor and motor driver are shown in Figure~\ref{fig:cooprov_electronics}, but in the actual system, there are 3 motors with dedicated motor drivers. Figure~\ref{fig:cooprov_electronics} also shows the two power supplies in the system. More 
+details 
+on the power supply components can be found in the next section.
 
 \begin{figure}
 \centering
@@ -224,7 +227,7 @@ on the power supply components can be found in next section.
 
 \subsection{Power Supply} \label{sec:cooprov_power}
 
-Power supply is a critical part of any robotic system. Almost all mobile robotic systems require batteries onboard. However tethered systems like the \gls{rov}s can have an alternative resource in form of power supply through the tether. Running power through a tether comes with its own set of challenges. \gls{dcp} transmitted at low voltages result in significant voltage drop due to the impedance of the long tether cables. Conversely using AC power at high voltages circumvents this problem but then runs into the need for onboard transformer/rectifier to transform the input \gls{acp} power into usable \gls{dcp} form. 
+Power supply is a critical part of any robotic system. Almost all mobile robotic systems require batteries onboard. However tethered systems like the \gls{rov}s can have an alternative resource in form of power supply through the tether. Running power through a tether comes with its own set of challenges. \gls{dcp} transmitted at low voltages results in significant voltage drop due to the impedance of the long tether cables. Conversely, using AC power at high voltages circumvents this problem but then requires an onboard transformer/rectifier to transform the input \gls{acp} power into usable \gls{dcp} form. 
 
 A robot's power supply components ought to be chosen, such that they can handle the expected operational load (also transients). For CoopROV, several power supply systems were tested. Four different battery types were evaluated: alkaline C, lithium ion, lithium phosphate and \glsfirst{lipo}. Tests revealed that the high transient current requirements ($>$20A) of CoopROV were only met by the \gls{lipo} composition. Thus, two sets of \gls{lipo} batteries were used to independently power the motors and electronics. This physical isolation of the power sources improves stability of the robot's power supply system and prevents electronic components from being affected by occasional erratic power draws of motors. More information on the two power sources is given in Table~\ref{tab:cooprov_battery}.
 
@@ -252,7 +255,8 @@ CoopROV comes with 4 sensors; namely, stereo cameras, \gls{imu}, depth sensor an
 
 \subsection{Software}
 
-The software of CoopROV is built on a \gls{ros} architecture. The different core functions of the robot are sub-divided into independent modules or \emph{\gls{ros}-nodes}. Each \gls{ros}-node has a specific task and can communicate with the other \gls{ros}-nodes. Additionally, the \gls{ros} architecture allows \gls{ros}-nodes running on different systems to communicate seamlessly: agnostic to where they are running. The interaction between different \gls{ros}-nodes is handled through a \emph{publish-subscribe} communication paradigm \cite{eugster}. These characteristics of the distributed \gls{ros} system was exploited to build CoopROV's software stack. The CoopROV setup comprises a distributed \gls{ros} architecture, where different \gls{ros}-nodes run either on the RaspberryPi or the surface station. Both these platforms are connected via a \gls{tcp} link. The different nodes running on the robot and the surface station along with their functionality is explained in the software architecture diagram in Figure~\ref{fig:cooprov_software}.
+The software of CoopROV is built on a \gls{ros} architecture. The different core functions of the robot are sub-divided into independent modules or \emph{\gls{ros}-nodes}. Each \gls{ros}-node has a specific task and can communicate with the other \gls{ros}-nodes. Additionally, the \gls{ros} architecture allows \gls{ros}-nodes running on different systems to communicate seamlessly: agnostic to where they are running. The interaction between different \gls{ros}-nodes is handled through a \emph{publish-subscribe} communication paradigm \cite{eugster}. These characteristics of the distributed \gls{ros} system was exploited to build CoopROV's software stack. The CoopROV setup comprises a distributed \gls{ros} architecture, where different \gls{ros}-nodes run either on the RaspberryPi or the surface station. Both these platforms are connected via a \gls{tcp} link. The different nodes running on the robot and the surface station along with their functionality is explained in the software architecture diagram in 
+Figure~\ref{fig:cooprov_software}.
 %
 \begin{figure}
   \centering
@@ -264,17 +268,17 @@ The software of CoopROV is built on a \gls{ros} architecture. The different core
 
 \section{Test Infrastructure}
 
-Initial waterproofing tests were performed in the University of Delaware indoor swimming and diving pools. Later integration tests for software and electronics along with some experimental runs were performed in a circular tank at \gls{rdl} in University of Delaware.
+Initial waterproofing tests were performed in the University of Delaware indoor swimming and diving pools. Later, integration tests for software and electronics along with some experimental runs were conducted in a circular tank at \gls{rdl} in University of Delaware.
 
 
 \section{Localization Experiments}
 
-Preliminary localization experiments were performed by placing an \gls{ar}-tag on the bottom of the water tank. Images from the stereo camera were used to detect and track the \gls{ar}-tag. Further experiments were performed by fusing the the 6-\gls{dof} position obtained from the \gls{ar}-tag localization and \gls{imu} values. Since there was no reliable reference measure to compare the reported position of the \gls{rov}, the quality of the results were not verified.
+Preliminary localization experiments were performed by placing an \gls{ar}-tag on the bottom of the water tank. Images from the stereo camera were used to detect and track the \gls{ar}-tag. Further experiments were also performed by fusing the the 6-\gls{dof} position obtained from the \gls{ar}-tag localization and \gls{imu} values. Since there was no reliable reference measure to compare the reported position of the \gls{rov}, the quality of the results were not verified.
 
 
 \section{Conclusion}
 
-CoopROV was built as a research platform to conduct underwater object recognition and control experiments. It offers a low-cost solution with a easily reconfigurable hardware and extensible \gls{ros}-software interface. \gls{ros}-software support allows the robot to use open source perception and control algorithms available as a part of \gls{ros} software infrastructure. The sensor package comprising a stereo camera, \gls{imu} and depth sensor can be leveraged for object recognition and motion control experiments. The capabilities of the CoopROV system can be easily expanded to suit any research experiment like the multi-layered scallop recognition (Chapter~\ref{chap:scallop_recog}) and the multi-view object recognition (Chapter~\ref{chap:distdes}) discussed in this dissertation.
+CoopROV was built as a research platform to conduct underwater object recognition and control experiments. It offers a low-cost solution with a easily reconfigurable hardware and extensible \gls{ros}-software interface. \gls{ros}-software support allows the robot to use open source perception and control algorithms available as a part of \gls{ros} software infrastructure. The sensor package comprising a stereo camera, \gls{imu} and depth sensor can be leveraged for object recognition and motion control experiments. The capabilities of the CoopROV system can be easily expanded to suit any research experiment like the multi-layered scallop recognition (Chapter~\ref{chap:scallop_recog}) and the multi-view object recognition (Chapter~\ref{chap:distdes}) discussed earlier in this dissertation.
 
 %========================================================================================
 \printglossary[type=\acronymtype]                  

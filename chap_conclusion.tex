@@ -68,7 +68,7 @@ This work can be used for robotic image analysis in natural environments.
 %================================================================================================================
 
 The work in this dissertation offers robotic image analysis tools designed to operate in noisy natural environments. 
-Underwater environments have been the primary domain used to validate these tools.
+Underwater environment has been the primary domain that is used to validate these tools.
 The two applications that drove the design of these object recognition tools are the automated submerged subway car recognition
 from artificial reef sites, and scallop recognition problems.
 Additionally, a multi-view object classifier, that can operate in noisy images without segmentation, is also proposed.
@@ -85,18 +85,18 @@ Additionally, while evaluating eigen-value shape descriptors, it was determined 
 discretization errors and segmentation errors can significantly impair the performance of the descriptors.
 In other words, eigen-value shape descriptors are a useful tool for identifying
 objects, provided we can guarantee that the shape of the object can be represented with minimal discretization error. 
-For this method to work, the objects
+Further, for this method to work, the objects
 we are interested in should exhibit a shape profile that is significantly different from
-all other objects in the background. These requirements may be restrictive, and could render recognition tasks involving 
+all other objects in the background. These requirements may be restrictive, and could render recognizing 
 complex shapes problematic. 
 
-A challenging problem where the validity of such assumptions is in question is scallop recognition.
+A challenging problem where the validity of such assumptions come under question is in scallop recognition.
 The visual cues presented by a scallop include its distinguishing crescent profile, along with its texture.
 Since eigen-value descriptors can neither handle complex shape profiles like crescents, nor do they capture textural information,
 a more refined approach is warranted.
 This led to the development of multi-layered object recognition framework proposed in Chapter~\ref{chap:scallop_recog}.
 
-Marine biologists and oceanographers often depend on large natural image datasets to study benthic phenomena, similar to surveying marine organisms. With the availability of robotic imaging vehicles, the generation of datasets ranging millions of images are becoming increasingly common. Automated image processing tools are necessary to deal with such large image datasets. Most existing techniques are built on restrictive assumptions that do not generalize to noisy natural image datasets. The multi-layered object recognition approach described in Chapter~\ref{chap:scallop_recog} addresses this problem by providing researchers with a modular architecture that can scale to large natural image datasets. Modular architectures have the flexibility to be reconfigured, in order to solve different object recognition problems.
+In general, marine biologists and oceanographers often depend on large natural image datasets to study benthic phenomena, similar to surveying marine organisms. With the availability of robotic imaging vehicles, the generation of datasets ranging millions of images are becoming increasingly common. Automated image processing tools are necessary to deal with such large image datasets. Most existing techniques are built on restrictive assumptions that do not generalize to noisy natural image datasets. The multi-layered object recognition approach described in Chapter~\ref{chap:scallop_recog} addresses this problem by providing researchers with a modular architecture that can scale to large natural image datasets. Modular architectures have the flexibility to be reconfigured, in order to solve different object recognition problems.
 The particular multi-layered framework was tasked with automated scallop recognition from images taken by an \gls{auv}, as a means to assess scallop populations. 
 % This approach offers a hands-off automated alternative to manual enumeration that was also performed as a part of the scallop survey discussed in Chapter~\ref{chap:scallop_recog}.
 % This four-layered automated scallop recognition framework combined a series of off-the-shelf computer vision tools like visual attention and graphcut, 
@@ -108,7 +108,7 @@ To inject this additional information into the classification process, a multi-v
 
 The multi-view approach discussed in Chapter~\ref{chap:distdes} is a machine learning 
 technique designed for binary classification tasks. 
-The objective here is to formulate a robust object classifier that can perform acceptably even in case of noisy image data.
+The objective here is to formulate an object classifier that can perform robustly even in noisy image data.
 Since noisy single-views of an object might often not contain sufficient information to unambiguously recognize it, information from multiple views are combined 
 here to build a machine learning classifier. 
 In this approach, the information from 13 images of each object specimen, captured from different heights, is encoded into a single object model.
@@ -122,7 +122,7 @@ There are some possible directions to extend the object recognition tools propos
 templates. In Chapter~\ref{chap:scallop_recog}, we see that the appearance of a scallop is characterized by two crescents near the scallop rim: one bright and one dark. Currently, only the position of a dark crescent is captured by the templates used. Using templates that capture additional information, like the position of the bright crescent could be interesting. As for the multi-view object recognition method discussed in Chapter~\ref{chap:distdes}, a more expansive dataset could be used to test this algorithm. Another possible improvement is to generalize this multi-view algorithm to accept images from any series of heights instead of a fixed set of heights. Relaxing the restrictions on the different views needed by the multi-view algorithm could make the experiments and data collection effort easier. This multi-view approach could also be expanded to multi-class classification for dealing with more than 2 object classes. The CoopROV frame could be redesigned to improve the trim (weight distribution) of 
 the vehicle. Designing controllers and building a localization system are other avenues where future improvements on CoopROV is possible.
 
-The main contribution of this dissertation are object recognition tools designed to work on noisy natural images. Each of these tools have been validated on different underwater applications. The developments here are intended to provide automated solutions to researchers dealing with large natural image datasets.
+Finally, the main contribution of this dissertation is in the development of object recognition tools that work on noisy natural images. Each of these tools have been validated on different underwater applications. The developments here are intended to provide automated solutions to researchers dealing with large natural image datasets.
 The availability of modular reconfigurable architectures to allow researchers to build custom solutions to solve their object recognition needs is the prime objective. The techniques proposed here are first steps in providing tools capable of handling noisy natural images. Further exploration on this domain is necessary to build more robust architectures that can recognize multiple classes of objects. Some examples of object recognition applications, like subway car and scallop recognition, are not all-encompassing but provide an initial thrust in this domain. Further work to build extensive tools required by the marine research community is warranted. In a broader scheme, this dissertation contributes in strengthening the perception capabilities of robots. Ultimately, better scene understanding and perception are vital building blocks that support robot autonomy.
 
 

@@ -169,13 +169,13 @@
 
 Robotic systems are useful for tasks that come under the purview of the ``\emph{3D}'s''--dirty, dull and dangerous. 
 Currently, manufacturing and assembly lines, where tasks are of repetitive nature, are places where robotic systems are ubiquitous. ``Dirty'' tasks like traversing tunnels or sewers are being slowly delegated to tele-operated robots. 
-The other avenue where robotic systems are being promoted relates to activities deemed dangerous for humans, like deep sea exploration, operation in radiation, biologically, or chemically contaminated zones, or conflict areas. With enabling new advances in the field of robotics, robots are beginning to take over new roles to complement and assist humans in various ways.
+The other avenue where robotic systems are being promoted relates to activities deemed dangerous for humans, like deep sea exploration, biologically, or chemically contaminated zones, and conflict areas. With enabling new advances in the field of robotics, robots are beginning to take over new roles to complement and assist humans in various ways.
 
 Though advances in robotic systems have enabled robots to outperform humans in certain complicated tasks that are usually considered to require intelligence, such as competing in games like Go \cite{deepmind} and Chess \cite{deepblue}, 
 robotic systems still lack the ability to reason and operate
 autonomously in most unpredictable real world environments. 
 In such cases, a human expert is deemed necessary to make decisions for the robot and guide the machine
-to accomplish its objectives. Another domain where tele-operation is prevalent is in operations over inhospitable environments. Some prime examples of such remote operation in
+to accomplish its objectives. Another domain where tele-operation is prevalent is in operations in inhospitable environments. Some prime examples of such remote operation in
 dangerous environments include the rescue and repair effort at radiation affected zones in Fukushima Daichii nuclear power plant \cite{fukushima}, or combat operations via remotely operated weapons like Packbot \cite{packbot} and Predator \cite{predator} that have been deployed
 at war-zones in Iraq and Afghanistan. Though tele-operation appears to offer a solution, a more scalable alternative
 is aiming for full autonomy of robotic systems to minimize the strain and demands on human workforce.
@@ -188,7 +188,7 @@ that are \emph{dirty} or \emph{dangerous} without being physically present on th
 typically operates the robot from a safe distance away from the point of activity of the robot. This safe distance could range from a few meters to over a few hundred kilometers, based on the nature of the activity. For instance, in case of a tunnel or sewer inspection, the operator can stay a few meters outside the structure and drive a robot that is traversing inside. On the other hand, in case of weaponized drones like the predator \cite{predator}, the operator typically controls the drone from a safe remote command center, several hundred kilometers from the point of action of the drone. Tele-operation allows the operator to process the sensory information collected by the robot and make \emph{informed decisions} for the robot. The robot then translates an \emph{informed decision} into a sequence of actions. The tele-operation solution allows a human operator to safely accomplish an objective 
 without being in discomfort or risk. 
 
-Tele-operation brings together durability of a robotic agent and human intelligence to provide a powerful solution to solve problems ranging from deep sea exploration to safe operation in combat zones. Despite its attractiveness, tele-operation still requires the constant attention and involvement of a human operator. Additionally, since the human operator is not present, a reliable communication channel is essential to remotely control the robot. If the communication links are unreliable, or subject to willful sabotage by an enemy in a war-zone, the robotic system can get disconnected from the human operator. Such communication interruptions could possibly result is mission failure. The constant need for a human operator and the need for reliable communication channels are some of the shortcomings that limit the applicability of tele-operated systems.
+Tele-operation brings together durability of a robotic agent and human intelligence to provide a powerful solution to solve problems ranging from deep sea exploration to safe operation in combat zones. Despite this advantage, tele-operation still requires the constant attention and involvement of a human operator. Additionally, since the human operator is not present, a reliable communication channel is essential to remotely control the robot. If the communication links are unreliable, or subject to willful sabotage by an enemy in a war-zone, the robotic system can get disconnected from the human operator. Such communication interruptions could possibly result is mission failure. The constant need for a human operator and the need for reliable communication channels are some of the shortcomings that limit the applicability of tele-operated systems.
 
 If the objective is to move towards decreasing the strain on human workforce, it is imperative to decrease the reliance of robots on humans for operation. This emphasizes the need for automated decision-making in robotic systems. Furthermore, building automated, decision-making capable robotic systems obviates the need for reliable communication channels. Thus improving the cognitive capabilities to enable automated decision-making is essential to build robust self-sufficient robotic systems.
 
@@ -207,13 +207,13 @@ If the entire sequence, from sensory data aggregation to choosing an action base
 a robotic system without any external intervention, then the due process can be characterized as automated, informed, decision-making. 
 
 Transforming sensory data into usable information involves parsing the data to gain a semantic understanding about the state of an environment.
-The basic stage in understanding a scene\footnote{Scene here is defined as the state of an environment at a given point in time.} is separation and labeling of different objects present.
+The basic component in understanding a scene\footnote{Scene here is defined as the state of an environment at a given point in time.} is separation and labeling of different objects present.
 A more refined version of this understanding is deciphering the relationship between the objects in a scene.
 Such a detailed semantic understanding allows a robot to infer the ability of the scene elements 
 to actively participate in the robot's planned actions.
 
 The ability of a robot to detect and label objects in its environment is an important step towards gaining semantic understanding of its environment.
-Since semantic understanding of a scene dictates the ability of a robotic system to make informed decisions, object recognition capability
+Since this semantic understanding of a scene dictates the ability of a robotic system to make informed decisions, object recognition capability
 is central to automated informed decision-making.
 
 %================================================================================================================
@@ -239,7 +239,7 @@ Deep sea or forest landscapes with vegetation are some prime examples of such na
 \label{sec:robots_nat_environ}
 
 In the past, robots have been specialized to do tasks in well defined environments, like assembly lines, where environmental variables (e.g. visibility and lighting) are strictly controlled. If such environment variables are known in advance, a mathematical model that maps robot actions to finite known environment states can be built. In such cases, based on the state of the environment observed, a robot action that complies with a predefined database of logical rules is chosen. Systems that operated on this principle, sometimes referred to as \emph{Expert Systems} 
-\cite{russel}, came into existence in 1980's. Such systems fail in scenarios where the environment cannot be perfectly modeled. Despite the advances in field of robotics since then, robotic systems still face challenges when dealing with unpredictable environments similar to those in unstructured natural settings found in forests or deep sea.
+\cite{russel}, came into existence in 1980's. Such systems fail in scenarios where the environment cannot be perfectly modeled. Despite the advances in field of robotics since then, robotic systems still face challenges when dealing with unpredictable environments similar to those in natural settings found in forests or deep sea.
 
 The task of understanding natural scenes and recognizing objects like animals from them is shown to be a cognitively challenging task 
 even for humans \cite{wichmann}. The unstructured nature and unpredictability associated with natural environment makes the task of 
@@ -254,7 +254,7 @@ successful in making automated informed decisions in natural environments, it ha
 %================================================================================================================
 \section{Noise in Sensor Measurements}
 
-Sensors are designed to measure a physical quantity. This physical quantity is captured by the sensor in form of a signal.
+Sensors are designed to measure a physical quantity. This physical quantity is captured by the sensor in the form of a signal.
 The measurement reported by the sensor almost always does not exactly match the real value of the physical quantity.
 This error in the measured value is considered as measurement noise.
 The ubiquitous presence of noise in almost all sensor measurements has spurred a field of study in the name of 
@@ -351,15 +351,14 @@ In conclusion, object recognition capabilities, with robustness to noise, are re
 
 Given that object recognition in noisy environments is critical for robot autonomy, this dissertation proposes a series of techniques designed to address the object recognition problem in noisy environments.
 We choose
-underwater object recognition as the primary domain to conduct the experimental validation for this approach, since operation in natural environment is typically characterized by noisy sensor measurements.
+underwater object recognition as the primary domain to conduct the experimental validation for this approach.
 The rest of this section offers a brief overview of the different object recognition techniques developed as a part of this overall approach, along with insights on the particular problems they address.
 
-Recognizing submerged subway cars from seabed images was the first application that motivated the development of the need for 
-an object recognition technique capable of operating in noisy seabed images. Since recognizing subway cars can be reduced 
+Recognizing submerged subway cars from seabed images was the first application that motivated the development of an object recognition technique capable of operating in noisy seabed images. Since recognizing subway cars can be reduced 
 to detecting rectangles, eigen-value based shape descriptors with in-built \gls{rst} invariance, were tested
 to solve this specific object recognition problem. Eigen-value based shape descriptors were successful in detecting 
 simple shapes like rectangles from images.
-During the course of the study, several shortcomings of eigen-value shape descriptors were exposed: poor performance in noisy domains, and inability to identify objects characterized by complex shape profiles given constraints on image discretization. Chapter~\ref{chap:eigen} of this dissertation offers a detailed treatment of the eigen value shape descriptors, and the results of the subway car recognition problem they were tested on.
+During the course of the study, several shortcomings of eigen-value shape descriptors were exposed. These include poor performance in noisy domains, and inability to identify objects characterized by complex shape profiles given constraints on image discretization. Chapter~\ref{chap:eigen} of this dissertation offers a detailed treatment of the eigen value shape descriptors, and the results of the subway car recognition problem they were tested on.
 
 When the scope of the object recognition problem was expanded from simple shapes like rectangles to underwater organisms characterized by complex profiles,
 eigen-value shape descriptors were no longer a viable choice. The primary application driver for the design of the multi-layered object recognition system in Chapter~\ref{chap:scallop_recog} was the need for a 
@@ -379,10 +378,9 @@ design procedure is discussed in Chapter~\ref{chap:cooprov}.
 %================================================================================================================
 \section{Dissertation Organization}
 
-The rest of this dissertation is organized as follows. 
-Chapter~\ref{chap:eigen} discusses the eigen-value shape descriptors and the subway car detection problem they were evaluated on.
+Firstly, Chapter~\ref{chap:eigen} discusses the eigen-value shape descriptors and the subway car detection problem they were evaluated on.
 The multi-layered object recognition technique developed to support an automated scallop survey effort 
-is discussed Chapter~\ref{chap:scallop_recog}.
+is then discussed in Chapter~\ref{chap:scallop_recog}.
 This is followed by Chapter~\ref{chap:distdes}, that describes a multi-view object recognition technique that allows to combine information from multiple views of a target object, and decreases the number of false positives seen in the multi-layered object recognition technique.
 Chapter~\ref{chap:cooprov} provides details on the underwater \gls{rov} designed as a research prototype to test object recognition algorithms.
 Finally, Chapter~\ref{chap:thesis_conclusion} highlights the insights gleaned during the development of the different object recognition techniques along with possible directions that can be explored in the future.
