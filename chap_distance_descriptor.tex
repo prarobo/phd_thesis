@@ -241,27 +241,34 @@ The distance-based global descriptor algorithm presented in this chapter is esse
 \end{enumerate}	
 
 
-The data collection process here involves capturing 13 images for each object specimen. For the validation of this multi-view object recognition algorithm, data was gathered from 22 specimens (11 oranges and 11 strawberries) bringing the total images collected to $286\, (22\enspace \text{specimens} \times 13\enspace \text{images per specimen})$. Each specimen was first placed on the floor below the camera-holder on the imaging rig (see Figure~\ref{fig:im_rig}). The height bar was moved up till the camera holder was $32$ inches away from the ground. A GoPro Hero 4 camera, attached to the holder, was then triggered to capture an image of the specimen. This first image captured the visual appearance of the specimen 32 inches away from the ground. After the first image was captured and without disturbing the object, the next image was captured after lowering the height bar such that the camera was now $30$ inches away from the ground.
-This process of lowering the camera by 2 inches between subsequent images is continued till the camera gets to a height of $8$ inches away from the ground. 
-The series of images captured from a range of heights, from 32 inches to 8 inches, every 2 inches results in 13 images per specimen. 
-These 13 images capture the appearance of a specimen at different heights. An illustration of the 13 images captured for a strawberry and orange specimen is shown in Figure~\ref{fig:height_specimen}. An important point to note here is that the imaging rig is handled manually between each image capture which sometimes results in displacement of the imaging rig or the specimen. 
+The data collection process here involves capturing images from $t$ different heights for each object specimen. For the validation of this multi-view object recognition algorithm, data was gathered from 22 specimens (11 oranges and 11 strawberries). Each specimen was first placed on the floor below the camera-holder on the imaging rig (see Figure~\ref{fig:im_rig}). The height bar was positioned such that the camera holder was at a distance $d_{max}$ away from the ground. A GoPro Hero 4 camera, attached to the holder, was then triggered to capture an image of the specimen. This first image captured the visual appearance of the specimen while it was at a distance $d_{max}$ away from the ground. After the first image was captured and without disturbing the object, the next image was captured after bringing the height bar closer to the ground by a distance $d_{step}$.
+This process of lowering the camera by distance $d_{step}$ between subsequent images is continued till the camera is no closer than a distance $d_{min}$ from the ground. 
+The series of images captured between heights $d_{max}$ and $d_{min}$, with a step-change of distance $d_{int}$ between subsequent images results in $t$ images per specimen, where
+\begin{align}
+ t=\left\lfloor\frac{d_{max}-d_{min}}{d_{step}}\right\rfloor \enspace. 
+\end{align}
+
+The value of parameters $d_{max}=32$, $d_{min}=10$ and $d_{step}=2$ (all values in inches), 
+were determined based on restrictions imposed by the imaging rig.
+The design of the imaging rig allowed the camera holder to be set at a maximum distance of $32$ inches from the ground, hence $d_{max}=32$. Furthermore, while testing the imaging rig, it was also found that images captured from any height less than $10$ inches from the ground were subject to significant distortion due to the camera's shadow. To avoid any such distortion, the minimum height was set as $d_{min}=10$. Based on values of $d_{max}$, $d_{min}$ and $d_{step}$, the number of heights per specimen $t=12$ is determined.
+These $t$ images capture the appearance of a specimen at different heights. An illustration of the 12 images captured for a strawberry and orange specimen is shown in Figure~\ref{fig:height_specimen}. An important point to note here is that the imaging rig is handled manually between each image capture which sometimes results in displacement of the imaging rig or the specimen. 
 Additional disturbances in the underwater testing environment where the specimen was placed, sometimes leads to the specimen or the imaging rig getting displaced during the data collection process. These uncontrolled factors in the data collection process added some level of variance to the gathered dataset.
 Since this algorithm is intended to operate on uncontrolled natural environments, such variance in the collected data was welcomed to some degree, given that it could test the algorithm's robustness.
 
 \begin{figure*}
   \centering
   \begin{subfigure}[]{\textwidth}
-      \includegraphics[width=\textwidth]{strawberry_distance_montage.eps}
+      \includegraphics[width=\textwidth]{strawberry_distance_montage_12.eps}
       \caption{Strawberry specimen seen from different heights}
       \label{fig:strawberry_height_specimen}
   \end{subfigure}
   \begin{subfigure}[]{\textwidth}
-      \includegraphics[width=\textwidth]{orange_distance_montage.eps}
+      \includegraphics[width=\textwidth]{orange_distance_montage_12.eps}
       \caption{Orange specimen seen from different heights}
       \label{fig:orange_height_specimen}
   \end{subfigure}
-\caption[Set of images collected for each specimen from different heights]{A set of 13 images gathered for a specimen (strawberry in (\subref{fig:strawberry_height_specimen}) and orange in (\subref{fig:orange_height_specimen})) starting from a height of 32 inches (top left) up to a height of 8 inches (bottom right) away from the target.
-Each subsequent image was captured 2 inches closer to the specimen.}
+\caption[Set of images collected for each specimen from different heights]{A set of $t=12$ images gathered for a specimen (strawberry in (\subref{fig:strawberry_height_specimen}) and orange in (\subref{fig:orange_height_specimen})) starting from a height of $d_{max}=32$ inches (top left) up to a height of $d_{min}=10$ inches (bottom right) away from the target.
+Each subsequent image was captured $d_{step}=2$ inches closer to the specimen.}
 \label{fig:height_specimen}
 \end{figure*}	
 %
@@ -319,10 +326,6 @@ Figure~\ref{fig:orange_height_specimen_cropped} respectively, after cropping of 
       \includegraphics[width=\textwidth]{strawberry4_obj_01/strawberry4_001_10}
       \caption{}
   \end{subfigure}
-  \begin{subfigure}[]{0.12\textwidth}
-      \includegraphics[width=\textwidth]{strawberry4_obj_01/strawberry4_001_08}
-      \caption{}
-  \end{subfigure}
 \caption[Images of a strawberry specimen after cropping a portion of background]{The strawberry specimen in Figure~\ref{fig:strawberry_height_specimen} shown after cropping a portion of the background}
 \label{fig:strawberry_height_specimen_cropped}
 \end{figure*}	
@@ -375,10 +378,6 @@ Figure~\ref{fig:orange_height_specimen_cropped} respectively, after cropping of 
   \end{subfigure}
   \begin{subfigure}[]{0.12\textwidth}
       \includegraphics[width=\textwidth]{orange4_obj_11/orange4_011_10}
-      \caption{}
-  \end{subfigure}
-  \begin{subfigure}[]{0.12\textwidth}
-      \includegraphics[width=\textwidth]{orange4_obj_11/orange4_011_08}
       \caption{}
   \end{subfigure}
 \caption[Images of an orange specimen after cropping a portion of background]{The orange specimen in Figure~\ref{fig:orange_height_specimen} shown after cropping a portion of the background}
@@ -457,14 +456,14 @@ biased towards the green stalk region of the strawberry specimen. An application
 \end{figure*}	
 %
 
-This final manual verification and correction process requires human effort. However, during experiments it was noted that a very small percentage of cases needed corrective action. In summary, this semi-automated annotation process is relatively less cumbersome than a fully manual annotation effort. An illustration of the output of this annotation process for a single specimen of orange is shown in Figure~\ref{fig:orange_segment_height_montage}. Figure~\ref{fig:orange_segment_height_montage} represents a montage of 13 images of an orange specimen with the top-left component showing the segmented foreground from the image captured 32 inches away from the orange specimen. Likewise, the bottom-most row shows the image that was captured 8 inches away from the specimen. The montage in Figure~\ref{fig:orange_segment_height_montage} is arranged such that the 13 images, from left to right, are in the decreasing order of the heights from which the images were capture. This sequence of images in the montage wraps 
+This final manual verification and correction process requires human effort. However, during experiments it was noted that a very small percentage of cases needed corrective action. In summary, this semi-automated annotation process is relatively less cumbersome than a fully manual annotation effort. An illustration of the output of this annotation process for a single specimen of orange is shown in Figure~\ref{fig:orange_segment_height_montage}. Figure~\ref{fig:orange_segment_height_montage} represents a montage of $t=12$ images of an orange specimen with the top-left component showing the segmented foreground from the image captured $d_{max}=32$ inches away from the orange specimen. Likewise, the bottom-right shows the image that was captured $d_{min}=10$ inches away from the specimen. The montage in Figure~\ref{fig:orange_segment_height_montage} is arranged such that the 12 images, from left to right, are in the decreasing order of the heights from which the images were capture. This sequence of images in the montage wraps 
 around after 
-every 4 images resulting in four rows to represent 13 images.
+every 4 images resulting in three rows to represent 12 images.
 %
 \begin{figure*}
   \centering
-  \includegraphics[width=\textwidth]{orange_height_segment_montage}
-  \caption[Annotation output for a single specimen]{The output of the annotation process showing a montage of the segmented foreground from a set of 13 images that belong to a single orange specimen. The left-top montage component is the image of the orange specimen captured 32 inches from the ground. The montage components arranged from left to right (with wrap-around after every 4 images) to progressively show images that were captured closer to the orange specimen. The closest image that was captured is 8 inches away from the specimen and is shown in the bottom-most row.} 
+  \includegraphics[width=\textwidth]{orange_height_segment_montage_12}
+  \caption[Annotation output for a single specimen]{The output of the annotation process showing a montage of the segmented foreground from a set of $t=12$ images that belong to a single orange specimen. The left-top montage component is the image of the orange specimen captured $d_{max}=32$ inches from the ground. The montage components arranged from left to right (with wrap-around after every 4 images) to progressively show images that were captured closer to the orange specimen. The closest image that was captured is $d_{min}=10$ inches away from the specimen and is shown in the bottom-most row.} 
   \label{fig:orange_segment_height_montage}
 \end{figure*}	
 %
@@ -493,24 +492,24 @@ every 4 images resulting in four rows to represent 13 images.
 
 The learning phase of a machine learning based object recognition method involves identifying patterns in the data that represent the presence of an object. The information fed to a machine learning algorithm is a pre-specified labeling of the data into foreground and background. The responsibility of the learning method here is to identify patterns in designated foreground regions, using information from labeled background to reject false positives. The patterns identified by the learning algorithm are then channeled into the construction of a classifier that is capable of identifying foreground pixels from an image.
 
-In the machine learning technique proposed in this chapter, instead of using individual images with annotations of foreground and background, a collection of 13 images each featuring the same specimen from a known height is utilized. The goal is to encode the variation in appearance of a specimen from different heights to build a robust object recognition classifier. Height offers an additional dimension in the feature space for the learning algorithm to capitalize on.
+In the machine learning technique proposed in this chapter, instead of using individual images with annotations of foreground and background, a collection of $t$ images each featuring the same specimen from a known height is utilized. The goal is to encode the variation in appearance of a specimen from different heights to build a robust object recognition classifier. Height offers an additional dimension in the feature space for the learning algorithm to capitalize on.
 
 This object recognition algorithm is designed to operate on images without prior segmentation. That is, the features used in this algorithm should be sufficiently generic to capture the appearance of an object directly from an image without foreground segmentation. To achieve this, we use the histogram signatures (described in Section~\ref{sec:hist_signature}) to extract information from an image in \gls{hsi} colorspace. The histogram information from multiple specimens of the same object class is then combined to generate a feature distribution. The details of this process are described below.
 
 \subsubsection{Feature Distribution}
 \label{sec:distdes_feature_distr}
 
-The first step in computing feature distribution is the computation of the hue, saturation and intensity histogram signatures on the labeled foreground pixels in the learning dataset. The parameters chosen for the histogram signature computation are the number of equally spaced histogram bins, $|\mathcal{B}|=256$, and the upper bound on the number of pixels affected by noise, $e=5\%$. Using these parameters the histogram signatures for all three components of the \gls{hsi} colorspace are calculated for all 13 height-tagged images of a specimen. Note that this histogram signature computation only utilizes the labeled foreground pixels in the image. Let the histogram signature of the labeled foreground for specimen $k$, with height tag $h$, belonging to class $c$, on the color component $f\in\{H \text{ hue}, S \text{ saturation}, I \text{ intensity}\}$ be represented as $\mathcal{H}^{c_{hk}}_f$. Since there are 3 color components, we generate 3 histogram signatures per height-tagged specimen image. If we 
-consider all the 13 height-tagged images available for a specimen, the total histogram signatures now available is 39 ($13 \times 3$).
+The first step in computing feature distribution is the computation of the hue, saturation and intensity histogram signatures on the labeled foreground pixels in the learning dataset. The parameters chosen for the histogram signature computation are the number of equally spaced histogram bins, $|\mathcal{B}|=256$, and the upper bound on the number of pixels affected by noise, $e=5\%$. Using these parameters the histogram signatures for all three components of the \gls{hsi} colorspace are calculated for all $t=12$ height-tagged images of a specimen. Note that this histogram signature computation only utilizes the labeled foreground pixels in the image. Let the histogram signature of the labeled foreground for specimen $k$, with height tag $h$, belonging to class $c$, on the color component $f\in\{H \text{ hue}, S \text{ saturation}, I \text{ intensity}\}$ be represented as $\mathcal{H}^{c_{hk}}_f$. Since there are 3 color components, we generate 3 histogram signatures per height-tagged specimen image. If we 
+consider all the $t$ height-tagged images available for a specimen, the total histogram signatures now available is 36 ($12 \times 3$).
 
 In the next stage of the learning process, the histogram signatures $\mathcal{H}^{c_{hk}}_f$ from all specimens belonging to a single object class are combined to generate a generalized histogram signature for the object class.
 In order to achieve this, the mean of all histogram signatures corresponding to a specific height-tag from all specimens of a class are combined. In other words, the mean $\bar{\mathcal{H}}^{c_{h}}_f$ of all histogram signatures with  height-tag $h$ are computed by taking the mean of individual components of the $256$-dimensional vectors of sequence-of-histogram signatures $\mathcal{H}^{c_{h1}}_f, \mathcal{H}^{c_{h2}}_f, \mathcal{H}^{c_{h3}}_f, \ldots, \mathcal{H}^{c_{hm}}_f$, where $m$ is the number of specimens of class $c$ available in the learning dataset. Technically, the computation of the $j$-th component of the $256$-dimensional mean histogram $\bar{\mathcal{H}}^{c_{h}}_f$ is found as
 \begin{align}
  \left[\bar{\mathcal{H}}^{c_{h}}_f\right]_j=\frac{1}{m}\sum_{k=1}^{m} \left[ \mathcal{H}^{c_{hk}}_f \right]_j.
 \end{align}
-Since there are 13 different height-tags along with 3 different color components, each object class $c$ is represented by a sequence of $39\, (13 \times 3)$ histogram signatures, which will be collectively referred to as $\bar{\mathcal{H}}^{c}$.
+Since there are $t$ different height-tags along with 3 different color components, each object class $c$ is represented by a sequence of $36\, (13 \times 3)$ histogram signatures, which will be collectively referred to as $\bar{\mathcal{H}}^{c}$.
 
-The sequence of $39$ histogram signatures $\bar{\mathcal{H}}^{c}$ captures the generalized appearance of the objects of class $c$. Its important to note that the data used to compute this generalized histogram signature are composed of foreground pixels of object specimens only, without any background information. If we are to use such a generalized histogram signature generated only from foreground information for classifying objects, it is necessary to pre-process an image to detect and segment objects present in the images before this generalized histogram signature $\bar{\mathcal{H}}^{c}$ can be used for classification purposes. However, one of the goals of this work is to avoid segmentation while attempting classification of objects from images. To realize this goal, we revisit the learning dataset, and use the background information to build a representation that captures how inclusion of background pixels to different individual histogram signatures affects the generalized histogram signature $\bar{
+The sequence of $36$ histogram signatures $\bar{\mathcal{H}}^{c}$ captures the generalized appearance of the objects of class $c$. Its important to note that the data used to compute this generalized histogram signature are composed of foreground pixels of object specimens only, without any background information. If we are to use such a generalized histogram signature generated only from foreground information for classifying objects, it is necessary to pre-process an image to detect and segment objects present in the images before this generalized histogram signature $\bar{\mathcal{H}}^{c}$ can be used for classification purposes. However, one of the goals of this work is to avoid segmentation while attempting classification of objects from images. To realize this goal, we revisit the learning dataset, and use the background information to build a representation that captures how inclusion of background pixels to different individual histogram signatures affects the generalized histogram signature $\bar{
 \mathcal{H}}^{c}$ of class $c$. 
 
 In order to use background information for building such a classifier, we first generate another set of histogram signatures.
@@ -519,7 +518,7 @@ For specimen $k$ of class $c$ from the learning dataset, we compute a sequence o
  \ddot{\mathcal{H}}^{c_{k}} = \ddot{\mathcal{H}}^{c_{hk}}_f \Big|_{h\times f}\enspace ,
 \end{align}
 %
-where $h\in\{8,10,12, \ldots,32\}$ and $f\in\{H,S,I\}$.
+where $h\in\{10,12, \ldots,32\}$ and $f\in\{H,S,I\}$.
 
 Once we have the sequence of histogram signatures $\ddot{\mathcal{H}}^{c_{k}}$ of specimen $k$ belonging to class $c$, along with the generalized histogram signature $\bar{\mathcal{H}}^{c}$ of class $c$, a numeric distance measure $D$ between the histogram signatures can be computed. If we have a series of such distance measures evaluated for a collection of specimens of class $c$, a distribution of these distance measures can be generated. This distribution 
 of distance measures encodes the variability in generalized histogram signature $\bar{\mathcal{H}}^{c}$ induced by the presence of background pixels along with foreground pixels. In effect, this offers a way to check images for the presence of an object of class $c$ without any prior segmentation of foreground pixels. The distance measure is the standard \emph{$L_2$-norm} between two vectors.
@@ -530,13 +529,13 @@ of distance measures encodes the variability in generalized histogram signature 
  -\left[\ddot{\mathcal{H}}^{c_{hk}}_f\right]_j\Bigg)^2}
 \end{align}
 
-Since there are 39 histograms in total, we get a sequence of 39 $d_{chfk}$ values for the $k$-th specimen of class $c$, and this sequence is represented as
+Since there are 36 histograms in total, we get a sequence of 36 $d_{chfk}$ values for the $k$-th specimen of class $c$, and this sequence is represented as
 %
 \begin{align}	\label{eqn:dist_sequence}
  D_{ck}=d_{chfk}\Big|_{h\times f}\enspace ,
 \end{align}
 %
-where $h=\{8,10,12, \ldots,32\}$ and $f=\{H,S,I\}$.
+where $h=\{10,12, \ldots,32\}$ and $f=\{H,S,I\}$.
 
 A sequence of distance measures $D_{ck}$ for each specimen $k$ among the $m$ specimens of class $c$ provides a representation of a feature vector of size 39 that describes the appearance of an image that contains a specimen of class $c$. If we consider the feature vectors of all the $m$ available specimens $D_{c1},D_{c2},\ldots,D_{cm}$, a feature distribution sequence $F_c$ that represents the appearance of images containing objects of class $c$ can be formulated. Lets assume that the $m$ values $d_{chf1}, d_{chf2},\ldots,d_{chfm}$ are drawn from a normal distribution 
 %
@@ -550,10 +549,10 @@ Then the feature distribution sequence
 \begin{align}	\label{eqn:feat_distribution}
  F_c=F_{chf}\Big|_{h \times f}
 \end{align}
-can be represented as a sequence of 39 distributions,
-where $h\in\{1,2,\ldots,13\}$ and $f\in\{H,S,I\}$. 
+can be represented as a sequence of 36 distributions,
+where $h\in\{10,12,\ldots,32\}$ and $f\in\{H,S,I\}$. 
 
-For the two classes of objects, strawberries and oranges with 11 specimens each, the respective feature distributions $F_s$ and $F_o$ can thus be computed. The feature distributions $F_s$ and $F_o$ are shown in Figure~\ref{fig:feat_distr}. The 39 distributions (see \eqref{eqn:feat_distribution}) in the distribution sequence are shown along the $x$-axis. Each distribution here is represented by a dot and a bar adjoining it. The dot corresponds to the mean and the bar corresponds to the 95\% confidence interval, or the $2\sigma$ standard deviation interval of the distribution shown in \eqref{eqn:normal_distr}.
+For the two classes of objects, strawberries and oranges with 11 specimens each, the respective feature distributions $F_s$ and $F_o$ can thus be computed. The feature distributions $F_s$ and $F_o$ are shown in Figure~\ref{fig:feat_distr}. The 36 distributions (see \eqref{eqn:feat_distribution}) in the distribution sequence are shown along the $x$-axis. Each distribution here is represented by a dot and a bar adjoining it. The dot corresponds to the mean and the bar corresponds to the 95\% confidence interval, or the $2\sigma$ standard deviation interval of the distribution shown in \eqref{eqn:normal_distr}.
 %
 \begin{figure*}
   \centering
@@ -567,12 +566,14 @@ For the two classes of objects, strawberries and oranges with 11 specimens each,
       \caption{}
       \label{fig:feat_distr_orange}
   \end{subfigure}
-\caption[Feature distribution]{Strawberry feature distribution sequence $F_s$ (\subref{fig:feat_distr_strawberry}) and orange feature distribution sequence $F_o$ (\subref{fig:feat_distr_orange}) generated from 11 strawberry specimens and 11 orange specimens. All 39 distributions indexed by $v$ are shown along the $x$-axis. The  mean of each distribution is shown as a dot along with the 95\% confidence interval shown as a bar.}
+\caption[Feature distribution]{Strawberry feature distribution sequence $F_s$ (\subref{fig:feat_distr_strawberry}) and orange feature distribution sequence $F_o$ (\subref{fig:feat_distr_orange}) generated from 11 strawberry specimens and 11 orange specimens. All 36 distributions indexed by $v$ are shown along the $x$-axis. The  mean of each distribution is shown as a dot along with the 95\% confidence interval shown as a bar.}
 \label{fig:feat_distr}
 \end{figure*}	
 %
 
-This feature distribution $F_c$, which comprises a sequence of 39 distributions, offers a way to test for the presence of an object of class $c$ in an image without prior segmentation. In essence, the testing for the presence of an object can be broken down into 39 individual hypothesis tests. Each hypothesis test checks whether a certain colorspace-specific height-tagged image containing an object satisfies a specific distribution, among the 39 distributions in $F_c$. Not all of the 39 hypothesis tests might be equally informative-- some of them could be more relevant than others. To this end, a weighting factor $w_{v}$ can be attached to the $v$-th element in feature distribution sequence $F_c$.  The details involved in the computation of these weight factors is described below.
+This feature distribution $F_c$, which comprises a sequence of 36 distributions, offers a way to test for the presence of an object of class $c$ in an image without prior segmentation. In essence, the testing for the presence of an object can be broken down into 36 individual hypothesis tests. Each hypothesis test checks whether a certain colorspace-specific height-tagged image containing an object satisfies a specific distribution, among the 36 distributions in $F_c$. Not all of the 36 hypothesis tests might be equally informative-- some of them could be more relevant than others. To this end, a weighting factor $w_{v}$ can be attached to the $v$-th element in feature distribution sequence $F_c$.  The details involved in the computation of these weight factors is described below.
+
+%============================ Till here ===========================================
 
 \subsubsection{Feature Weights}
 \label{sec:distdes_feat_wts}
